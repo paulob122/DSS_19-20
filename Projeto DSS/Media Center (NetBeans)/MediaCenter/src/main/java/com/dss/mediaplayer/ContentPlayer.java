@@ -33,7 +33,7 @@ public class ContentPlayer {
 
     public void end() {
         
-        if (this.currentThreadRunning == null) return;
+        if (this.currentThreadRunning == null || this.player == null) return;
         
         this.currentThreadRunning.stop();
             
