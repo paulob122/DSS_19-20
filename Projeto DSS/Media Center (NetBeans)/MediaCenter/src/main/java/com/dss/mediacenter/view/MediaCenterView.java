@@ -9,11 +9,14 @@ import com.dss.mediacenter.controller.MediaCenterController;
 import com.dss.pubsub.DSSObservable;
 import com.dss.pubsub.DSSObserver;
 import com.dss.mediaplayer.ContentPlayer;
+import java.awt.Desktop;
 
 /*------------------------------------------------------------------------------*/
 
 import java.awt.Dimension;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -318,19 +321,27 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PlayMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayMusicButtonActionPerformed
+        try {
+            /*
+            this.currentContentPlayer.end();
+            
+            String list_content_selected = this.MenuListaConteudo.getSelectedValue().toString();
+            
+            String music_path = "DB/Content/Music/" + list_content_selected + ".mp3";
+            
+            String[] path_parts = music_path.split("/");
+            
+            this.CurrentContentPlayingNameLabel.setText(list_content_selected);
+            
+            this.currentContentPlayer.setPath(music_path);
+            this.currentContentPlayer.play(0);
+            */
+            
+            Desktop.getDesktop().open(new File("DB/Content/Music/rei.mp4"));
+        } catch (IOException ex) {
+            Logger.getLogger(MediaCenterView.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        this.currentContentPlayer.end();
-        
-        String list_content_selected = this.MenuListaConteudo.getSelectedValue().toString();
-        
-        String music_path = "DB/Content/Music/" + list_content_selected + ".mp3";
-        
-        String[] path_parts = music_path.split("/");
-        
-        this.CurrentContentPlayingNameLabel.setText(list_content_selected);
-        
-        this.currentContentPlayer.setPath(music_path);        
-        this.currentContentPlayer.play(0);
     }//GEN-LAST:event_PlayMusicButtonActionPerformed
 
     private void PauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PauseButtonActionPerformed
