@@ -322,7 +322,7 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
 
     private void PlayMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayMusicButtonActionPerformed
         try {
-            /*
+            
             this.currentContentPlayer.end();
             
             String list_content_selected = this.MenuListaConteudo.getSelectedValue().toString();
@@ -335,10 +335,9 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
             
             this.currentContentPlayer.setPath(music_path);
             this.currentContentPlayer.play(0);
-            */
             
-            Desktop.getDesktop().open(new File("DB/Content/Music/rei.mp4"));
-        } catch (IOException ex) {
+            //Desktop.getDesktop().open(new File("DB/Content/Music/rei.mp4"));
+        } catch (Exception ex) {
             Logger.getLogger(MediaCenterView.class.getName()).log(Level.SEVERE, null, ex);
         }
 
