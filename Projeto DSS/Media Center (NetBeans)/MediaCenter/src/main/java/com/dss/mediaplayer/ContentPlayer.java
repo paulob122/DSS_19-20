@@ -8,24 +8,34 @@ import javazoom.jl.player.Player;
 
 public class ContentPlayer {
 
+    //--------------------------------------------------------------------------
+
     private Player player;
-    private FileInputStream FIS;
     private BufferedInputStream BIS;
+    private FileInputStream FIS;
+
+    //--------------------------------------------------------------------------
+
     private boolean canResume;
     private String path;
-    private int total;
+    private int totalFrames;
     private int stopped;
-    private boolean valid;
+    private boolean playWorked;
+
+    //--------------------------------------------------------------------------
+
     private Thread currentThreadRunning;
+
+    //--------------------------------------------------------------------------
 
     public ContentPlayer(){
 
         this.player = null;
         this.FIS = null;
-        this.valid = false;
+        this.playWorked = false;
         this.BIS = null;
         this.path = null;
-        this.total = 0;
+        this.totalFrames = 0;
         this.stopped = 0;
         this.canResume = false;
         this.currentThreadRunning = null;
@@ -60,7 +70,8 @@ public class ContentPlayer {
             this.BIS = null;
             this.player = null;
  
-            if(valid) canResume = true;
+            if(playWorked == true) 
+                canResume = true;
 
         }catch(Exception e){
 
@@ -70,27 +81,28 @@ public class ContentPlayer {
 
     public void resume(){
         
-        if(!this.canResume) return;
+        if(this.canResume == false) 
+            return;
         
-        if(play(this.total - this.stopped)) {
+        if(play(this.totalFrames - this.stopped)) {
             
             this.canResume = false;
         }
     }
 
-    public boolean play(int pos){
+    public boolean play(int frame){
 
-        this.valid = true;
+        this.playWorked = true;
         this.canResume = false;
         
         try{
         
             this.FIS = new FileInputStream(path);
-            this.total = FIS.available();
+            this.totalFrames = FIS.available();
             
-            if(pos > -1) {
+            if(frame >= 0) {
                 
-                this.FIS.skip(pos);
+                this.FIS.skip(frame);
             }
             
             this.BIS = new BufferedInputStream(FIS);
@@ -117,10 +129,11 @@ public class ContentPlayer {
         
         } catch(Exception e){
             
-            JOptionPane.showMessageDialog(null, "Error playing mp3 file");
-            this.valid = false;
+            JOptionPane.showMessageDialog(null, "Error playing " + this.path + " file");
+           
+            this.playWorked = false;
         }
         
-        return this.valid;
+        return this.playWorked;
     }
 }

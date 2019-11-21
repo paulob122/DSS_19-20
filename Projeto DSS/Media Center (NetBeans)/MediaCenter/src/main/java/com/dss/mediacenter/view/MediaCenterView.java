@@ -331,12 +331,22 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
             
             String[] path_parts = music_path.split("/");
             
-            this.CurrentContentPlayingNameLabel.setText(list_content_selected);
+            boolean canPlayContent;
             
             this.currentContentPlayer.setPath(music_path);
-            this.currentContentPlayer.play(0);
+            canPlayContent = this.currentContentPlayer.play(0);
             
+            if (canPlayContent == true) {
+                
+                this.CurrentContentPlayingNameLabel.setText(list_content_selected);
+            } else {
+
+                this.CurrentContentPlayingNameLabel.setText("Error playing file selected...");            
+            }
+            
+            //Para reproduzir vídeos:
             //Desktop.getDesktop().open(new File("DB/Content/Music/rei.mp4"));
+        
         } catch (Exception ex) {
             Logger.getLogger(MediaCenterView.class.getName()).log(Level.SEVERE, null, ex);
         }
