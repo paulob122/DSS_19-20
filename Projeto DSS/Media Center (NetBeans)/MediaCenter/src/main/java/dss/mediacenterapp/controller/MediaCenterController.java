@@ -20,12 +20,10 @@ import java.util.List;
 public class MediaCenterController extends DSSObservable implements DSSObserver {
     
     private MediaCenter_LN model;
-    private Utilizador currentLoggedUser;
     
     public MediaCenterController(MediaCenter_LN model) {
         
         this.model = model;
-        this.currentLoggedUser = null; //not set
     }
 
     @Override
@@ -36,14 +34,12 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
     
     public String getUtilizadorAtualID() {
         
-        return this.currentLoggedUser.getGeneralID();
+        return this.model.getUtilizadorAtualID();
     }
-    
-    public void setUserAsGuest() {
+   
+    public boolean loginUtilizador (String email, String password) {
         
-        this.currentLoggedUser = new Utilizador();
-        this.currentLoggedUser.setUserAsGuest();
-        
+        return this.model.loginUtilizador(email, password);
     }
 
     public List<String> listNomesFicheirosDir(String dir_path) {

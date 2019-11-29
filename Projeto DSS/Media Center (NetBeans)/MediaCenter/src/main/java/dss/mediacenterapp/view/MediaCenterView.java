@@ -73,6 +73,14 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
         OptionsMenuNote = new javax.swing.JLabel();
         CurrentUserIDLabel = new javax.swing.JLabel();
         OptionsMenuBackButton = new javax.swing.JButton();
+        NormalLoginForm = new javax.swing.JFrame();
+        NormalLoginForm_Title = new javax.swing.JLabel();
+        normallogin_emailfield = new javax.swing.JTextField();
+        email_label = new javax.swing.JLabel();
+        normallogin_passwordfield = new javax.swing.JTextField();
+        password_label = new javax.swing.JLabel();
+        normallogin_loginbutton = new javax.swing.JButton();
+        normallogin_backbutton = new javax.swing.JButton();
         MainMenuTitle = new javax.swing.JLabel();
         LogInButton = new javax.swing.JButton();
         GuestLogInButton = new javax.swing.JButton();
@@ -208,10 +216,6 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
         OptionsMenu.getContentPane().setLayout(OptionsMenuLayout);
         OptionsMenuLayout.setHorizontalGroup(
             OptionsMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OptionsMenuLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(CurrentUserIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OptionsMenuLayout.createSequentialGroup()
                 .addContainerGap(127, Short.MAX_VALUE)
                 .addGroup(OptionsMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,6 +231,10 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OptionsMenuLayout.createSequentialGroup()
                         .addComponent(ReproduzirConteudoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(239, 239, 239))))
+            .addGroup(OptionsMenuLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(CurrentUserIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         OptionsMenuLayout.setVerticalGroup(
             OptionsMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,6 +250,95 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
                 .addGap(73, 73, 73)
                 .addComponent(OptionsMenuBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
+        );
+
+        NormalLoginForm.setPreferredSize(new java.awt.Dimension(900, 600));
+        NormalLoginForm.setSize(new java.awt.Dimension(900, 600));
+
+        NormalLoginForm_Title.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        NormalLoginForm_Title.setForeground(new java.awt.Color(1, 1, 1));
+        NormalLoginForm_Title.setText("Media Center");
+
+        normallogin_emailfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        normallogin_emailfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normallogin_emailfieldActionPerformed(evt);
+            }
+        });
+
+        email_label.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        email_label.setText("E-Mail:");
+
+        normallogin_passwordfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        normallogin_passwordfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normallogin_passwordfieldActionPerformed(evt);
+            }
+        });
+
+        password_label.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        password_label.setText("Password:");
+
+        normallogin_loginbutton.setText("Log-In");
+        normallogin_loginbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normallogin_loginbuttonActionPerformed(evt);
+            }
+        });
+
+        normallogin_backbutton.setText("Back");
+        normallogin_backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normallogin_backbuttonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout NormalLoginFormLayout = new javax.swing.GroupLayout(NormalLoginForm.getContentPane());
+        NormalLoginForm.getContentPane().setLayout(NormalLoginFormLayout);
+        NormalLoginFormLayout.setHorizontalGroup(
+            NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                .addGroup(NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addGroup(NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(normallogin_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(normallogin_passwordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(password_label, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addComponent(NormalLoginForm_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(156, Short.MAX_VALUE))
+            .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                .addGap(270, 270, 270)
+                .addComponent(normallogin_loginbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(normallogin_backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+        );
+        NormalLoginFormLayout.setVerticalGroup(
+            NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(NormalLoginForm_Title, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
+                .addComponent(email_label)
+                .addGap(18, 18, 18)
+                .addComponent(normallogin_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(password_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(normallogin_passwordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(normallogin_loginbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NormalLoginFormLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(normallogin_backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -385,16 +482,18 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
 
     private void LogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInButtonActionPerformed
         
-        JOptionPane.showMessageDialog(this, "Funcionalidade indisponível! Entre como convidado...");
+        this.NormalLoginForm.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_LogInButtonActionPerformed
 
     private void GuestLogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuestLogInButtonActionPerformed
-        
+        /*
         this.setVisible(false);
         this.OptionsMenu.setVisible(true);
         this.controller.setUserAsGuest();
         this.currentUserID = this.controller.getUtilizadorAtualID();
         this.CurrentUserIDLabel.setText(this.currentUserID);
+        */
     }//GEN-LAST:event_GuestLogInButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
@@ -423,6 +522,44 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
         this.currentContentPlayer.end();
     }//GEN-LAST:event_PlayContentBackButtonActionPerformed
 
+    private void normallogin_emailfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_emailfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_normallogin_emailfieldActionPerformed
+
+    private void normallogin_passwordfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_passwordfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_normallogin_passwordfieldActionPerformed
+
+    private void normallogin_loginbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_loginbuttonActionPerformed
+
+        String email = this.normallogin_emailfield.getText();
+        String password = this.normallogin_passwordfield.getText();
+        
+        boolean loginok = this.controller.loginUtilizador(email, password);
+        
+        if (loginok == true) {
+            
+            this.OptionsMenu.setVisible(true);
+            this.NormalLoginForm.setVisible(false);
+            
+            this.CurrentUserIDLabel.setText(this.controller.getUtilizadorAtualID());
+            
+        } else {
+            
+            this.normallogin_emailfield.setText("");
+            this.normallogin_passwordfield.setText("");
+            
+            JOptionPane.showMessageDialog(this, "As credenciais inseridas estão erradas! Tente novamente!");
+        }
+        
+    }//GEN-LAST:event_normallogin_loginbuttonActionPerformed
+
+    private void normallogin_backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_backbuttonActionPerformed
+        
+        this.NormalLoginForm.setVisible(false);
+        this.setVisible(true);
+    }//GEN-LAST:event_normallogin_backbuttonActionPerformed
+
     
     public void setInitialFormat() {
         
@@ -439,6 +576,11 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
         this.OptionsMenu.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
         this.OptionsMenu.setVisible(false);
         this.OptionsMenu.setTitle("Menu Principal");
+        
+        this.NormalLoginForm.setLocationRelativeTo(null);
+        this.NormalLoginForm.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.NormalLoginForm.setVisible(false);
+        this.NormalLoginForm.setTitle("Menu de Log-In");
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.PlayContentMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -471,6 +613,8 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
     private javax.swing.JLabel MainMenuTitleLabel;
     private javax.swing.JList<String> MenuListaConteudo;
     private javax.swing.JLabel NewUserQuestionLabel;
+    private javax.swing.JFrame NormalLoginForm;
+    private javax.swing.JLabel NormalLoginForm_Title;
     private javax.swing.JFrame OptionsMenu;
     private javax.swing.JButton OptionsMenuBackButton;
     private javax.swing.JLabel OptionsMenuNote;
@@ -483,6 +627,12 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
     private javax.swing.JButton ReproduzirConteudoButton;
     private javax.swing.JButton ResumeContentButton;
     private javax.swing.JLabel SelectMusicLabel;
+    private javax.swing.JLabel email_label;
+    private javax.swing.JButton normallogin_backbutton;
+    private javax.swing.JTextField normallogin_emailfield;
+    private javax.swing.JButton normallogin_loginbutton;
+    private javax.swing.JTextField normallogin_passwordfield;
+    private javax.swing.JLabel password_label;
     // End of variables declaration//GEN-END:variables
 
     private void updateContentList() {
