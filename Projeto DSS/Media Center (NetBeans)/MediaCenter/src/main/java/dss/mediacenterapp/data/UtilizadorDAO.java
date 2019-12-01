@@ -21,7 +21,7 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
             Class.forName("com.mysql.cj.jdbc.Driver");       
             
         } catch (ClassNotFoundException e) {
-            System.out.println("ola deu erro");
+            
             throw new NullPointerException(e.getMessage());
         }
     }

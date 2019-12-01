@@ -32,7 +32,7 @@ public class MediaCenter_LN extends DSSObservable {
             
             this.utilizadorAtual = userAtual;
             
-            loginOK = true;
+            loginOK = this.utilizadorAtual.verificaCredenciais(Password);
             
         } else {
             
@@ -46,5 +46,10 @@ public class MediaCenter_LN extends DSSObservable {
         
         return this.utilizadorAtual.getGeneralID();
     }
-    
+
+    public void logoutUtilizador() {
+        
+        this.utilizadorAtual = null;
+    }
+  
 }

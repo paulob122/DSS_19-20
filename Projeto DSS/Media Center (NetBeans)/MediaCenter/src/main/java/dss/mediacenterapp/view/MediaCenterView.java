@@ -558,6 +558,9 @@ public class MediaCenterView extends javax.swing.JFrame implements DSSObserver {
         
         this.NormalLoginForm.setVisible(false);
         this.setVisible(true);
+        this.controller.logoutUtilizador();
+        this.normallogin_emailfield.setText("");
+        this.normallogin_passwordfield.setText("");
     }//GEN-LAST:event_normallogin_backbuttonActionPerformed
 
     

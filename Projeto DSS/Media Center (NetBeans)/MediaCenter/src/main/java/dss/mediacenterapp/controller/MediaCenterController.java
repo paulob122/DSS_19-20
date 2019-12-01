@@ -64,4 +64,9 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         
         return fileNames;
     }
+
+    public void logoutUtilizador() {
+        
+        this.model.logoutUtilizador();
+    }
 }

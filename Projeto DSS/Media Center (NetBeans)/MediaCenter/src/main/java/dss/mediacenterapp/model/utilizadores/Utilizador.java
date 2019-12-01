@@ -86,4 +86,9 @@ public class Utilizador {
         
         return sb.toString();
     }
+
+    public boolean verificaCredenciais(String Password) {
+        
+        return this.password.equals(Password);
+    }
 }
