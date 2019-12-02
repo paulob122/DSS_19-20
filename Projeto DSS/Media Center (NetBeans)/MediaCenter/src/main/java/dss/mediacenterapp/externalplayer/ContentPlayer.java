@@ -129,7 +129,7 @@ public class ContentPlayer {
         
         } catch(Exception e){
             
-            JOptionPane.showMessageDialog(null, "Error playing " + this.path + " file");
+            JOptionPane.showMessageDialog(null, "Não foi possível reproduzir " + this.path);
            
             this.playWorked = false;
         }

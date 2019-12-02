@@ -26,6 +26,7 @@ insert into Utilizador values ("jose.fernandes@gmail.com", "José Fernandes", "p
 insert into Utilizador values ("maria.monteiro@hotmail.com", "Maria Monteiro", "password", 0, 0);
 insert into Utilizador values ("filipe.franco@gmail.com", "Filipe Franco", "password", 0, 0);
 insert into Utilizador values ("pedro.jose@outlook.pt", "Pedro José", "password", 0, 0);
+insert into Utilizador values ("test", "UserTest", "test", 0, 0);
 
 insert into Categoria values ("Rock");
 insert into Categoria values ("Metal");

@@ -9,7 +9,7 @@ package dss.mediacenterapp;
 
 import dss.mediacenterapp.controller.MediaCenterController;
 import dss.mediacenterapp.model.MediaCenter_LN;
-import dss.mediacenterapp.view.MediaCenterView;
+import dss.mediacenterapp.view.MediaCenter_GUI;
 import javax.swing.SwingUtilities;
 
 /**
@@ -33,7 +33,7 @@ public class MediaCenterApp {
         
                 MediaCenter_LN model = new MediaCenter_LN();
                 MediaCenterController controller = new MediaCenterController(model);
-                MediaCenterView view = new MediaCenterView(controller);
+                MediaCenter_GUI view = new MediaCenter_GUI(controller);
             
                 controller.addObserver(view);
                 model.addObserver(controller);

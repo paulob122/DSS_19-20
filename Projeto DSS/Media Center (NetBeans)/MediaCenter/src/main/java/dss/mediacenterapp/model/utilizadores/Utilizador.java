@@ -52,8 +52,8 @@ public class Utilizador {
         
         this.typeOfUser = GUEST;
         
-        this.email = "n/a";
-        this.nome = "n/a";
+        this.email = "guest@mediacenter";
+        this.nome = "Guest";
         this.password = "n/a";
         this.isAdministrator = false;
         this.isTemporaryUser = false;
@@ -90,5 +90,10 @@ public class Utilizador {
     public boolean verificaCredenciais(String Password) {
         
         return this.password.equals(Password);
+    }
+
+    public String getNome() {
+        
+        return this.nome;
     }
 }

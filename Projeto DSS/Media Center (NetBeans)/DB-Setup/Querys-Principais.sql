@@ -19,3 +19,4 @@ where
     #and c.idConteudo = "Guns-N-Roses_November-Rain";
     and u.email = "maria.monteiro@hotmail.com";
     
+select c.idConteudo from Conteudo c;

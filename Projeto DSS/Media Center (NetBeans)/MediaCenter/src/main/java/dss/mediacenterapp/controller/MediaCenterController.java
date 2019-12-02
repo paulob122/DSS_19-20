@@ -36,12 +36,21 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         
         return this.model.getUtilizadorAtualID();
     }
-   
+    
+    //--------------------------------------------------------------------------
+    
     public boolean loginUtilizador (String email, String password) {
         
         return this.model.loginUtilizador(email, password);
     }
 
+    public void logoutUtilizadorAtual() {
+        
+        this.model.logoutUtilizadorAtual();
+    }
+
+    //--------------------------------------------------------------------------
+ 
     public List<String> listNomesFicheirosDir(String dir_path) {
         
         List<String> fileNames = new ArrayList<>();
@@ -65,8 +74,21 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         return fileNames;
     }
 
-    public void logoutUtilizador() {
-        
-        this.model.logoutUtilizador();
+    //--------------------------------------------------------------------------
+
+    public void loginUtilizadorAsGuest() {
+
+        this.model.loginUtilizadorAsGuest();
     }
+
+    public String getNomeUtilizadorAtual() {
+
+        return this.model.getNomeUtilizadorAtual();
+    }
+
+    public List<String> getListaConteudoBiblioteca() {
+        
+        return this.model.getListaConteudoBiblioteca();
+    }
+
 }

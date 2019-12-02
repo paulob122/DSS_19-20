@@ -1,27 +1,32 @@
 
 package dss.mediacenterapp.model;
 
+import dss.mediacenterapp.data.BibliotecaDAO;
 import dss.mediacenterapp.data.UtilizadorDAO;
 import dss.mediacenterapp.model.utilizadores.Utilizador;
 import dss.pubsub.DSSObservable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MediaCenter_LN extends DSSObservable {
     
     //--------------------------------------------------------------------------
     
     private Utilizador utilizadorAtual;
-
-    //--------------------------------------------------------------------------
-
+    
     private UtilizadorDAO utilizadorDB;
+    private BibliotecaDAO bibliotecaDB;
     
     //--------------------------------------------------------------------------
 
     public MediaCenter_LN () {
         
         this.utilizadorDB = new UtilizadorDAO();
+        this.bibliotecaDB = new BibliotecaDAO();
     }
  
+    //--------------------------------------------------------------------------
+
     public boolean loginUtilizador(String Email, String Password) {
         
         boolean loginOK = false;
@@ -42,14 +47,31 @@ public class MediaCenter_LN extends DSSObservable {
         return loginOK;
     }
 
+    public void logoutUtilizadorAtual() {
+        
+        this.utilizadorAtual = null;
+    }
+    
+    //--------------------------------------------------------------------------
+
+    public void loginUtilizadorAsGuest() {
+        
+        //Empty constructor sets user as a guest
+        this.utilizadorAtual = new Utilizador();
+    }
+
+    public String getNomeUtilizadorAtual() {
+        
+        return this.utilizadorAtual.getNome();
+    }
+
     public String getUtilizadorAtualID() {
         
         return this.utilizadorAtual.getGeneralID();
     }
 
-    public void logoutUtilizador() {
+    public List<String> getListaConteudoBiblioteca() {
         
-        this.utilizadorAtual = null;
+        return this.bibliotecaDB.keySet().stream().collect(Collectors.toList());
     }
-  
 }
