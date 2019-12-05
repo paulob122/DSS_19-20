@@ -26,3 +26,4 @@ insert into Conteudo values ("Metallica_Fade-to-black.mp3", "Metallica", 1, 0, "
 insert into Conteudo values ("SampleVideo.mp4", "SampleVideo", 0, 1, "DB/Content/SampleVideo.mp4", "Video");
 
 insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("Músicas de Rock", "SampleVideo.mp4", "Video");
+insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("Músicas de Rock", "Metallica_Fade-to-black.mp3", "Metal");

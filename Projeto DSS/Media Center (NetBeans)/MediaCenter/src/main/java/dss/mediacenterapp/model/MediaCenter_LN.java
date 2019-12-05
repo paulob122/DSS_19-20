@@ -3,6 +3,8 @@ package dss.mediacenterapp.model;
 
 import dss.mediacenterapp.data.BibliotecaDAO;
 import dss.mediacenterapp.data.UtilizadorDAO;
+import dss.mediacenterapp.model.albuns.Album;
+import dss.mediacenterapp.model.conteudo.Conteudo;
 import dss.mediacenterapp.model.utilizadores.Utilizador;
 import dss.pubsub.DSSObservable;
 import java.util.List;
@@ -74,4 +76,19 @@ public class MediaCenter_LN extends DSSObservable {
         
         return this.bibliotecaDB.keySet().stream().collect(Collectors.toList());
     }
+
+    public List<String> getListaAlbunsUserAtual() {
+        
+        return this.utilizadorAtual.getListaAlbuns();
+    }
+
+    public List<Conteudo> getListaConteudoAlbum(String nomeA) {
+        
+        Album a = this.utilizadorAtual.getAlbum(nomeA);
+        
+        this.utilizadorAtual.adicionaAlbum(a);
+        
+        return a.getListaConteudo();
+    }
+    
 }

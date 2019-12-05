@@ -6,6 +6,7 @@
 package dss.mediacenterapp.controller;
 
 import dss.mediacenterapp.model.MediaCenter_LN;
+import dss.mediacenterapp.model.conteudo.Conteudo;
 import dss.pubsub.DSSObservable;
 import dss.pubsub.DSSObserver;
 import dss.mediacenterapp.model.utilizadores.Utilizador;
@@ -89,6 +90,16 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
     public List<String> getListaConteudoBiblioteca() {
         
         return this.model.getListaConteudoBiblioteca();
+    }
+
+    public List<String> getListaAlbunsUserAtual() {
+        
+        return this.model.getListaAlbunsUserAtual();
+    }
+
+    public List<Conteudo> getListaConteudoAlbum(String nomeA) {
+        
+        return this.model.getListaConteudoAlbum(nomeA);
     }
 
 }

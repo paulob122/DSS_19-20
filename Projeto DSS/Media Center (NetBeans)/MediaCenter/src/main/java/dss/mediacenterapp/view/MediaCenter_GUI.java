@@ -9,25 +9,18 @@ import dss.mediacenterapp.controller.MediaCenterController;
 import dss.pubsub.DSSObservable;
 import dss.pubsub.DSSObserver;
 import dss.mediacenterapp.externalplayer.ContentPlayer;
+import dss.mediacenterapp.model.conteudo.Conteudo;
 import java.awt.Desktop;
 
 /*------------------------------------------------------------------------------*/
 
 import java.awt.Dimension;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URI;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import javazoom.jl.player.advanced.AdvancedPlayer;
 import org.apache.commons.io.FilenameUtils;
 
 /*------------------------------------------------------------------------------*/
@@ -56,485 +49,562 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PlayContentMenu = new javax.swing.JFrame();
-        PlayMusicButton = new javax.swing.JButton();
-        PauseButton = new javax.swing.JButton();
-        MainMenuTitleLabel = new javax.swing.JLabel();
-        CurrentContentPlayingNameLabel = new javax.swing.JLabel();
-        ResumeContentButton = new javax.swing.JButton();
-        MenuListaConteudo = new javax.swing.JList<>();
-        PlayContentBackButton = new javax.swing.JButton();
-        SelectMusicLabel = new javax.swing.JLabel();
-        OptionsMenu = new javax.swing.JFrame();
-        OptionsMenuTitle = new javax.swing.JLabel();
-        ReproduzirConteudoButton = new javax.swing.JButton();
-        OptionsMenuNote = new javax.swing.JLabel();
-        CurrentUserIDLabel = new javax.swing.JLabel();
-        OptionsMenu_Logout = new javax.swing.JButton();
-        OptionsMenu_Upload = new javax.swing.JButton();
-        NormalLoginForm = new javax.swing.JFrame();
-        NormalLoginForm_Title = new javax.swing.JLabel();
-        normallogin_emailfield = new javax.swing.JTextField();
-        email_label = new javax.swing.JLabel();
-        normallogin_passwordfield = new javax.swing.JTextField();
-        password_label = new javax.swing.JLabel();
-        normallogin_loginbutton = new javax.swing.JButton();
-        normallogin_backbutton = new javax.swing.JButton();
-        ReproduzirMenu = new javax.swing.JFrame();
-        ReproduzirMenu_MainTitle = new javax.swing.JLabel();
-        OptionsMenuNote1 = new javax.swing.JLabel();
-        ReproduzirMenu_Biblioteca = new javax.swing.JButton();
-        ReproduzirMenu_Album = new javax.swing.JButton();
-        ReproduzirMenu_Backbutton = new javax.swing.JButton();
-        ReproduzirBibliotecaMenu = new javax.swing.JFrame();
-        ReproduzirBiblioteca_MainTitle = new javax.swing.JLabel();
-        RepBiblio_ScrollLista = new javax.swing.JScrollPane();
-        ReproduzirBiblioteca_ListaConteudo = new javax.swing.JList<>();
-        RepBiblio_PlayButton = new javax.swing.JButton();
-        RepBiblio_PauseButton = new javax.swing.JButton();
-        RepBiblio_ResumeButton = new javax.swing.JButton();
-        RepBiblio_BackButton = new javax.swing.JButton();
-        RepBiblioteca_CurrentContLabel = new javax.swing.JLabel();
-        MainMenuTitle = new javax.swing.JLabel();
-        LogInButton = new javax.swing.JButton();
-        GuestLogInButton = new javax.swing.JButton();
-        NewUserQuestionLabel = new javax.swing.JLabel();
-        RegisterButton = new javax.swing.JButton();
+        Menu_OPTIONS = new javax.swing.JFrame();
+        OPT_tittle = new javax.swing.JLabel();
+        OPT_reproduzir = new javax.swing.JButton();
+        OPT_note = new javax.swing.JLabel();
+        OPT_useridlabel = new javax.swing.JLabel();
+        OPT_logout = new javax.swing.JButton();
+        OPT_upload = new javax.swing.JButton();
+        Menu_LOGINform = new javax.swing.JFrame();
+        LOGIN_tittle = new javax.swing.JLabel();
+        LOGIN_emailfield = new javax.swing.JTextField();
+        LOGIN_emaillabel = new javax.swing.JLabel();
+        LOGIN_passfield = new javax.swing.JTextField();
+        LOGIN_passlabel = new javax.swing.JLabel();
+        LOGIN_ButtonLogin = new javax.swing.JButton();
+        LOGIN_ButtonBack = new javax.swing.JButton();
+        Menu_REPRODUZIRoptions = new javax.swing.JFrame();
+        REPOPT_Tittle = new javax.swing.JLabel();
+        REPOPT_note = new javax.swing.JLabel();
+        REPOPT_ButtonBibliotecaMC = new javax.swing.JButton();
+        REPOPT_ButtonAlbuns = new javax.swing.JButton();
+        REPOPT_ButtonBack = new javax.swing.JButton();
+        Menu_REPRODUZIR_biblioteca = new javax.swing.JFrame();
+        REPBIBL_tittle = new javax.swing.JLabel();
+        REPBIBL_scroll = new javax.swing.JScrollPane();
+        REPBIBL_listaconteudo = new javax.swing.JList<>();
+        REPBIBL_ButtonPlay = new javax.swing.JButton();
+        REPBIBL_ButtonPause = new javax.swing.JButton();
+        REPBIBL_ButtonResume = new javax.swing.JButton();
+        REPBIBL_ButtonBack = new javax.swing.JButton();
+        REPBIBL_currentcontentlabel = new javax.swing.JLabel();
+        Menu_CHOOSEalbum = new javax.swing.JFrame();
+        CHOOSEALB_tittle = new javax.swing.JLabel();
+        CHOOSEALB_scroll = new javax.swing.JScrollPane();
+        CHOOSEALB_listaalbuns = new javax.swing.JList<>();
+        CHOOSEALB_ButtonRep = new javax.swing.JButton();
+        CHOOSEALB_ButtonBack = new javax.swing.JButton();
+        Menu_REPRODUZIR_album = new javax.swing.JFrame();
+        REPALBUM_tittle = new javax.swing.JLabel();
+        REPALBUM_scroll = new javax.swing.JScrollPane();
+        REPALBUM_listaconteudo = new javax.swing.JList<>();
+        REPALBUM_ButtonPlay = new javax.swing.JButton();
+        REPALBUM_ButtonPause = new javax.swing.JButton();
+        REPALBUM_ButtonResume = new javax.swing.JButton();
+        REPALBUM_ButtonBack = new javax.swing.JButton();
+        REPALBUM_ButtonCurrContent = new javax.swing.JLabel();
+        REPALBUM_albumname = new javax.swing.JLabel();
+        MAIN_tittle = new javax.swing.JLabel();
+        MAIN_ButtonLogin = new javax.swing.JButton();
+        MAIN_ButtonGuest = new javax.swing.JButton();
+        MAIN_newuserlabel = new javax.swing.JLabel();
+        MAIN_ButtonRegistar = new javax.swing.JButton();
 
-        PlayContentMenu.setResizable(false);
-        PlayContentMenu.setSize(new java.awt.Dimension(900, 600));
+        Menu_OPTIONS.setResizable(false);
+        Menu_OPTIONS.setSize(new java.awt.Dimension(900, 600));
 
-        PlayMusicButton.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        PlayMusicButton.setText("Play");
-        PlayMusicButton.addActionListener(new java.awt.event.ActionListener() {
+        OPT_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        OPT_tittle.setForeground(new java.awt.Color(1, 1, 1));
+        OPT_tittle.setText("Media Center");
+
+        OPT_reproduzir.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        OPT_reproduzir.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        OPT_reproduzir.setText("Reproduzir");
+        OPT_reproduzir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PlayMusicButtonActionPerformed(evt);
+                OPT_reproduzirActionPerformed(evt);
             }
         });
 
-        PauseButton.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        PauseButton.setText("Pausar");
-        PauseButton.addActionListener(new java.awt.event.ActionListener() {
+        OPT_note.setFont(new java.awt.Font("Tlwg Typo", 2, 18)); // NOI18N
+        OPT_note.setText("Nota: Outras funcionalidades encontram-se em desenvolvimento...");
+
+        OPT_useridlabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        OPT_useridlabel.setText("User ID Label");
+
+        OPT_logout.setText("Log-Out");
+        OPT_logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PauseButtonActionPerformed(evt);
+                OPT_logoutActionPerformed(evt);
             }
         });
 
-        MainMenuTitleLabel.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        MainMenuTitleLabel.setText("Conteúdo atual: ");
-
-        CurrentContentPlayingNameLabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
-        CurrentContentPlayingNameLabel.setText("Nenhum conteúdo foi ainda selecionado da lista disponível...");
-
-        ResumeContentButton.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        ResumeContentButton.setText("Retomar");
-        ResumeContentButton.addActionListener(new java.awt.event.ActionListener() {
+        OPT_upload.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        OPT_upload.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        OPT_upload.setText("Upload");
+        OPT_upload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResumeContentButtonActionPerformed(evt);
+                OPT_uploadActionPerformed(evt);
             }
         });
 
-        MenuListaConteudo.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-
-        PlayContentBackButton.setText("Voltar");
-        PlayContentBackButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PlayContentBackButtonActionPerformed(evt);
-            }
-        });
-
-        SelectMusicLabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
-        SelectMusicLabel.setText("Select the music you want to play...");
-
-        javax.swing.GroupLayout PlayContentMenuLayout = new javax.swing.GroupLayout(PlayContentMenu.getContentPane());
-        PlayContentMenu.getContentPane().setLayout(PlayContentMenuLayout);
-        PlayContentMenuLayout.setHorizontalGroup(
-            PlayContentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PlayContentMenuLayout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(PlayMusicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(144, 144, 144)
-                .addComponent(PauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ResumeContentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80))
-            .addGroup(PlayContentMenuLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(MainMenuTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(CurrentContentPlayingNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(PlayContentBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PlayContentMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PlayContentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SelectMusicLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MenuListaConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(188, 188, 188))
-        );
-        PlayContentMenuLayout.setVerticalGroup(
-            PlayContentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PlayContentMenuLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(SelectMusicLabel)
-                .addGap(18, 18, 18)
-                .addComponent(MenuListaConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addGroup(PlayContentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PlayMusicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ResumeContentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                .addGroup(PlayContentMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MainMenuTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CurrentContentPlayingNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PlayContentBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
-        );
-
-        OptionsMenu.setResizable(false);
-        OptionsMenu.setSize(new java.awt.Dimension(900, 600));
-
-        OptionsMenuTitle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        OptionsMenuTitle.setForeground(new java.awt.Color(1, 1, 1));
-        OptionsMenuTitle.setText("Media Center");
-
-        ReproduzirConteudoButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        ReproduzirConteudoButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        ReproduzirConteudoButton.setText("Reproduzir");
-        ReproduzirConteudoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReproduzirConteudoButtonActionPerformed(evt);
-            }
-        });
-
-        OptionsMenuNote.setFont(new java.awt.Font("Tlwg Typo", 2, 18)); // NOI18N
-        OptionsMenuNote.setText("Nota: Outras funcionalidades encontram-se em desenvolvimento...");
-
-        CurrentUserIDLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        CurrentUserIDLabel.setText("User ID Label");
-
-        OptionsMenu_Logout.setText("Log-Out");
-        OptionsMenu_Logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OptionsMenu_LogoutActionPerformed(evt);
-            }
-        });
-
-        OptionsMenu_Upload.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        OptionsMenu_Upload.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        OptionsMenu_Upload.setText("Upload");
-        OptionsMenu_Upload.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OptionsMenu_UploadActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout OptionsMenuLayout = new javax.swing.GroupLayout(OptionsMenu.getContentPane());
-        OptionsMenu.getContentPane().setLayout(OptionsMenuLayout);
-        OptionsMenuLayout.setHorizontalGroup(
-            OptionsMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OptionsMenuLayout.createSequentialGroup()
+        javax.swing.GroupLayout Menu_OPTIONSLayout = new javax.swing.GroupLayout(Menu_OPTIONS.getContentPane());
+        Menu_OPTIONS.getContentPane().setLayout(Menu_OPTIONSLayout);
+        Menu_OPTIONSLayout.setHorizontalGroup(
+            Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
                 .addContainerGap(127, Short.MAX_VALUE)
-                .addGroup(OptionsMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OptionsMenuLayout.createSequentialGroup()
-                        .addComponent(OptionsMenuTitle)
+                .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
+                        .addComponent(OPT_tittle)
                         .addGap(174, 174, 174))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OptionsMenuLayout.createSequentialGroup()
-                        .addComponent(OptionsMenu_Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
+                        .addComponent(OPT_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OptionsMenuLayout.createSequentialGroup()
-                        .addComponent(OptionsMenuNote)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
+                        .addComponent(OPT_note)
                         .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OptionsMenuLayout.createSequentialGroup()
-                        .addGroup(OptionsMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(OptionsMenu_Upload, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ReproduzirConteudoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
+                        .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(OPT_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OPT_reproduzir, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(239, 239, 239))))
-            .addGroup(OptionsMenuLayout.createSequentialGroup()
+            .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(CurrentUserIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OPT_useridlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        OptionsMenuLayout.setVerticalGroup(
-            OptionsMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OptionsMenuLayout.createSequentialGroup()
+        Menu_OPTIONSLayout.setVerticalGroup(
+            Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(CurrentUserIDLabel)
+                .addComponent(OPT_useridlabel)
                 .addGap(41, 41, 41)
-                .addComponent(OptionsMenuTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addComponent(OPT_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addGap(62, 62, 62)
-                .addComponent(ReproduzirConteudoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OPT_reproduzir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(OptionsMenu_Upload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OPT_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(OptionsMenuNote)
+                .addComponent(OPT_note)
                 .addGap(73, 73, 73)
-                .addComponent(OptionsMenu_Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OPT_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
-        NormalLoginForm.setPreferredSize(new java.awt.Dimension(900, 600));
-        NormalLoginForm.setSize(new java.awt.Dimension(900, 600));
+        Menu_LOGINform.setSize(new java.awt.Dimension(900, 600));
 
-        NormalLoginForm_Title.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        NormalLoginForm_Title.setForeground(new java.awt.Color(1, 1, 1));
-        NormalLoginForm_Title.setText("Media Center");
+        LOGIN_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        LOGIN_tittle.setForeground(new java.awt.Color(1, 1, 1));
+        LOGIN_tittle.setText("Media Center");
 
-        normallogin_emailfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        normallogin_emailfield.addActionListener(new java.awt.event.ActionListener() {
+        LOGIN_emailfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        LOGIN_emailfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                normallogin_emailfieldActionPerformed(evt);
+                LOGIN_emailfieldActionPerformed(evt);
             }
         });
 
-        email_label.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
-        email_label.setText("E-Mail:");
+        LOGIN_emaillabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        LOGIN_emaillabel.setText("E-Mail:");
 
-        normallogin_passwordfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        normallogin_passwordfield.addActionListener(new java.awt.event.ActionListener() {
+        LOGIN_passfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        LOGIN_passfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                normallogin_passwordfieldActionPerformed(evt);
+                LOGIN_passfieldActionPerformed(evt);
             }
         });
 
-        password_label.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
-        password_label.setText("Password:");
+        LOGIN_passlabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        LOGIN_passlabel.setText("Password:");
 
-        normallogin_loginbutton.setText("Log-In");
-        normallogin_loginbutton.addActionListener(new java.awt.event.ActionListener() {
+        LOGIN_ButtonLogin.setText("Log-In");
+        LOGIN_ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                normallogin_loginbuttonActionPerformed(evt);
+                LOGIN_ButtonLoginActionPerformed(evt);
             }
         });
 
-        normallogin_backbutton.setText("Back");
-        normallogin_backbutton.addActionListener(new java.awt.event.ActionListener() {
+        LOGIN_ButtonBack.setText("Back");
+        LOGIN_ButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                normallogin_backbuttonActionPerformed(evt);
+                LOGIN_ButtonBackActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout NormalLoginFormLayout = new javax.swing.GroupLayout(NormalLoginForm.getContentPane());
-        NormalLoginForm.getContentPane().setLayout(NormalLoginFormLayout);
-        NormalLoginFormLayout.setHorizontalGroup(
-            NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NormalLoginFormLayout.createSequentialGroup()
-                .addGroup(NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NormalLoginFormLayout.createSequentialGroup()
+        javax.swing.GroupLayout Menu_LOGINformLayout = new javax.swing.GroupLayout(Menu_LOGINform.getContentPane());
+        Menu_LOGINform.getContentPane().setLayout(Menu_LOGINformLayout);
+        Menu_LOGINformLayout.setHorizontalGroup(
+            Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_LOGINformLayout.createSequentialGroup()
+                .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Menu_LOGINformLayout.createSequentialGroup()
                         .addGap(111, 111, 111)
-                        .addGroup(NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(normallogin_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(normallogin_passwordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(password_label, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                        .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LOGIN_emaillabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LOGIN_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LOGIN_passfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LOGIN_passlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(Menu_LOGINformLayout.createSequentialGroup()
                         .addGap(165, 165, 165)
-                        .addComponent(NormalLoginForm_Title, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(LOGIN_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(156, Short.MAX_VALUE))
-            .addGroup(NormalLoginFormLayout.createSequentialGroup()
+            .addGroup(Menu_LOGINformLayout.createSequentialGroup()
                 .addGap(270, 270, 270)
-                .addComponent(normallogin_loginbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LOGIN_ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(normallogin_backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LOGIN_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
-        NormalLoginFormLayout.setVerticalGroup(
-            NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(NormalLoginFormLayout.createSequentialGroup()
+        Menu_LOGINformLayout.setVerticalGroup(
+            Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_LOGINformLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(NormalLoginForm_Title, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addComponent(LOGIN_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addGap(55, 55, 55)
-                .addComponent(email_label)
+                .addComponent(LOGIN_emaillabel)
                 .addGap(18, 18, 18)
-                .addComponent(normallogin_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LOGIN_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(password_label)
+                .addComponent(LOGIN_passlabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(normallogin_passwordfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(NormalLoginFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NormalLoginFormLayout.createSequentialGroup()
+                .addComponent(LOGIN_passfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Menu_LOGINformLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(normallogin_loginbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LOGIN_ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NormalLoginFormLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_LOGINformLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(normallogin_backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(LOGIN_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))))
         );
 
-        ReproduzirMenu.setPreferredSize(new java.awt.Dimension(900, 600));
-        ReproduzirMenu.setSize(new java.awt.Dimension(900, 600));
+        Menu_REPRODUZIRoptions.setSize(new java.awt.Dimension(900, 600));
 
-        ReproduzirMenu_MainTitle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        ReproduzirMenu_MainTitle.setForeground(new java.awt.Color(1, 1, 1));
-        ReproduzirMenu_MainTitle.setText("Reproduzir");
+        REPOPT_Tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        REPOPT_Tittle.setForeground(new java.awt.Color(1, 1, 1));
+        REPOPT_Tittle.setText("Reproduzir");
 
-        OptionsMenuNote1.setFont(new java.awt.Font("Tlwg Typo", 2, 18)); // NOI18N
-        OptionsMenuNote1.setText("Nota: Outras funcionalidades encontram-se em desenvolvimento...");
+        REPOPT_note.setFont(new java.awt.Font("Tlwg Typo", 2, 18)); // NOI18N
+        REPOPT_note.setText("Nota: Outras funcionalidades encontram-se em desenvolvimento...");
 
-        ReproduzirMenu_Biblioteca.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        ReproduzirMenu_Biblioteca.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        ReproduzirMenu_Biblioteca.setText("Biblioteca do Media Center");
-        ReproduzirMenu_Biblioteca.addActionListener(new java.awt.event.ActionListener() {
+        REPOPT_ButtonBibliotecaMC.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPOPT_ButtonBibliotecaMC.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPOPT_ButtonBibliotecaMC.setText("Biblioteca do Media Center");
+        REPOPT_ButtonBibliotecaMC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReproduzirMenu_BibliotecaActionPerformed(evt);
+                REPOPT_ButtonBibliotecaMCActionPerformed(evt);
             }
         });
 
-        ReproduzirMenu_Album.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        ReproduzirMenu_Album.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        ReproduzirMenu_Album.setText("Albuns");
-        ReproduzirMenu_Album.addActionListener(new java.awt.event.ActionListener() {
+        REPOPT_ButtonAlbuns.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPOPT_ButtonAlbuns.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPOPT_ButtonAlbuns.setText("Albuns");
+        REPOPT_ButtonAlbuns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReproduzirMenu_AlbumActionPerformed(evt);
+                REPOPT_ButtonAlbunsActionPerformed(evt);
             }
         });
 
-        ReproduzirMenu_Backbutton.setText("Back");
-        ReproduzirMenu_Backbutton.addActionListener(new java.awt.event.ActionListener() {
+        REPOPT_ButtonBack.setText("Back");
+        REPOPT_ButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReproduzirMenu_BackbuttonActionPerformed(evt);
+                REPOPT_ButtonBackActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout ReproduzirMenuLayout = new javax.swing.GroupLayout(ReproduzirMenu.getContentPane());
-        ReproduzirMenu.getContentPane().setLayout(ReproduzirMenuLayout);
-        ReproduzirMenuLayout.setHorizontalGroup(
-            ReproduzirMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ReproduzirMenuLayout.createSequentialGroup()
+        javax.swing.GroupLayout Menu_REPRODUZIRoptionsLayout = new javax.swing.GroupLayout(Menu_REPRODUZIRoptions.getContentPane());
+        Menu_REPRODUZIRoptions.getContentPane().setLayout(Menu_REPRODUZIRoptionsLayout);
+        Menu_REPRODUZIRoptionsLayout.setHorizontalGroup(
+            Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
                 .addGap(238, 238, 238)
-                .addComponent(ReproduzirMenu_MainTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(REPOPT_Tittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(212, 212, 212))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproduzirMenuLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(ReproduzirMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproduzirMenuLayout.createSequentialGroup()
-                        .addGroup(ReproduzirMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ReproduzirMenu_Album, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ReproduzirMenu_Biblioteca, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
+                        .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(247, 247, 247))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproduzirMenuLayout.createSequentialGroup()
-                        .addComponent(OptionsMenuNote1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
+                        .addComponent(REPOPT_note)
                         .addGap(101, 101, 101))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproduzirMenuLayout.createSequentialGroup()
-                        .addComponent(ReproduzirMenu_Backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
+                        .addComponent(REPOPT_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69))))
         );
-        ReproduzirMenuLayout.setVerticalGroup(
-            ReproduzirMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ReproduzirMenuLayout.createSequentialGroup()
+        Menu_REPRODUZIRoptionsLayout.setVerticalGroup(
+            Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(ReproduzirMenu_MainTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addComponent(REPOPT_Tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addGap(44, 44, 44)
-                .addComponent(ReproduzirMenu_Biblioteca, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addComponent(ReproduzirMenu_Album, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(OptionsMenuNote1)
+                .addComponent(REPOPT_note)
                 .addGap(29, 29, 29)
-                .addComponent(ReproduzirMenu_Backbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(REPOPT_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
 
-        ReproduzirBibliotecaMenu.setSize(new java.awt.Dimension(900, 600));
+        Menu_REPRODUZIR_biblioteca.setSize(new java.awt.Dimension(900, 600));
 
-        ReproduzirBiblioteca_MainTitle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        ReproduzirBiblioteca_MainTitle.setForeground(new java.awt.Color(1, 1, 1));
-        ReproduzirBiblioteca_MainTitle.setText("Biblioteca");
+        REPBIBL_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        REPBIBL_tittle.setForeground(new java.awt.Color(1, 1, 1));
+        REPBIBL_tittle.setText("Biblioteca");
 
-        ReproduzirBiblioteca_ListaConteudo.setModel(new javax.swing.AbstractListModel<String>() {
+        REPBIBL_listaconteudo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        REPBIBL_listaconteudo.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = {};
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        RepBiblio_ScrollLista.setViewportView(ReproduzirBiblioteca_ListaConteudo);
+        REPBIBL_scroll.setViewportView(REPBIBL_listaconteudo);
 
-        RepBiblio_PlayButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        RepBiblio_PlayButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        RepBiblio_PlayButton.setText("Play");
-        RepBiblio_PlayButton.addActionListener(new java.awt.event.ActionListener() {
+        REPBIBL_ButtonPlay.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPBIBL_ButtonPlay.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPBIBL_ButtonPlay.setText("Play");
+        REPBIBL_ButtonPlay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RepBiblio_PlayButtonActionPerformed(evt);
+                REPBIBL_ButtonPlayActionPerformed(evt);
             }
         });
 
-        RepBiblio_PauseButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        RepBiblio_PauseButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        RepBiblio_PauseButton.setText("Pause");
-        RepBiblio_PauseButton.addActionListener(new java.awt.event.ActionListener() {
+        REPBIBL_ButtonPause.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPBIBL_ButtonPause.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPBIBL_ButtonPause.setText("Pause");
+        REPBIBL_ButtonPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RepBiblio_PauseButtonActionPerformed(evt);
+                REPBIBL_ButtonPauseActionPerformed(evt);
             }
         });
 
-        RepBiblio_ResumeButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        RepBiblio_ResumeButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        RepBiblio_ResumeButton.setText("Resume");
-        RepBiblio_ResumeButton.addActionListener(new java.awt.event.ActionListener() {
+        REPBIBL_ButtonResume.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPBIBL_ButtonResume.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPBIBL_ButtonResume.setText("Resume");
+        REPBIBL_ButtonResume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RepBiblio_ResumeButtonActionPerformed(evt);
+                REPBIBL_ButtonResumeActionPerformed(evt);
             }
         });
 
-        RepBiblio_BackButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        RepBiblio_BackButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        RepBiblio_BackButton.setText("Back");
-        RepBiblio_BackButton.addActionListener(new java.awt.event.ActionListener() {
+        REPBIBL_ButtonBack.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPBIBL_ButtonBack.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPBIBL_ButtonBack.setText("Back");
+        REPBIBL_ButtonBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RepBiblio_BackButtonActionPerformed(evt);
+                REPBIBL_ButtonBackActionPerformed(evt);
             }
         });
 
-        RepBiblioteca_CurrentContLabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
-        RepBiblioteca_CurrentContLabel.setText("Nenhum conteúdo foi ainda selecionado da lista disponível...");
+        REPBIBL_currentcontentlabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        REPBIBL_currentcontentlabel.setText("Nenhum conteúdo foi ainda selecionado da lista disponível...");
 
-        javax.swing.GroupLayout ReproduzirBibliotecaMenuLayout = new javax.swing.GroupLayout(ReproduzirBibliotecaMenu.getContentPane());
-        ReproduzirBibliotecaMenu.getContentPane().setLayout(ReproduzirBibliotecaMenuLayout);
-        ReproduzirBibliotecaMenuLayout.setHorizontalGroup(
-            ReproduzirBibliotecaMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ReproduzirBibliotecaMenuLayout.createSequentialGroup()
+        javax.swing.GroupLayout Menu_REPRODUZIR_bibliotecaLayout = new javax.swing.GroupLayout(Menu_REPRODUZIR_biblioteca.getContentPane());
+        Menu_REPRODUZIR_biblioteca.getContentPane().setLayout(Menu_REPRODUZIR_bibliotecaLayout);
+        Menu_REPRODUZIR_bibliotecaLayout.setHorizontalGroup(
+            Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
                 .addContainerGap(118, Short.MAX_VALUE)
-                .addGroup(ReproduzirBibliotecaMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproduzirBibliotecaMenuLayout.createSequentialGroup()
-                        .addComponent(ReproduzirBiblioteca_MainTitle)
+                .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
+                        .addComponent(REPBIBL_tittle)
                         .addGap(243, 243, 243))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReproduzirBibliotecaMenuLayout.createSequentialGroup()
-                        .addGroup(ReproduzirBibliotecaMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(ReproduzirBibliotecaMenuLayout.createSequentialGroup()
-                                .addComponent(RepBiblioteca_CurrentContLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
+                        .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
+                                .addComponent(REPBIBL_currentcontentlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(RepBiblio_BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ReproduzirBibliotecaMenuLayout.createSequentialGroup()
-                                .addComponent(RepBiblio_PlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(REPBIBL_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
+                                .addComponent(REPBIBL_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(RepBiblio_PauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(REPBIBL_ButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(157, 157, 157)
-                                .addComponent(RepBiblio_ResumeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(RepBiblio_ScrollLista, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(REPBIBL_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(REPBIBL_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(119, 119, 119))))
         );
-        ReproduzirBibliotecaMenuLayout.setVerticalGroup(
-            ReproduzirBibliotecaMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ReproduzirBibliotecaMenuLayout.createSequentialGroup()
+        Menu_REPRODUZIR_bibliotecaLayout.setVerticalGroup(
+            Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(ReproduzirBiblioteca_MainTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(REPBIBL_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addGroup(ReproduzirBibliotecaMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RepBiblio_PlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RepBiblio_ResumeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RepBiblio_PauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(REPBIBL_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(REPBIBL_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(REPBIBL_ButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
-                .addComponent(RepBiblio_ScrollLista, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(REPBIBL_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addGroup(ReproduzirBibliotecaMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RepBiblio_BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RepBiblioteca_CurrentContLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(REPBIBL_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(REPBIBL_currentcontentlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42))
+        );
+
+        Menu_CHOOSEalbum.setSize(new java.awt.Dimension(900, 600));
+
+        CHOOSEALB_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        CHOOSEALB_tittle.setForeground(new java.awt.Color(1, 1, 1));
+        CHOOSEALB_tittle.setText("Álbuns");
+
+        CHOOSEALB_listaalbuns.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        CHOOSEALB_listaalbuns.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        CHOOSEALB_scroll.setViewportView(CHOOSEALB_listaalbuns);
+
+        CHOOSEALB_ButtonRep.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        CHOOSEALB_ButtonRep.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        CHOOSEALB_ButtonRep.setText("Reproduzir ");
+        CHOOSEALB_ButtonRep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CHOOSEALB_ButtonRepActionPerformed(evt);
+            }
+        });
+
+        CHOOSEALB_ButtonBack.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        CHOOSEALB_ButtonBack.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        CHOOSEALB_ButtonBack.setText("Back");
+        CHOOSEALB_ButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CHOOSEALB_ButtonBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Menu_CHOOSEalbumLayout = new javax.swing.GroupLayout(Menu_CHOOSEalbum.getContentPane());
+        Menu_CHOOSEalbum.getContentPane().setLayout(Menu_CHOOSEalbumLayout);
+        Menu_CHOOSEalbumLayout.setHorizontalGroup(
+            Menu_CHOOSEalbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_CHOOSEalbumLayout.createSequentialGroup()
+                .addGap(295, 295, 295)
+                .addComponent(CHOOSEALB_tittle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_CHOOSEalbumLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(CHOOSEALB_ButtonRep, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
+                .addComponent(CHOOSEALB_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_CHOOSEalbumLayout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addComponent(CHOOSEALB_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116))
+        );
+        Menu_CHOOSEalbumLayout.setVerticalGroup(
+            Menu_CHOOSEalbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_CHOOSEalbumLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(CHOOSEALB_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(CHOOSEALB_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addGroup(Menu_CHOOSEalbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CHOOSEALB_ButtonRep, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CHOOSEALB_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+
+        Menu_REPRODUZIR_album.setSize(new java.awt.Dimension(900, 600));
+
+        REPALBUM_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        REPALBUM_tittle.setForeground(new java.awt.Color(1, 1, 1));
+        REPALBUM_tittle.setText("Álbum");
+
+        REPALBUM_listaconteudo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        REPALBUM_listaconteudo.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        REPALBUM_scroll.setViewportView(REPALBUM_listaconteudo);
+
+        REPALBUM_ButtonPlay.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPALBUM_ButtonPlay.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPALBUM_ButtonPlay.setText("Play");
+        REPALBUM_ButtonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPALBUM_ButtonPlayActionPerformed(evt);
+            }
+        });
+
+        REPALBUM_ButtonPause.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPALBUM_ButtonPause.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPALBUM_ButtonPause.setText("Pause");
+        REPALBUM_ButtonPause.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPALBUM_ButtonPauseActionPerformed(evt);
+            }
+        });
+
+        REPALBUM_ButtonResume.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPALBUM_ButtonResume.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPALBUM_ButtonResume.setText("Resume");
+        REPALBUM_ButtonResume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPALBUM_ButtonResumeActionPerformed(evt);
+            }
+        });
+
+        REPALBUM_ButtonBack.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPALBUM_ButtonBack.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPALBUM_ButtonBack.setText("Back");
+        REPALBUM_ButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPALBUM_ButtonBackActionPerformed(evt);
+            }
+        });
+
+        REPALBUM_ButtonCurrContent.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        REPALBUM_ButtonCurrContent.setText("Nenhum conteúdo foi ainda selecionado da lista disponível...");
+
+        REPALBUM_albumname.setFont(new java.awt.Font("Ubuntu", 2, 24)); // NOI18N
+        REPALBUM_albumname.setText("jLabel1");
+
+        javax.swing.GroupLayout Menu_REPRODUZIR_albumLayout = new javax.swing.GroupLayout(Menu_REPRODUZIR_album.getContentPane());
+        Menu_REPRODUZIR_album.getContentPane().setLayout(Menu_REPRODUZIR_albumLayout);
+        Menu_REPRODUZIR_albumLayout.setHorizontalGroup(
+            Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                            .addComponent(REPALBUM_ButtonCurrContent, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(REPALBUM_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                            .addComponent(REPALBUM_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(REPALBUM_ButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(157, 157, 157)
+                            .addComponent(REPALBUM_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(REPALBUM_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                        .addComponent(REPALBUM_tittle)
+                        .addGap(40, 40, 40)
+                        .addComponent(REPALBUM_albumname, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(100, 100, 100))
+        );
+        Menu_REPRODUZIR_albumLayout.setVerticalGroup(
+            Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(REPALBUM_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(REPALBUM_albumname))
+                .addGap(39, 39, 39)
+                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(REPALBUM_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(REPALBUM_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(REPALBUM_ButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(REPALBUM_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(REPALBUM_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(REPALBUM_ButtonCurrContent, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42))
         );
 
@@ -543,37 +613,37 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         setResizable(false);
         setSize(new java.awt.Dimension(900, 60));
 
-        MainMenuTitle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        MainMenuTitle.setForeground(new java.awt.Color(1, 1, 1));
-        MainMenuTitle.setText("Media Center");
+        MAIN_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
+        MAIN_tittle.setForeground(new java.awt.Color(1, 1, 1));
+        MAIN_tittle.setText("Media Center");
 
-        LogInButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        LogInButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        LogInButton.setText("Log-In");
-        LogInButton.addActionListener(new java.awt.event.ActionListener() {
+        MAIN_ButtonLogin.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        MAIN_ButtonLogin.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        MAIN_ButtonLogin.setText("Log-In");
+        MAIN_ButtonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogInButtonActionPerformed(evt);
+                MAIN_ButtonLoginActionPerformed(evt);
             }
         });
 
-        GuestLogInButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        GuestLogInButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        GuestLogInButton.setText("Convidado");
-        GuestLogInButton.addActionListener(new java.awt.event.ActionListener() {
+        MAIN_ButtonGuest.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        MAIN_ButtonGuest.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        MAIN_ButtonGuest.setText("Convidado");
+        MAIN_ButtonGuest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuestLogInButtonActionPerformed(evt);
+                MAIN_ButtonGuestActionPerformed(evt);
             }
         });
 
-        NewUserQuestionLabel.setFont(new java.awt.Font("Serif", 2, 18)); // NOI18N
-        NewUserQuestionLabel.setText("Novo Utente?");
+        MAIN_newuserlabel.setFont(new java.awt.Font("Serif", 2, 18)); // NOI18N
+        MAIN_newuserlabel.setText("Novo Utente?");
 
-        RegisterButton.setBackground(java.awt.SystemColor.activeCaptionBorder);
-        RegisterButton.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
-        RegisterButton.setText("Registar");
-        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+        MAIN_ButtonRegistar.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        MAIN_ButtonRegistar.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        MAIN_ButtonRegistar.setText("Registar");
+        MAIN_ButtonRegistar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegisterButtonActionPerformed(evt);
+                MAIN_ButtonRegistarActionPerformed(evt);
             }
         });
 
@@ -586,184 +656,173 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LogInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GuestLogInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MAIN_ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MAIN_ButtonGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MAIN_ButtonRegistar, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(74, 74, 74)
-                                .addComponent(NewUserQuestionLabel)))
+                                .addComponent(MAIN_newuserlabel)))
                         .addGap(311, 311, 311))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(MainMenuTitle)
+                        .addComponent(MAIN_tittle)
                         .addGap(174, 174, 174))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(MainMenuTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                .addComponent(MAIN_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
                 .addGap(53, 53, 53)
-                .addComponent(LogInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MAIN_ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(GuestLogInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MAIN_ButtonGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
-                .addComponent(NewUserQuestionLabel)
+                .addComponent(MAIN_newuserlabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(RegisterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MAIN_ButtonRegistar, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void PlayMusicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayMusicButtonActionPerformed
-                  
-    }//GEN-LAST:event_PlayMusicButtonActionPerformed
-
-    private void PauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PauseButtonActionPerformed
-
-        this.currentContentPlayer.pause();
-    }//GEN-LAST:event_PauseButtonActionPerformed
-
-    private void ResumeContentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResumeContentButtonActionPerformed
+    private void MAIN_ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MAIN_ButtonLoginActionPerformed
         
-        this.currentContentPlayer.resume();
-    }//GEN-LAST:event_ResumeContentButtonActionPerformed
-
-    private void LogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInButtonActionPerformed
-        
-        this.NormalLoginForm.setVisible(true);
+        this.Menu_LOGINform.setVisible(true);
         this.setVisible(false);
         
-        this.normallogin_emailfield.setText("");
-        this.normallogin_passwordfield.setText("");
+        this.LOGIN_emailfield.setText("");
+        this.LOGIN_passfield.setText("");
         
-        this.OptionsMenu_Upload.setEnabled(true);
-        this.OptionsMenu_Logout.setText("Logout");
-    }//GEN-LAST:event_LogInButtonActionPerformed
+        this.OPT_upload.setEnabled(true);
+        this.REPOPT_ButtonAlbuns.setEnabled(true);
+        this.OPT_logout.setText("Logout");
+    }//GEN-LAST:event_MAIN_ButtonLoginActionPerformed
 
-    private void GuestLogInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuestLogInButtonActionPerformed
+    private void MAIN_ButtonGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MAIN_ButtonGuestActionPerformed
 
         this.setVisible(false);
-        this.OptionsMenu.setVisible(true);
+        this.Menu_OPTIONS.setVisible(true);
         this.controller.loginUtilizadorAsGuest();
-        this.CurrentUserIDLabel.setText(this.controller.getUtilizadorAtualID());
+        this.OPT_useridlabel.setText(this.controller.getUtilizadorAtualID());
         
-        this.OptionsMenu_Upload.setEnabled(false);
-        this.OptionsMenu_Logout.setText("Back");
-    }//GEN-LAST:event_GuestLogInButtonActionPerformed
+        this.OPT_upload.setEnabled(false);
+        this.REPOPT_ButtonAlbuns.setEnabled(false);
+        this.OPT_logout.setText("Back");
+    }//GEN-LAST:event_MAIN_ButtonGuestActionPerformed
 
-    private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
+    private void MAIN_ButtonRegistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MAIN_ButtonRegistarActionPerformed
 
         JOptionPane.showMessageDialog(this, "Funcionalidade de momento indisponível!");
-    }//GEN-LAST:event_RegisterButtonActionPerformed
+    }//GEN-LAST:event_MAIN_ButtonRegistarActionPerformed
 
-    private void ReproduzirConteudoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReproduzirConteudoButtonActionPerformed
+    private void OPT_reproduzirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPT_reproduzirActionPerformed
 
         this.updateBibliotecaList();
         
-        this.OptionsMenu.setVisible(false);
-        this.ReproduzirMenu.setVisible(true);
-    }//GEN-LAST:event_ReproduzirConteudoButtonActionPerformed
+        //Se não for um guest
+        if (!this.controller.getUtilizadorAtualID().equals("Guest: guest@mediacenter")) {
+                    
+            this.updateAlbunsList();
+        }
+        
+        this.Menu_OPTIONS.setVisible(false);
+        this.Menu_REPRODUZIRoptions.setVisible(true);
+    }//GEN-LAST:event_OPT_reproduzirActionPerformed
 
-    private void OptionsMenu_LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OptionsMenu_LogoutActionPerformed
+    private void OPT_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPT_logoutActionPerformed
         
         if (this.controller.getNomeUtilizadorAtual().equals("Guest")) {
             
             //...é um guest
             
-            this.OptionsMenu.setVisible(false);
+            this.Menu_OPTIONS.setVisible(false);
             this.setVisible(true);        
 
         } else {
                     
-            this.OptionsMenu.setVisible(false);
+            this.Menu_OPTIONS.setVisible(false);
             this.setVisible(true);        
 
             JOptionPane.showMessageDialog(this, "Terminou sessão com sucesso!");
         }
 
         this.controller.logoutUtilizadorAtual();        
-    }//GEN-LAST:event_OptionsMenu_LogoutActionPerformed
+    }//GEN-LAST:event_OPT_logoutActionPerformed
 
-    private void PlayContentBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayContentBackButtonActionPerformed
-        
-        this.PlayContentMenu.setVisible(false);
-        this.OptionsMenu.setVisible(true);
-        this.currentContentPlayer.end();
-    }//GEN-LAST:event_PlayContentBackButtonActionPerformed
-
-    private void normallogin_emailfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_emailfieldActionPerformed
+    private void LOGIN_emailfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGIN_emailfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_normallogin_emailfieldActionPerformed
+    }//GEN-LAST:event_LOGIN_emailfieldActionPerformed
 
-    private void normallogin_passwordfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_passwordfieldActionPerformed
+    private void LOGIN_passfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGIN_passfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_normallogin_passwordfieldActionPerformed
+    }//GEN-LAST:event_LOGIN_passfieldActionPerformed
 
-    private void normallogin_loginbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_loginbuttonActionPerformed
+    private void LOGIN_ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGIN_ButtonLoginActionPerformed
         
-        String email = this.normallogin_emailfield.getText();
-        String password = this.normallogin_passwordfield.getText();
+        String email = this.LOGIN_emailfield.getText();
+        String password = this.LOGIN_passfield.getText();
         
         boolean loginok = this.controller.loginUtilizador(email, password);
         
         if (loginok == true) {
             
-            this.OptionsMenu.setVisible(true);
-            this.NormalLoginForm.setVisible(false);
+            this.Menu_OPTIONS.setVisible(true);
+            this.Menu_LOGINform.setVisible(false);
             
-            this.CurrentUserIDLabel.setText(this.controller.getUtilizadorAtualID());
+            this.OPT_useridlabel.setText(this.controller.getUtilizadorAtualID());
                             
         } else {
             
-            this.normallogin_emailfield.setText("");
-            this.normallogin_passwordfield.setText("");
+            this.LOGIN_emailfield.setText("");
+            this.LOGIN_passfield.setText("");
             
             JOptionPane.showMessageDialog(this, "As credenciais inseridas estão erradas! Tente novamente!");
         }
         
-    }//GEN-LAST:event_normallogin_loginbuttonActionPerformed
+    }//GEN-LAST:event_LOGIN_ButtonLoginActionPerformed
 
-    private void normallogin_backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normallogin_backbuttonActionPerformed
+    private void LOGIN_ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGIN_ButtonBackActionPerformed
         
-        this.NormalLoginForm.setVisible(false);
+        this.Menu_LOGINform.setVisible(false);
         this.setVisible(true);
-        this.normallogin_emailfield.setText("");
-        this.normallogin_passwordfield.setText("");
-    }//GEN-LAST:event_normallogin_backbuttonActionPerformed
+        this.LOGIN_emailfield.setText("");
+        this.LOGIN_passfield.setText("");
+    }//GEN-LAST:event_LOGIN_ButtonBackActionPerformed
 
-    private void OptionsMenu_UploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OptionsMenu_UploadActionPerformed
+    private void OPT_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPT_uploadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_OptionsMenu_UploadActionPerformed
+    }//GEN-LAST:event_OPT_uploadActionPerformed
 
-    private void ReproduzirMenu_BibliotecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReproduzirMenu_BibliotecaActionPerformed
+    private void REPOPT_ButtonBibliotecaMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPOPT_ButtonBibliotecaMCActionPerformed
         
-        this.ReproduzirMenu.setVisible(false);
-        this.ReproduzirBibliotecaMenu.setVisible(true);
-    }//GEN-LAST:event_ReproduzirMenu_BibliotecaActionPerformed
+        this.Menu_REPRODUZIRoptions.setVisible(false);
+        this.Menu_REPRODUZIR_biblioteca.setVisible(true);
+    }//GEN-LAST:event_REPOPT_ButtonBibliotecaMCActionPerformed
 
-    private void ReproduzirMenu_AlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReproduzirMenu_AlbumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ReproduzirMenu_AlbumActionPerformed
-
-    private void ReproduzirMenu_BackbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReproduzirMenu_BackbuttonActionPerformed
+    private void REPOPT_ButtonAlbunsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPOPT_ButtonAlbunsActionPerformed
         
-        this.ReproduzirMenu.setVisible(false);
-        this.OptionsMenu.setVisible(true);
-    }//GEN-LAST:event_ReproduzirMenu_BackbuttonActionPerformed
+        this.Menu_REPRODUZIRoptions.setVisible(false);
+        this.Menu_CHOOSEalbum.setVisible(true);
+    }//GEN-LAST:event_REPOPT_ButtonAlbunsActionPerformed
 
-    private void RepBiblio_PlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RepBiblio_PlayButtonActionPerformed
+    private void REPOPT_ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPOPT_ButtonBackActionPerformed
+        
+        this.Menu_REPRODUZIRoptions.setVisible(false);
+        this.Menu_OPTIONS.setVisible(true);
+    }//GEN-LAST:event_REPOPT_ButtonBackActionPerformed
+
+    private void REPBIBL_ButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPBIBL_ButtonPlayActionPerformed
         
         String conteudoSelecionado = null;
         
         try {
             
-            conteudoSelecionado = this.ReproduzirBiblioteca_ListaConteudo.getSelectedValue().toString();
+            conteudoSelecionado = this.REPBIBL_listaconteudo.getSelectedValue().toString();
                                     
         } catch (Exception e) {
            
-            JOptionPane.showMessageDialog(this.ReproduzirBibliotecaMenu, "Selecione um conteúdo!");
+            JOptionPane.showMessageDialog(this.Menu_REPRODUZIR_biblioteca, "Selecione um conteúdo!");
             return;
         }
         
@@ -789,37 +848,85 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
 
                 if (canPlayContent == true) {
 
-                    this.RepBiblioteca_CurrentContLabel.setText("Playing: " + conteudoSelecionado);
+                    this.REPBIBL_currentcontentlabel.setText("Playing: " + conteudoSelecionado);
 
                 } else {
 
-                    this.RepBiblioteca_CurrentContLabel.setText("O ficheiro selecionado não pode ser reproduzido.");
+                    this.REPBIBL_currentcontentlabel.setText("O ficheiro selecionado não pode ser reproduzido.");
                 }
 
             }
             
         } catch (Exception ex) {
         
-            Logger.getLogger(MediaCenter_GUI.class.getName()).log(Level.SEVERE, null, ex);       
+            JOptionPane.showMessageDialog(null, "O ficheiro selecionado não pode ser reproduzido.");
         }        
-    }//GEN-LAST:event_RepBiblio_PlayButtonActionPerformed
+    }//GEN-LAST:event_REPBIBL_ButtonPlayActionPerformed
 
-    private void RepBiblio_PauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RepBiblio_PauseButtonActionPerformed
+    private void REPBIBL_ButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPBIBL_ButtonPauseActionPerformed
         
         this.currentContentPlayer.pause();
-    }//GEN-LAST:event_RepBiblio_PauseButtonActionPerformed
+    }//GEN-LAST:event_REPBIBL_ButtonPauseActionPerformed
 
-    private void RepBiblio_ResumeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RepBiblio_ResumeButtonActionPerformed
+    private void REPBIBL_ButtonResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPBIBL_ButtonResumeActionPerformed
         
         this.currentContentPlayer.resume();
-    }//GEN-LAST:event_RepBiblio_ResumeButtonActionPerformed
+    }//GEN-LAST:event_REPBIBL_ButtonResumeActionPerformed
 
-    private void RepBiblio_BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RepBiblio_BackButtonActionPerformed
+    private void REPBIBL_ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPBIBL_ButtonBackActionPerformed
         
-        this.ReproduzirBibliotecaMenu.setVisible(false);
-        this.ReproduzirMenu.setVisible(true);
+        this.Menu_REPRODUZIR_biblioteca.setVisible(false);
+        this.Menu_REPRODUZIRoptions.setVisible(true);
         this.currentContentPlayer.end();
-    }//GEN-LAST:event_RepBiblio_BackButtonActionPerformed
+    }//GEN-LAST:event_REPBIBL_ButtonBackActionPerformed
+
+    private void CHOOSEALB_ButtonRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CHOOSEALB_ButtonRepActionPerformed
+        
+        String nomeAlbum = this.CHOOSEALB_listaalbuns.getSelectedValue().toString();
+        
+        List<Conteudo> conteudoAlbum = this.controller.getListaConteudoAlbum(nomeAlbum);
+
+        //--------------------------------------------------------------------------------
+                
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        
+        model.addAll(conteudoAlbum);
+        
+        //--------------------------------------------------------------------------------
+
+        this.REPALBUM_listaconteudo.setModel(model);
+         
+        this.REPALBUM_albumname.setText(nomeAlbum);
+        
+        this.Menu_CHOOSEalbum.setVisible(false);
+        this.Menu_REPRODUZIR_album.setVisible(true);
+         
+    }//GEN-LAST:event_CHOOSEALB_ButtonRepActionPerformed
+
+    private void REPALBUM_ButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonPlayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_REPALBUM_ButtonPlayActionPerformed
+
+    private void REPALBUM_ButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonPauseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_REPALBUM_ButtonPauseActionPerformed
+
+    private void REPALBUM_ButtonResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonResumeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_REPALBUM_ButtonResumeActionPerformed
+
+    private void REPALBUM_ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonBackActionPerformed
+        
+        this.Menu_CHOOSEalbum.setVisible(false);
+        this.Menu_CHOOSEalbum.setVisible(true);
+    }//GEN-LAST:event_REPALBUM_ButtonBackActionPerformed
+
+    private void CHOOSEALB_ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CHOOSEALB_ButtonBackActionPerformed
+        
+        this.Menu_CHOOSEalbum.setVisible(false);
+        this.Menu_REPRODUZIRoptions.setVisible(true);
+    }//GEN-LAST:event_CHOOSEALB_ButtonBackActionPerformed
 
     
     public void setInitialFormat() {
@@ -827,38 +934,44 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.setLocationRelativeTo(null);
         this.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));
         this.setTitle("Menu Inicial");
+      
+        this.Menu_CHOOSEalbum.setLocationRelativeTo(null);
+        this.Menu_CHOOSEalbum.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_CHOOSEalbum.setVisible(false);
+        this.Menu_CHOOSEalbum.setTitle("Álbuns");   
         
-        this.PlayContentMenu.setLocationRelativeTo(null);
-        this.PlayContentMenu.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.PlayContentMenu.setVisible(false);
-        this.PlayContentMenu.setTitle("Menu Reproduzir");
-                
-        this.OptionsMenu.setLocationRelativeTo(null);
-        this.OptionsMenu.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.OptionsMenu.setVisible(false);
-        this.OptionsMenu.setTitle("Menu Principal");
+        this.Menu_OPTIONS.setLocationRelativeTo(null);
+        this.Menu_OPTIONS.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_OPTIONS.setVisible(false);
+        this.Menu_OPTIONS.setTitle("Menu Principal");
         
-        this.NormalLoginForm.setLocationRelativeTo(null);
-        this.NormalLoginForm.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.NormalLoginForm.setVisible(false);
-        this.NormalLoginForm.setTitle("Menu de Login");
+        this.Menu_LOGINform.setLocationRelativeTo(null);
+        this.Menu_LOGINform.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_LOGINform.setVisible(false);
+        this.Menu_LOGINform.setTitle("Menu de Login");
      
-        this.ReproduzirMenu.setLocationRelativeTo(null);
-        this.ReproduzirMenu.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.ReproduzirMenu.setVisible(false);
-        this.ReproduzirMenu.setTitle("Menu de Reproduzir");
+        this.Menu_REPRODUZIRoptions.setLocationRelativeTo(null);
+        this.Menu_REPRODUZIRoptions.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_REPRODUZIRoptions.setVisible(false);
+        this.Menu_REPRODUZIRoptions.setTitle("Menu de Reproduzir");
         
-        this.ReproduzirBibliotecaMenu.setLocationRelativeTo(null);
-        this.ReproduzirBibliotecaMenu.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.ReproduzirBibliotecaMenu.setVisible(false);
-        this.ReproduzirBibliotecaMenu.setTitle("Menu de Reproduzir");
+        this.Menu_REPRODUZIR_biblioteca.setLocationRelativeTo(null);
+        this.Menu_REPRODUZIR_biblioteca.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_REPRODUZIR_biblioteca.setVisible(false);
+        this.Menu_REPRODUZIR_biblioteca.setTitle("Biblioteca do Media Center");
 
+        this.Menu_REPRODUZIR_album.setLocationRelativeTo(null);
+        this.Menu_REPRODUZIR_album.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_REPRODUZIR_album.setVisible(false);
+        this.Menu_REPRODUZIR_album.setTitle("Conteúdo do Álbum");        
+        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.PlayContentMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.OptionsMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.NormalLoginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.ReproduzirMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.ReproduzirBibliotecaMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_OPTIONS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_LOGINform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_REPRODUZIRoptions.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_REPRODUZIR_biblioteca.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_CHOOSEalbum.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_REPRODUZIR_album.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     public void run() {
@@ -879,50 +992,57 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CurrentContentPlayingNameLabel;
-    private javax.swing.JLabel CurrentUserIDLabel;
-    private javax.swing.JButton GuestLogInButton;
-    private javax.swing.JButton LogInButton;
-    private javax.swing.JLabel MainMenuTitle;
-    private javax.swing.JLabel MainMenuTitleLabel;
-    private javax.swing.JList<String> MenuListaConteudo;
-    private javax.swing.JLabel NewUserQuestionLabel;
-    private javax.swing.JFrame NormalLoginForm;
-    private javax.swing.JLabel NormalLoginForm_Title;
-    private javax.swing.JFrame OptionsMenu;
-    private javax.swing.JLabel OptionsMenuNote;
-    private javax.swing.JLabel OptionsMenuNote1;
-    private javax.swing.JLabel OptionsMenuTitle;
-    private javax.swing.JButton OptionsMenu_Logout;
-    private javax.swing.JButton OptionsMenu_Upload;
-    private javax.swing.JButton PauseButton;
-    private javax.swing.JButton PlayContentBackButton;
-    private javax.swing.JFrame PlayContentMenu;
-    private javax.swing.JButton PlayMusicButton;
-    private javax.swing.JButton RegisterButton;
-    private javax.swing.JButton RepBiblio_BackButton;
-    private javax.swing.JButton RepBiblio_PauseButton;
-    private javax.swing.JButton RepBiblio_PlayButton;
-    private javax.swing.JButton RepBiblio_ResumeButton;
-    private javax.swing.JScrollPane RepBiblio_ScrollLista;
-    private javax.swing.JLabel RepBiblioteca_CurrentContLabel;
-    private javax.swing.JFrame ReproduzirBibliotecaMenu;
-    private javax.swing.JList<String> ReproduzirBiblioteca_ListaConteudo;
-    private javax.swing.JLabel ReproduzirBiblioteca_MainTitle;
-    private javax.swing.JButton ReproduzirConteudoButton;
-    private javax.swing.JFrame ReproduzirMenu;
-    private javax.swing.JButton ReproduzirMenu_Album;
-    private javax.swing.JButton ReproduzirMenu_Backbutton;
-    private javax.swing.JButton ReproduzirMenu_Biblioteca;
-    private javax.swing.JLabel ReproduzirMenu_MainTitle;
-    private javax.swing.JButton ResumeContentButton;
-    private javax.swing.JLabel SelectMusicLabel;
-    private javax.swing.JLabel email_label;
-    private javax.swing.JButton normallogin_backbutton;
-    private javax.swing.JTextField normallogin_emailfield;
-    private javax.swing.JButton normallogin_loginbutton;
-    private javax.swing.JTextField normallogin_passwordfield;
-    private javax.swing.JLabel password_label;
+    private javax.swing.JButton CHOOSEALB_ButtonBack;
+    private javax.swing.JButton CHOOSEALB_ButtonRep;
+    private javax.swing.JList<String> CHOOSEALB_listaalbuns;
+    private javax.swing.JScrollPane CHOOSEALB_scroll;
+    private javax.swing.JLabel CHOOSEALB_tittle;
+    private javax.swing.JButton LOGIN_ButtonBack;
+    private javax.swing.JButton LOGIN_ButtonLogin;
+    private javax.swing.JTextField LOGIN_emailfield;
+    private javax.swing.JLabel LOGIN_emaillabel;
+    private javax.swing.JTextField LOGIN_passfield;
+    private javax.swing.JLabel LOGIN_passlabel;
+    private javax.swing.JLabel LOGIN_tittle;
+    private javax.swing.JButton MAIN_ButtonGuest;
+    private javax.swing.JButton MAIN_ButtonLogin;
+    private javax.swing.JButton MAIN_ButtonRegistar;
+    private javax.swing.JLabel MAIN_newuserlabel;
+    private javax.swing.JLabel MAIN_tittle;
+    private javax.swing.JFrame Menu_CHOOSEalbum;
+    private javax.swing.JFrame Menu_LOGINform;
+    private javax.swing.JFrame Menu_OPTIONS;
+    private javax.swing.JFrame Menu_REPRODUZIR_album;
+    private javax.swing.JFrame Menu_REPRODUZIR_biblioteca;
+    private javax.swing.JFrame Menu_REPRODUZIRoptions;
+    private javax.swing.JButton OPT_logout;
+    private javax.swing.JLabel OPT_note;
+    private javax.swing.JButton OPT_reproduzir;
+    private javax.swing.JLabel OPT_tittle;
+    private javax.swing.JButton OPT_upload;
+    private javax.swing.JLabel OPT_useridlabel;
+    private javax.swing.JButton REPALBUM_ButtonBack;
+    private javax.swing.JLabel REPALBUM_ButtonCurrContent;
+    private javax.swing.JButton REPALBUM_ButtonPause;
+    private javax.swing.JButton REPALBUM_ButtonPlay;
+    private javax.swing.JButton REPALBUM_ButtonResume;
+    private javax.swing.JLabel REPALBUM_albumname;
+    private javax.swing.JList<String> REPALBUM_listaconteudo;
+    private javax.swing.JScrollPane REPALBUM_scroll;
+    private javax.swing.JLabel REPALBUM_tittle;
+    private javax.swing.JButton REPBIBL_ButtonBack;
+    private javax.swing.JButton REPBIBL_ButtonPause;
+    private javax.swing.JButton REPBIBL_ButtonPlay;
+    private javax.swing.JButton REPBIBL_ButtonResume;
+    private javax.swing.JLabel REPBIBL_currentcontentlabel;
+    private javax.swing.JList<String> REPBIBL_listaconteudo;
+    private javax.swing.JScrollPane REPBIBL_scroll;
+    private javax.swing.JLabel REPBIBL_tittle;
+    private javax.swing.JButton REPOPT_ButtonAlbuns;
+    private javax.swing.JButton REPOPT_ButtonBack;
+    private javax.swing.JButton REPOPT_ButtonBibliotecaMC;
+    private javax.swing.JLabel REPOPT_Tittle;
+    private javax.swing.JLabel REPOPT_note;
     // End of variables declaration//GEN-END:variables
 
     private void updateBibliotecaList() {
@@ -934,7 +1054,19 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         
         model.addAll(biblioteca);
         
-        this.ReproduzirBiblioteca_ListaConteudo.setModel(model);
+        this.REPBIBL_listaconteudo.setModel(model);
+    }
+    
+    private void updateAlbunsList() {
+        
+        List<String> nomesAlbuns = this.controller.getListaAlbunsUserAtual();
+        
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        
+        model.addAll(nomesAlbuns);
+        
+        this.CHOOSEALB_listaalbuns.setModel(model);
     }
 
     private Object getExtensionOfFile(String list_content_selected) {

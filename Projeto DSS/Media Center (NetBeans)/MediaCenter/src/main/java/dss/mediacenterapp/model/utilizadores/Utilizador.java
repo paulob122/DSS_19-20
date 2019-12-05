@@ -1,6 +1,12 @@
 
 package dss.mediacenterapp.model.utilizadores;
 
+import dss.mediacenterapp.data.ConteudoPessoalDAO;
+import dss.mediacenterapp.model.albuns.Album;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Utilizador {
     
     /*--------------------------------------------------------------------------*/
@@ -10,15 +16,19 @@ public class Utilizador {
     private static final String ADM = "Admin";
     private static final String TMP = "Temporary User";
     
-    /*--------------------------------------------------------------------------*/
+    private static String typeOfUser;
 
-    private String typeOfUser;
+    /*--------------------------------------------------------------------------*/
     
     private String email;
     private String password;
     private String nome;
     private boolean isTemporaryUser;
     private boolean isAdministrator;
+    
+    private ConteudoPessoalDAO conteudoPessoal;
+    
+    private Map<String, Album> albuns;
     
     /*--------------------------------------------------------------------------*/
 
@@ -46,6 +56,10 @@ public class Utilizador {
         this.nome = nome;
         this.isTemporaryUser = isTempraryUser;
         this.isAdministrator = isAdministrator;
+    
+        this.conteudoPessoal = new ConteudoPessoalDAO(this.email);
+        
+        this.albuns = new HashMap<>();
     }
 
     public Utilizador() {
@@ -57,6 +71,8 @@ public class Utilizador {
         this.password = "n/a";
         this.isAdministrator = false;
         this.isTemporaryUser = false;
+        
+        this.albuns = new HashMap<>();
     }
     
     /*--------------------------------------------------------------------------*/
@@ -95,5 +111,20 @@ public class Utilizador {
     public String getNome() {
         
         return this.nome;
+    }
+
+    public List<String> getListaAlbuns() {
+        
+        return this.conteudoPessoal.getListaAlbuns();
+    }
+
+    public Album getAlbum(String nomeAlbum) {
+        
+        return this.conteudoPessoal.getAlbum(nomeAlbum);
+    }
+
+    public void adicionaAlbum(Album a) {
+        
+        this.albuns.put(a.getNome(), a);
     }
 }
