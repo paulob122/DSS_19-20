@@ -7,9 +7,9 @@
 
 package dss.mediacenterapp;
 
-import dss.mediacenterapp.controller.MediaCenterController;
+import dss.mediacenterapp.presentation.controller.MediaCenterController;
 import dss.mediacenterapp.model.MediaCenter_LN;
-import dss.mediacenterapp.view.MediaCenter_GUI;
+import dss.mediacenterapp.presentation.view.MediaCenter_GUI;
 import javax.swing.SwingUtilities;
 
 /**
