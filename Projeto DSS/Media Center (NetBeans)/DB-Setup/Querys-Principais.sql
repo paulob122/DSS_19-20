@@ -2,19 +2,23 @@
 #Selecionar o conteúdo de um utilizador
 
 select
-    c.*
+    count(*)
 from
     Utilizador u,
     AlbunsDoUtilizador adu,
     Album a,
     ConteudoDoAlbum cda,
     Conteudo c
-where 
+where
 	u.email = adu.idUserADU
     and adu.idAlbumADU = a.idAlbum
     and cda.idAlbumCDA = a.idAlbum
     and cda.idConteudoCDA = c.idConteudo
+    and c.idConteudo = "Solina.mp3"
     and u.email = "test";
+    
+#group by c.Categoria_idNomeCategoria
+#order by count(c.Categoria_idNomeCategoria) desc;
     
 select * from Conteudo c;
 

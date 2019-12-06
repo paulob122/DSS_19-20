@@ -62,4 +62,15 @@ public class Album {
             this.conteudo.put(c.getNome(), c);
         }
     }   
+
+    public void adicionaConteudo(Conteudo novoC) {
+        
+        this.conteudo.put(novoC.getNome(), novoC);
+    }
+    
+    public String toString() {
+        
+        
+        return this.nome + " - (" + this.categoria + "): \n" + this.conteudo.toString();
+    }
 }

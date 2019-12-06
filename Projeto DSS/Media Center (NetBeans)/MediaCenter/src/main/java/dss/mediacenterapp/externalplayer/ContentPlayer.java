@@ -1,12 +1,20 @@
 
 package dss.mediacenterapp.externalplayer;
 
+import java.awt.Desktop;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import org.apache.commons.io.FilenameUtils;
 
-public class ContentPlayer {
+public class ContentPlayer implements Runnable {
 
     //--------------------------------------------------------------------------
 
@@ -41,6 +49,23 @@ public class ContentPlayer {
         this.currentThreadRunning = null;
     }
 
+    public boolean playingFinished() {
+        
+        try {
+            
+            if (FIS.available() == 0) {
+
+                return true;
+            }            
+            
+        } catch (Exception e) {
+            
+            return false;
+        }
+        
+        return false;
+    }
+    
     public void end() {
         
         if (this.currentThreadRunning == null || this.player == null) return;
@@ -89,8 +114,52 @@ public class ContentPlayer {
             this.canResume = false;
         }
     }
+    
+    public boolean play(int frame) {
+        
+        this.playWorked = true;
+        this.canResume = false;
+        
+        try{
+        
+            this.FIS = new FileInputStream(path);
+            this.totalFrames = FIS.available();
+            
+            if(frame >= 0) {
+                
+                this.FIS.skip(frame);
+            }
+            
+            this.BIS = new BufferedInputStream(FIS);
+            this.player = new Player(BIS);
 
-    public boolean play(int frame){
+            Thread runThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+              
+                    try {
+                        player.play();
+                    } catch (JavaLayerException ex) {
+                        Logger.getLogger(ContentPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+
+            this.currentThreadRunning = runThread;
+            this.currentThreadRunning.start();
+                        
+        } catch(Exception e){
+            
+            JOptionPane.showMessageDialog(null, "Não foi possível reproduzir " + this.path);
+           
+            this.playWorked = false;
+        }
+        
+        return this.playWorked;
+         
+    }
+    
+    public boolean playMT(int frame){
 
         this.playWorked = true;
         this.canResume = false;
@@ -107,26 +176,11 @@ public class ContentPlayer {
             
             this.BIS = new BufferedInputStream(FIS);
             this.player = new Player(BIS);
-           
-            Thread runningMusicThread = new Thread(new Runnable() {
-                
-                public void run() {
-                    
-                    try {
+                                  
+            synchronized(this) {
+                player.play();
+            }
                         
-                        player.play();
-                        
-                    } catch(Exception e) {
-                        
-                        System.out.println("Error playing music...");
-                    }
-                }
-            });
-            
-            runningMusicThread.start();
-            
-        this.currentThreadRunning = runningMusicThread;    
-        
         } catch(Exception e){
             
             JOptionPane.showMessageDialog(null, "Não foi possível reproduzir " + this.path);
@@ -136,4 +190,16 @@ public class ContentPlayer {
         
         return this.playWorked;
     }
+        
+    private Object getExtensionOfFile(String list_content_selected) {
+        
+        return FilenameUtils.getExtension(list_content_selected);
+    }
+
+    @Override
+    public void run() {
+        
+        playMT(0);
+    }
+    
 }

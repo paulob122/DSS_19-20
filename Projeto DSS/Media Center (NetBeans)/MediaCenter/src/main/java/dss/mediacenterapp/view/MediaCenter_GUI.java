@@ -16,10 +16,20 @@ import java.awt.Desktop;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javax.swing.Action;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicFileChooserUI;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -34,7 +44,13 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     /*--------------------------------------------------------------------------*/
 
     private MediaCenterController controller;
+    
+    /*--------------------------------------------------------------------------*/
+
     private ContentPlayer currentContentPlayer;
+    private Thread albumThread;  
+    private boolean playingAlbum;
+    private String lastUploadPath;
     
     /*--------------------------------------------------------------------------*/
     
@@ -43,6 +59,8 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.controller = controller;
         
         this.currentContentPlayer = new ContentPlayer();
+        
+        this.playingAlbum = false;
     }
        
     @SuppressWarnings("unchecked")
@@ -56,6 +74,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         OPT_useridlabel = new javax.swing.JLabel();
         OPT_logout = new javax.swing.JButton();
         OPT_upload = new javax.swing.JButton();
+        OPT_alterarcategoriaconteudo = new javax.swing.JButton();
         Menu_LOGINform = new javax.swing.JFrame();
         LOGIN_tittle = new javax.swing.JLabel();
         LOGIN_emailfield = new javax.swing.JTextField();
@@ -93,8 +112,20 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         REPALBUM_ButtonPause = new javax.swing.JButton();
         REPALBUM_ButtonResume = new javax.swing.JButton();
         REPALBUM_ButtonBack = new javax.swing.JButton();
-        REPALBUM_ButtonCurrContent = new javax.swing.JLabel();
+        REPALBUM_CurrentContent = new javax.swing.JLabel();
         REPALBUM_albumname = new javax.swing.JLabel();
+        REPALBUM_ButtonPlayAll = new javax.swing.JButton();
+        REPALBUM_ButtonStopAlbum = new javax.swing.JButton();
+        REPALBUM_randomizelist = new javax.swing.JButton();
+        Menu_UPLOAD = new javax.swing.JFrame();
+        UPLOAD_tittle = new javax.swing.JLabel();
+        UPLOAD_caminholabel = new javax.swing.JLabel();
+        UPLOAD_filechooser = new javax.swing.JFileChooser();
+        UPLOAD_scroll = new javax.swing.JScrollPane();
+        UPLOAD_listaconteudo = new javax.swing.JList<>();
+        UPLOAD_caminholabel1 = new javax.swing.JLabel();
+        UPLOAD_ButtonUpload = new javax.swing.JButton();
+        UPLOAD_ButtonBack = new javax.swing.JButton();
         MAIN_tittle = new javax.swing.JLabel();
         MAIN_ButtonLogin = new javax.swing.JButton();
         MAIN_ButtonGuest = new javax.swing.JButton();
@@ -139,12 +170,25 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
+        OPT_alterarcategoriaconteudo.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        OPT_alterarcategoriaconteudo.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        OPT_alterarcategoriaconteudo.setText("Alterar Categoria de Conteudo");
+        OPT_alterarcategoriaconteudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OPT_alterarcategoriaconteudoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout Menu_OPTIONSLayout = new javax.swing.GroupLayout(Menu_OPTIONS.getContentPane());
         Menu_OPTIONS.getContentPane().setLayout(Menu_OPTIONSLayout);
         Menu_OPTIONSLayout.setHorizontalGroup(
             Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(OPT_useridlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
+                .addContainerGap(126, Short.MAX_VALUE)
                 .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
                         .addComponent(OPT_tittle)
@@ -153,17 +197,14 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                         .addComponent(OPT_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
-                        .addComponent(OPT_note)
-                        .addGap(80, 80, 80))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
                         .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(OPT_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(OPT_reproduzir, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(239, 239, 239))))
-            .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(OPT_useridlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(OPT_reproduzir, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OPT_alterarcategoriaconteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(239, 239, 239))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
+                        .addComponent(OPT_note)
+                        .addGap(81, 81, 81))))
         );
         Menu_OPTIONSLayout.setVerticalGroup(
             Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,13 +213,15 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                 .addComponent(OPT_useridlabel)
                 .addGap(41, 41, 41)
                 .addComponent(OPT_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addGap(62, 62, 62)
+                .addGap(41, 41, 41)
                 .addComponent(OPT_reproduzir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(OPT_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addComponent(OPT_alterarcategoriaconteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(OPT_note)
-                .addGap(73, 73, 73)
+                .addGap(38, 38, 38)
                 .addComponent(OPT_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -333,9 +376,9 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             .addGroup(Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addComponent(REPOPT_Tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                .addGap(44, 44, 44)
-                .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
+                .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
                 .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(REPOPT_note)
@@ -556,36 +599,68 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
-        REPALBUM_ButtonCurrContent.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
-        REPALBUM_ButtonCurrContent.setText("Nenhum conteúdo foi ainda selecionado da lista disponível...");
+        REPALBUM_CurrentContent.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
+        REPALBUM_CurrentContent.setText("Último conteúdo:");
 
         REPALBUM_albumname.setFont(new java.awt.Font("Ubuntu", 2, 24)); // NOI18N
-        REPALBUM_albumname.setText("jLabel1");
+        REPALBUM_albumname.setText("album_name");
+
+        REPALBUM_ButtonPlayAll.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPALBUM_ButtonPlayAll.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPALBUM_ButtonPlayAll.setText("Play All");
+        REPALBUM_ButtonPlayAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPALBUM_ButtonPlayAllActionPerformed(evt);
+            }
+        });
+
+        REPALBUM_ButtonStopAlbum.setBackground(java.awt.SystemColor.activeCaptionBorder);
+        REPALBUM_ButtonStopAlbum.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
+        REPALBUM_ButtonStopAlbum.setText("Stop");
+        REPALBUM_ButtonStopAlbum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPALBUM_ButtonStopAlbumActionPerformed(evt);
+            }
+        });
+
+        REPALBUM_randomizelist.setText("Randomize");
+        REPALBUM_randomizelist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPALBUM_randomizelistActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Menu_REPRODUZIR_albumLayout = new javax.swing.GroupLayout(Menu_REPRODUZIR_album.getContentPane());
         Menu_REPRODUZIR_album.getContentPane().setLayout(Menu_REPRODUZIR_albumLayout);
         Menu_REPRODUZIR_albumLayout.setHorizontalGroup(
             Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_albumLayout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
-                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
-                            .addComponent(REPALBUM_ButtonCurrContent, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(REPALBUM_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
-                            .addComponent(REPALBUM_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(REPALBUM_ButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(157, 157, 157)
-                            .addComponent(REPALBUM_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(REPALBUM_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
                         .addComponent(REPALBUM_tittle)
                         .addGap(40, 40, 40)
-                        .addComponent(REPALBUM_albumname, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(100, 100, 100))
+                        .addComponent(REPALBUM_albumname, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                        .addComponent(REPALBUM_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(REPALBUM_ButtonPlay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(REPALBUM_ButtonPause, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(REPALBUM_ButtonResume, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(REPALBUM_ButtonPlayAll, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(REPALBUM_CurrentContent, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(REPALBUM_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(REPALBUM_ButtonStopAlbum)
+                .addGap(20, 20, 20))
+            .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                .addGap(349, 349, 349)
+                .addComponent(REPALBUM_randomizelist)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Menu_REPRODUZIR_albumLayout.setVerticalGroup(
             Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -594,18 +669,119 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                 .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(REPALBUM_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(REPALBUM_albumname))
-                .addGap(39, 39, 39)
-                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(REPALBUM_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(REPALBUM_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(REPALBUM_ButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addComponent(REPALBUM_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(27, 27, 27)
+                .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Menu_REPRODUZIR_albumLayout.createSequentialGroup()
+                        .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(REPALBUM_ButtonPlayAll, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(REPALBUM_ButtonStopAlbum, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(REPALBUM_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(REPALBUM_ButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(REPALBUM_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(REPALBUM_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(REPALBUM_randomizelist)
+                .addGap(37, 37, 37)
                 .addGroup(Menu_REPRODUZIR_albumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(REPALBUM_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(REPALBUM_ButtonCurrContent, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(REPALBUM_CurrentContent, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42))
+        );
+
+        Menu_UPLOAD.setPreferredSize(new java.awt.Dimension(900, 600));
+        Menu_UPLOAD.setSize(new java.awt.Dimension(900, 600));
+
+        UPLOAD_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 60)); // NOI18N
+        UPLOAD_tittle.setForeground(new java.awt.Color(1, 1, 1));
+        UPLOAD_tittle.setText("Upload");
+
+        UPLOAD_caminholabel.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        UPLOAD_caminholabel.setText("Selecione o caminho para o conteúdo:");
+
+        UPLOAD_filechooser.setForeground(new java.awt.Color(1, 1, 1));
+        UPLOAD_filechooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPLOAD_filechooserActionPerformed(evt);
+            }
+        });
+
+        UPLOAD_listaconteudo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        UPLOAD_listaconteudo.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        UPLOAD_scroll.setViewportView(UPLOAD_listaconteudo);
+
+        UPLOAD_caminholabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        UPLOAD_caminholabel1.setText("Conteúdo disponível (.mp3/.mp4):");
+
+        UPLOAD_ButtonUpload.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        UPLOAD_ButtonUpload.setText("Carregar ficheiros");
+        UPLOAD_ButtonUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPLOAD_ButtonUploadActionPerformed(evt);
+            }
+        });
+
+        UPLOAD_ButtonBack.setText("Back");
+        UPLOAD_ButtonBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPLOAD_ButtonBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout Menu_UPLOADLayout = new javax.swing.GroupLayout(Menu_UPLOAD.getContentPane());
+        Menu_UPLOAD.getContentPane().setLayout(Menu_UPLOADLayout);
+        Menu_UPLOADLayout.setHorizontalGroup(
+            Menu_UPLOADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_UPLOADLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(Menu_UPLOADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(UPLOAD_caminholabel)
+                    .addComponent(UPLOAD_filechooser, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGroup(Menu_UPLOADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_UPLOADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(UPLOAD_caminholabel1)
+                        .addComponent(UPLOAD_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_UPLOADLayout.createSequentialGroup()
+                        .addComponent(UPLOAD_ButtonUpload, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)))
+                .addGap(71, 71, 71))
+            .addGroup(Menu_UPLOADLayout.createSequentialGroup()
+                .addGap(337, 337, 337)
+                .addComponent(UPLOAD_tittle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_UPLOADLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(UPLOAD_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
+        );
+        Menu_UPLOADLayout.setVerticalGroup(
+            Menu_UPLOADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_UPLOADLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(UPLOAD_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(Menu_UPLOADLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Menu_UPLOADLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(UPLOAD_caminholabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(UPLOAD_filechooser, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(Menu_UPLOADLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(UPLOAD_caminholabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(UPLOAD_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(UPLOAD_ButtonUpload)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(UPLOAD_ButtonBack)
+                .addGap(26, 26, 26))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -694,6 +870,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.LOGIN_emailfield.setText("");
         this.LOGIN_passfield.setText("");
         
+        this.OPT_alterarcategoriaconteudo.setEnabled(true);
         this.OPT_upload.setEnabled(true);
         this.REPOPT_ButtonAlbuns.setEnabled(true);
         this.OPT_logout.setText("Logout");
@@ -703,9 +880,12 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
 
         this.setVisible(false);
         this.Menu_OPTIONS.setVisible(true);
+        
         this.controller.loginUtilizadorAsGuest();
+        
         this.OPT_useridlabel.setText(this.controller.getUtilizadorAtualID());
         
+        this.OPT_alterarcategoriaconteudo.setEnabled(false);
         this.OPT_upload.setEnabled(false);
         this.REPOPT_ButtonAlbuns.setEnabled(false);
         this.OPT_logout.setText("Back");
@@ -791,7 +971,13 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     }//GEN-LAST:event_LOGIN_ButtonBackActionPerformed
 
     private void OPT_uploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPT_uploadActionPerformed
-        // TODO add your handling code here:
+
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        this.UPLOAD_listaconteudo.setModel(model);
+        
+        this.Menu_OPTIONS.setVisible(false);
+        this.Menu_UPLOAD.setVisible(true);
     }//GEN-LAST:event_OPT_uploadActionPerformed
 
     private void REPOPT_ButtonBibliotecaMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPOPT_ButtonBibliotecaMCActionPerformed
@@ -848,7 +1034,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
 
                 if (canPlayContent == true) {
 
-                    this.REPBIBL_currentcontentlabel.setText("Playing: " + conteudoSelecionado);
+                    this.REPBIBL_currentcontentlabel.setText("Última música: " + conteudoSelecionado);
 
                 } else {
 
@@ -882,43 +1068,113 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
 
     private void CHOOSEALB_ButtonRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CHOOSEALB_ButtonRepActionPerformed
         
-        String nomeAlbum = this.CHOOSEALB_listaalbuns.getSelectedValue().toString();
+        String nomeAlbumComCategoria = null;
+        String nomeAlbum = null;        
+        
+        try {
+            
+            nomeAlbumComCategoria = this.CHOOSEALB_listaalbuns.getSelectedValue().toString();
+                                  
+        } catch (Exception e) {
+           
+            JOptionPane.showMessageDialog(this.Menu_CHOOSEalbum, "Selecione um álbum!");
+            return;
+        }
+
+        String parts[] = nomeAlbumComCategoria.split(" \\[");
+        nomeAlbum = parts[0];
         
         List<Conteudo> conteudoAlbum = this.controller.getListaConteudoAlbum(nomeAlbum);
 
+        List<String> nomesConteudo = conteudoAlbum.stream().map(c -> c.getNome()).collect(Collectors.toList());
+        
         //--------------------------------------------------------------------------------
                 
         DefaultListModel model = new DefaultListModel();
         model.clear();
         
-        model.addAll(conteudoAlbum);
+        model.addAll(nomesConteudo);
         
-        //--------------------------------------------------------------------------------
-
         this.REPALBUM_listaconteudo.setModel(model);
          
+         //--------------------------------------------------------------------------------
+
         this.REPALBUM_albumname.setText(nomeAlbum);
         
         this.Menu_CHOOSEalbum.setVisible(false);
         this.Menu_REPRODUZIR_album.setVisible(true);
          
+        this.REPALBUM_ButtonStopAlbum.setEnabled(false);
+ 
+        this.REPALBUM_CurrentContent.setText("Último conteúdo:");
+        this.playingAlbum = false;
     }//GEN-LAST:event_CHOOSEALB_ButtonRepActionPerformed
 
     private void REPALBUM_ButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonPlayActionPerformed
-        // TODO add your handling code here:
+        
+        if (this.playingAlbum) return;
+        
+        String conteudoSelecionado = null;
+        
+        try {
+            
+            conteudoSelecionado = this.REPALBUM_listaconteudo.getSelectedValue().toString();
+            
+        } catch (Exception e) {
+           
+            
+            JOptionPane.showMessageDialog(this.Menu_REPRODUZIR_album, "Selecione um conteúdo!");
+            return;
+        }
+        
+        try {
+                
+            if (this.getExtensionOfFile(conteudoSelecionado).equals("mp4")) {
+                
+                String video_path = "DB/Content/" + conteudoSelecionado;
+
+                Desktop.getDesktop().open(new File(video_path));
+                            
+            } else {
+            
+                this.currentContentPlayer.end();
+
+                String music_path = "DB/Content/" + conteudoSelecionado;
+               
+                boolean canPlayContent;
+
+                this.currentContentPlayer.setPath(music_path);
+                               
+                canPlayContent = this.currentContentPlayer.play(0);
+
+            }
+            
+        } catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null, "O ficheiro selecionado não pode ser reproduzido.");
+        }                        
     }//GEN-LAST:event_REPALBUM_ButtonPlayActionPerformed
 
     private void REPALBUM_ButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonPauseActionPerformed
-        // TODO add your handling code here:
+        
+        if (this.playingAlbum) return;
+        
+        this.currentContentPlayer.pause();
     }//GEN-LAST:event_REPALBUM_ButtonPauseActionPerformed
 
     private void REPALBUM_ButtonResumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonResumeActionPerformed
-        // TODO add your handling code here:
+
+        if (this.playingAlbum) return;
+        
+        this.currentContentPlayer.resume();
     }//GEN-LAST:event_REPALBUM_ButtonResumeActionPerformed
 
     private void REPALBUM_ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonBackActionPerformed
+
+        this.currentContentPlayer.end();
+        if (this.albumThread != null) this.albumThread.stop();
         
-        this.Menu_CHOOSEalbum.setVisible(false);
+        this.Menu_REPRODUZIR_album.setVisible(false);
         this.Menu_CHOOSEalbum.setVisible(true);
     }//GEN-LAST:event_REPALBUM_ButtonBackActionPerformed
 
@@ -928,6 +1184,162 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.Menu_REPRODUZIRoptions.setVisible(true);
     }//GEN-LAST:event_CHOOSEALB_ButtonBackActionPerformed
 
+    //-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
+    
+    private void REPALBUM_ButtonPlayAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonPlayAllActionPerformed
+
+        this.playingAlbum = true;
+        this.REPALBUM_ButtonStopAlbum.setEnabled(true);
+        
+        //-----------------------------------------------------------------------
+        
+        List<String> elementos = new ArrayList<>();
+        
+        for (int i = 0; i < this.REPALBUM_listaconteudo.getModel().getSize(); i++) {
+            
+            elementos.add(this.REPALBUM_listaconteudo.getModel().getElementAt(i));
+        }
+        
+        //-----------------------------------------------------------------------
+
+        this.albumThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+          
+                playAlbum(elementos);
+                
+            }
+        });
+
+        this.albumThread.start();
+    }//GEN-LAST:event_REPALBUM_ButtonPlayAllActionPerformed
+    
+    //-----------------------------------------------------------------------------------------
+
+    public void playAlbum(List<String> content) {
+        
+        System.out.println("Album playing...");
+        
+        for (int nr = 0; nr < content.size(); nr++) {
+            
+            this.REPALBUM_CurrentContent.setText("Último conteúdo: " + content.get(nr));
+            
+            playContent(content.get(nr));
+            
+        }
+        
+        this.playingAlbum = false;
+    }
+    
+    //-----------------------------------------------------------------------------------------
+
+    public void playContent(String filename) {
+        
+        try {
+                
+            if (this.getExtensionOfFile(filename).equals("mp4")) {
+                
+                Desktop.getDesktop().open(new File("DB/Content/" + filename));
+                            
+            } else {
+            
+                this.currentContentPlayer.end();
+               
+                this.currentContentPlayer.setPath("DB/Content/" + filename);
+
+                boolean canPlayContent = this.currentContentPlayer.playMT(0);
+
+            }
+            
+        } catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null, "O ficheiro selecionado não pode ser reproduzido.");
+        }   
+
+    }
+    
+    private void REPALBUM_ButtonStopAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_ButtonStopAlbumActionPerformed
+        
+        System.out.println("Album stopped...");
+
+        this.REPALBUM_ButtonStopAlbum.setEnabled(false);
+                
+        this.albumThread.stop();
+    }//GEN-LAST:event_REPALBUM_ButtonStopAlbumActionPerformed
+
+    private void REPALBUM_randomizelistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPALBUM_randomizelistActionPerformed
+        
+        List<String> elementos = new ArrayList<>();
+        
+        for (int i = 0; i < this.REPALBUM_listaconteudo.getModel().getSize(); i++) {
+            
+            elementos.add(this.REPALBUM_listaconteudo.getModel().getElementAt(i));
+        }
+  
+        //-----------------------------------------------------------------------
+
+       
+        Collections.shuffle(elementos);
+            
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        model.addAll(elementos);
+        this.REPALBUM_listaconteudo.setModel(model);
+ 
+    }//GEN-LAST:event_REPALBUM_randomizelistActionPerformed
+
+    private void OPT_alterarcategoriaconteudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OPT_alterarcategoriaconteudoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_OPT_alterarcategoriaconteudoActionPerformed
+
+    private void UPLOAD_ButtonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPLOAD_ButtonUploadActionPerformed
+        
+        //this.controller.upload();
+        
+        List<String> elementos = new ArrayList<>();
+        
+        for (int i = 0; i < this.UPLOAD_listaconteudo.getModel().getSize(); i++) {
+            
+            elementos.add(this.UPLOAD_listaconteudo.getModel().getElementAt(i));
+        }        
+
+        if (elementos.size() > 0) {
+
+            String nomeAlbum = JOptionPane.showInputDialog(this.Menu_UPLOAD, "Nome do álbum novo: ");
+        
+            String base_path = "";
+            
+            this.controller.upload(nomeAlbum, elementos, base_path);
+            
+        } else {
+            
+            JOptionPane.showMessageDialog(this.Menu_UPLOAD, "Não existe conteúdo disponível na pasta selecionada!");
+        }
+        
+    }//GEN-LAST:event_UPLOAD_ButtonUploadActionPerformed
+
+    private void UPLOAD_filechooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPLOAD_filechooserActionPerformed
+        
+        File file = this.UPLOAD_filechooser.getSelectedFile();
+        String fullPath = file.getAbsolutePath();
+        
+        this.lastUploadPath = fullPath;
+        
+        List<String> filtrada = this.getOnlyMP3andMP4Files(this.controller.listNomesFicheirosDir(fullPath));
+
+        DefaultListModel model = new DefaultListModel();
+        model.clear();
+        model.addAll(filtrada);
+                
+        this.UPLOAD_listaconteudo.setModel(model);
+    }//GEN-LAST:event_UPLOAD_filechooserActionPerformed
+
+    private void UPLOAD_ButtonBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPLOAD_ButtonBackActionPerformed
+
+        this.Menu_UPLOAD.setVisible(false);
+        this.Menu_OPTIONS.setVisible(true);
+    }//GEN-LAST:event_UPLOAD_ButtonBackActionPerformed
     
     public void setInitialFormat() {
         
@@ -935,10 +1347,18 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));
         this.setTitle("Menu Inicial");
       
+        this.UPLOAD_filechooser.setApproveButtonText("Carregar conteúdo");
+        this.UPLOAD_filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
         this.Menu_CHOOSEalbum.setLocationRelativeTo(null);
         this.Menu_CHOOSEalbum.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
         this.Menu_CHOOSEalbum.setVisible(false);
         this.Menu_CHOOSEalbum.setTitle("Álbuns");   
+        
+        this.Menu_UPLOAD.setLocationRelativeTo(null);
+        this.Menu_UPLOAD.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_UPLOAD.setVisible(false);
+        this.Menu_UPLOAD.setTitle("Menu Upload");   
         
         this.Menu_OPTIONS.setLocationRelativeTo(null);
         this.Menu_OPTIONS.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
@@ -972,9 +1392,12 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.Menu_REPRODUZIR_biblioteca.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.Menu_CHOOSEalbum.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.Menu_REPRODUZIR_album.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_UPLOAD.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     public void run() {
+        
+        UIManager.put("FileChooser.readOnly", Boolean.TRUE);        
         
         this.initComponents();
         this.setInitialFormat();
@@ -1015,6 +1438,8 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     private javax.swing.JFrame Menu_REPRODUZIR_album;
     private javax.swing.JFrame Menu_REPRODUZIR_biblioteca;
     private javax.swing.JFrame Menu_REPRODUZIRoptions;
+    private javax.swing.JFrame Menu_UPLOAD;
+    private javax.swing.JButton OPT_alterarcategoriaconteudo;
     private javax.swing.JButton OPT_logout;
     private javax.swing.JLabel OPT_note;
     private javax.swing.JButton OPT_reproduzir;
@@ -1022,12 +1447,15 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     private javax.swing.JButton OPT_upload;
     private javax.swing.JLabel OPT_useridlabel;
     private javax.swing.JButton REPALBUM_ButtonBack;
-    private javax.swing.JLabel REPALBUM_ButtonCurrContent;
     private javax.swing.JButton REPALBUM_ButtonPause;
     private javax.swing.JButton REPALBUM_ButtonPlay;
+    private javax.swing.JButton REPALBUM_ButtonPlayAll;
     private javax.swing.JButton REPALBUM_ButtonResume;
+    private javax.swing.JButton REPALBUM_ButtonStopAlbum;
+    private javax.swing.JLabel REPALBUM_CurrentContent;
     private javax.swing.JLabel REPALBUM_albumname;
     private javax.swing.JList<String> REPALBUM_listaconteudo;
+    private javax.swing.JButton REPALBUM_randomizelist;
     private javax.swing.JScrollPane REPALBUM_scroll;
     private javax.swing.JLabel REPALBUM_tittle;
     private javax.swing.JButton REPBIBL_ButtonBack;
@@ -1043,6 +1471,14 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     private javax.swing.JButton REPOPT_ButtonBibliotecaMC;
     private javax.swing.JLabel REPOPT_Tittle;
     private javax.swing.JLabel REPOPT_note;
+    private javax.swing.JButton UPLOAD_ButtonBack;
+    private javax.swing.JButton UPLOAD_ButtonUpload;
+    private javax.swing.JLabel UPLOAD_caminholabel;
+    private javax.swing.JLabel UPLOAD_caminholabel1;
+    private javax.swing.JFileChooser UPLOAD_filechooser;
+    private javax.swing.JList<String> UPLOAD_listaconteudo;
+    private javax.swing.JScrollPane UPLOAD_scroll;
+    private javax.swing.JLabel UPLOAD_tittle;
     // End of variables declaration//GEN-END:variables
 
     private void updateBibliotecaList() {
@@ -1068,9 +1504,26 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         
         this.CHOOSEALB_listaalbuns.setModel(model);
     }
+    
+    
 
     private Object getExtensionOfFile(String list_content_selected) {
         
         return FilenameUtils.getExtension(list_content_selected);
+    }
+
+    private List<String> getOnlyMP3andMP4Files(List<String> listNomesFicheirosDir) {
+        
+        List<String> res = new ArrayList<>();
+        
+        for (String s: listNomesFicheirosDir) {
+            
+            if (this.getExtensionOfFile(s).equals("mp3") || this.getExtensionOfFile(s).equals("mp4")) {
+                
+                res.add(s);
+            }
+        }
+        
+        return res;
     }
 }

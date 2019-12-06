@@ -4,8 +4,10 @@ package dss.mediacenterapp.model.utilizadores;
 import dss.mediacenterapp.data.ConteudoPessoalDAO;
 import dss.mediacenterapp.model.albuns.Album;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Utilizador {
     
@@ -29,6 +31,7 @@ public class Utilizador {
     private ConteudoPessoalDAO conteudoPessoal;
     
     private Map<String, Album> albuns;
+    private Set<String> potenciaisAmigos;
     
     /*--------------------------------------------------------------------------*/
 
@@ -60,6 +63,7 @@ public class Utilizador {
         this.conteudoPessoal = new ConteudoPessoalDAO(this.email);
         
         this.albuns = new HashMap<>();
+        this.potenciaisAmigos = new HashSet<>();
     }
 
     public Utilizador() {
@@ -73,6 +77,7 @@ public class Utilizador {
         this.isTemporaryUser = false;
         
         this.albuns = new HashMap<>();
+        this.potenciaisAmigos = new HashSet<>();
     }
     
     /*--------------------------------------------------------------------------*/
@@ -126,5 +131,19 @@ public class Utilizador {
     public void adicionaAlbum(Album a) {
         
         this.albuns.put(a.getNome(), a);
+    }
+
+    public String categoriaFavorita() {
+        
+        return this.conteudoPessoal.categoriaFavorita();
+    }
+
+    public boolean temConteudo(String nomeC) {
+        
+        return this.conteudoPessoal.containsConteudo(nomeC);
+    }
+
+    public void adicionaPotenciaisAmigos(Set<String> emailsAmigos) {
+
     }
 }

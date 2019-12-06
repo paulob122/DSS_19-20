@@ -7,8 +7,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -84,6 +86,42 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
     }
 
+    public List<String> getOwners(String nomeC) {
+
+        List<String> emails = new ArrayList<>();
+        
+        Connection conn;
+        
+        try {
+                
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            
+            String sql_emails = "select u.email "
+                                  + "from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c where" +
+                                    " u.email = adu.idUserADU" +
+                                    " and adu.idAlbumADU = a.idAlbum" +
+                                    " and cda.idAlbumCDA = a.idAlbum" +
+                                    " and cda.idConteudoCDA = c.idConteudo" +
+                                    " and c.idConteudo = '" + nomeC + "' ";
+            
+            ResultSet rs = stm.executeQuery(sql_emails);
+
+            while (rs.next()) {
+                
+                emails.add(rs.getString(1));
+            }        
+            
+            return emails;
+
+        } catch (Exception e) {
+        
+            throw new NullPointerException(e.getMessage());
+        }        
+    }
+
+    
     @Override
     public boolean isEmpty() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

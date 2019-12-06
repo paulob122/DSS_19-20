@@ -102,4 +102,9 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         return this.model.getListaConteudoAlbum(nomeA);
     }
 
+    public boolean upload(String nomeAlbum, List<String> elementos, String base_path) {
+        
+        return this.model.upload(nomeAlbum, elementos, base_path);
+    }
+
 }
