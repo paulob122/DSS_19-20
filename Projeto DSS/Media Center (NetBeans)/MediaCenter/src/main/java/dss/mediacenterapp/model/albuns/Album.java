@@ -73,4 +73,9 @@ public class Album {
         
         return this.nome + " - (" + this.categoria + "): \n" + this.conteudo.toString();
     }
+
+    public boolean hasContent() {
+        
+        return this.conteudo.size() > 0;
+    }
 }

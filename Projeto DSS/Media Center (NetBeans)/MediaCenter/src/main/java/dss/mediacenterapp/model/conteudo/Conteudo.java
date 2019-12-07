@@ -59,27 +59,27 @@ public class Conteudo {
         return this.nome;
     }
 
-    private String getArtista() {
+    public String getArtista() {
         
         return this.artista;
     }
 
-    private String getCategoria() {
+    public String getCategoria() {
         
         return this.categoria;
     }
 
-    private boolean getIsMusic() {
+    public boolean getIsMusic() {
         
         return this.isMusic;
     }
 
-    private boolean getIsVideo() {
+    public boolean getIsVideo() {
         
         return this.isVideo;
     }
 
-    private String getFilePath() {
+    public String getFilePath() {
         
         return this.filepath;
     }

@@ -7,11 +7,18 @@ import dss.mediacenterapp.model.albuns.Album;
 import dss.mediacenterapp.model.conteudo.Conteudo;
 import dss.mediacenterapp.model.utilizadores.Utilizador;
 import dss.pubsub.DSSObservable;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 public class MediaCenter_LN extends DSSObservable {
@@ -22,6 +29,8 @@ public class MediaCenter_LN extends DSSObservable {
     
     private UtilizadorDAO utilizadorDB;
     private BibliotecaDAO bibliotecaDB;
+    
+    private static final String DB_Files_PATH = "DB/Content/";
     
     //--------------------------------------------------------------------------
 
@@ -95,9 +104,9 @@ public class MediaCenter_LN extends DSSObservable {
         return a.getListaConteudo();
     }
 
-    public boolean upload(String nomeAlbum, List<String> elementos, String base_path) {
+    public boolean upload(String nomeAlbum, List<String> elementos, String base_path) throws IOException {
 
-        boolean uploadOK = true;
+        boolean uploadOK = false;
         
         String categoriaFavorita = this.utilizadorAtual.categoriaFavorita();
         
@@ -120,6 +129,8 @@ public class MediaCenter_LN extends DSSObservable {
                 
             } else {
                 
+                //Existe na biblioteca do Media Center
+                
                 List<String> owners = this.getOwners(nomeC);
                 emailsAmigos.addAll(owners);
                 
@@ -129,12 +140,27 @@ public class MediaCenter_LN extends DSSObservable {
                 }
             }
         }
+                                        
+        if (novoA.hasContent()) {
+            
+            System.out.println("Owners: " + emailsAmigos);
+            System.out.println("Album: " + novoA.toString());
+
+            this.utilizadorAtual.adicionaAlbum(novoA);
+            this.utilizadorAtual.insereAlbumNoConteudoPessoal(novoA);
+                    
+            emailsAmigos.remove(this.utilizadorAtual.getEmail());
+    
+            this.utilizadorAtual.adicionaPotenciaisAmigos(emailsAmigos);
+            this.utilizadorDB.adicionaPotenciaisAmigos(this.utilizadorAtual.getEmail(), emailsAmigos);        
         
-        this.utilizadorAtual.adicionaPotenciaisAmigos(emailsAmigos);
-        
-        System.out.println("Owners: " + emailsAmigos);
-        System.out.println("Album: " + novoA.toString());
-        
+            uploadOK = true;
+            
+        } else {
+            
+            uploadOK = false;
+        }
+                
         return uploadOK;
     }
     
@@ -149,8 +175,15 @@ public class MediaCenter_LN extends DSSObservable {
     
     }
 
-    private void adicionaFicheiro(String filepath) {
+    private void adicionaFicheiro(String filepath) throws IOException {
+                
+        System.out.println("Adicionando ficheiro:");
+        System.out.println("\tSource: " + filepath);
+        System.out.println("\tDest: " + "DB/Content/");
         
-        System.out.println("Adicionando ficheiro para a DB: " + filepath);
+        File source = new File(filepath);
+        File dest = new File(DB_Files_PATH);
+        
+        FileUtils.copyFileToDirectory(source, dest);
     }
 }

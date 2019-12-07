@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UtilizadorDAO implements Map<String, Utilizador> {
     
@@ -133,6 +134,37 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
 
     }
+    
+    public void adicionaPotenciaisAmigos(String email, Set<String> emailsAmigos) {
+        
+        Connection conn;
+        
+        try {
+           
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+                        
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                        
+            conn.setAutoCommit(false);
+
+            for (String a : emailsAmigos) {
+                
+                String sql_amigo = "insert into Amigo values ('" + a + "')";
+                String sql_amigoDoUser = "insert into AmigosDoUtilizador values ('" + email + "', '" + a + "');";
+                
+                stm.addBatch(sql_amigo);
+                stm.addBatch(sql_amigoDoUser);
+            }
+            
+            stm.executeBatch();
+            
+            conn.commit();
+            
+            return;
+        }
+        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        
+    }
 
     @Override
     public Utilizador put(String arg0, Utilizador arg1) {
@@ -162,6 +194,5 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
     @Override
     public Set<Entry<String, Utilizador>> entrySet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }    
 }

@@ -117,6 +117,11 @@ public class Utilizador {
         
         return this.nome;
     }
+    
+    public String getEmail() {
+        
+        return this.email;
+    }
 
     public List<String> getListaAlbuns() {
         
@@ -144,6 +149,13 @@ public class Utilizador {
     }
 
     public void adicionaPotenciaisAmigos(Set<String> emailsAmigos) {
-
+        
+        this.potenciaisAmigos.addAll(emailsAmigos);
     }
+
+    public void insereAlbumNoConteudoPessoal(Album novoA) {
+        
+        this.conteudoPessoal.adicionaAlbum(novoA);
+    }
+    
 }

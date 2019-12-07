@@ -11,6 +11,7 @@ import dss.pubsub.DSSObservable;
 import dss.pubsub.DSSObserver;
 import dss.mediacenterapp.model.utilizadores.Utilizador;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +103,7 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         return this.model.getListaConteudoAlbum(nomeA);
     }
 
-    public boolean upload(String nomeAlbum, List<String> elementos, String base_path) {
+    public boolean upload(String nomeAlbum, List<String> elementos, String base_path) throws IOException {
         
         return this.model.upload(nomeAlbum, elementos, base_path);
     }

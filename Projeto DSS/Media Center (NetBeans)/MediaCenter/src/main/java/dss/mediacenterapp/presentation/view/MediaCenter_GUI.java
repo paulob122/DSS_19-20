@@ -16,9 +16,12 @@ import java.awt.Desktop;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -1289,9 +1292,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     }//GEN-LAST:event_OPT_alterarcategoriaconteudoActionPerformed
 
     private void UPLOAD_ButtonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPLOAD_ButtonUploadActionPerformed
-        
-        //this.controller.upload();
-        
+       
         List<String> elementos = new ArrayList<>();
         
         for (int i = 0; i < this.UPLOAD_listaconteudo.getModel().getSize(); i++) {
@@ -1300,12 +1301,31 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         }        
 
         if (elementos.size() > 0) {
-
+            
             String nomeAlbum = JOptionPane.showInputDialog(this.Menu_UPLOAD, "Nome do álbum novo: ");
         
-            String base_path = "";
+            String base_path = this.lastUploadPath;
             
-            this.controller.upload(nomeAlbum, elementos, base_path);
+            try {
+                
+                
+                boolean ok = this.controller.upload(nomeAlbum, elementos, base_path);
+                
+                if (ok) {
+                    
+                    
+                    JOptionPane.showMessageDialog(this.Menu_UPLOAD, "O upload foi efetuado com sucesso!");
+                
+                } else {
+                    
+                    JOptionPane.showMessageDialog(this.Menu_UPLOAD, "Não foi feito upload, já tem esse conteúdo na sua coleção!");                    
+                }
+                                
+            } catch (IOException ex) {
+                
+                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(this.Menu_UPLOAD, "Oops! O upload falhou, tente novamente mais tarde.");
+            }
             
         } else {
             
@@ -1319,7 +1339,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         File file = this.UPLOAD_filechooser.getSelectedFile();
         String fullPath = file.getAbsolutePath();
         
-        this.lastUploadPath = fullPath;
+        this.lastUploadPath = fullPath + "/";
         
         List<String> filtrada = this.getOnlyMP3andMP4Files(this.controller.listNomesFicheirosDir(fullPath));
 
@@ -1342,7 +1362,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));
         this.setTitle("Menu Inicial");
       
-        this.UPLOAD_filechooser.setApproveButtonText("Carregar conteúdo");
+        this.UPLOAD_filechooser.setApproveButtonText("Listar conteúdo");
         this.UPLOAD_filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         this.Menu_CHOOSEalbum.setLocationRelativeTo(null);

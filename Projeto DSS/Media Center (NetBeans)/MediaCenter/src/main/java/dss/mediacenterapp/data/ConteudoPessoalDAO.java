@@ -5,6 +5,7 @@ import dss.mediacenterapp.model.albuns.Album;
 import dss.mediacenterapp.model.conteudo.Conteudo;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -40,6 +41,54 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
     
     //--------------------------------------------------------------------------
 
+    public void adicionaAlbum(Album novoA) {
+        
+        Connection conn;
+        
+        try {
+                
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+                      
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            
+            //Criar o album
+            String sql_criaAlbum = "insert into Album values ('" + novoA.getNome() + "', '" + novoA.getCategoria() + "');";
+            //Adicionar o album ao utilizador atual
+            String sql_ligaAlbumUtilizador = "insert into AlbunsDoUtilizador (idUserADU, idAlbumADU) values ('" + this.email_utilizador + "', '" + novoA.getNome() + "');";
+
+          
+            conn.setAutoCommit(false);
+
+            stm.addBatch(sql_criaAlbum);
+            stm.addBatch(sql_ligaAlbumUtilizador);
+            
+            List<Conteudo> conteudosParaAdicionar = novoA.getListaConteudo();
+            
+            for (Conteudo c : conteudosParaAdicionar) {
+                                
+                String sql_insereConteudo = "insert into Conteudo values ('" + c.getNome() + "', '" + c.getArtista() + "', " + c.getIsMusic() + ", " + c.getIsVideo() + ", '" + c.getFilePath() + "', '" + c.getCategoria() + "');";
+                String sql_ligaConteudoAoAlbum = "insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ('" + novoA.getNome() + "', '" + c.getNome() + "', '" + c.getCategoria() + "');";
+                
+                stm.addBatch(sql_insereConteudo);
+                stm.addBatch(sql_ligaConteudoAoAlbum);
+            }
+            
+            //Executar todas as querys
+            
+            stm.executeBatch();
+            
+            conn.commit();
+                        
+            return;
+
+        } catch (Exception e) {
+        
+            System.err.println(e.getMessage());
+        }        
+    }
+
+    //--------------------------------------------------------------------------
+    
     public String categoriaFavorita() {
         
         String cat_fav = "nenhuma";
@@ -268,6 +317,5 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
     @Override
     public Set<Entry<String, Conteudo>> entrySet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }    
 }
