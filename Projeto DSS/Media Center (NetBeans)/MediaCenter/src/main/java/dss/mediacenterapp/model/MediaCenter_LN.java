@@ -108,7 +108,8 @@ public class MediaCenter_LN extends DSSObservable {
 
         boolean uploadOK = false;
         
-        String categoriaFavorita = this.utilizadorAtual.categoriaFavorita();
+        //String categoriaFavorita = this.utilizadorAtual.categoriaFavorita();
+        String categoriaFavorita = "Nenhuma";
         
         Album novoA = new Album(nomeAlbum, categoriaFavorita);
         Set<String> emailsAmigos = new HashSet<>();
@@ -185,5 +186,31 @@ public class MediaCenter_LN extends DSSObservable {
         File dest = new File(DB_Files_PATH);
         
         FileUtils.copyFileToDirectory(source, dest);
+    }
+
+    public Utilizador getUtilizadorAtual() {
+        
+        return this.utilizadorAtual.clone();
+    }
+
+    public List<String> getListaConteudoUserAtual() {
+        
+        return this.utilizadorAtual.getListaConteudoPessoal();
+    }
+
+    public void editarConteudoUtilizadorAtual(String conteudoSelecionado, String catnova, String catantiga) {
+        
+        List<String> owners = this.bibliotecaDB.getRealOwners(conteudoSelecionado, catantiga);
+        
+        int tam = owners.size();
+        
+        Conteudo c = this.utilizadorAtual.getConteudo(conteudoSelecionado);
+        
+        if (tam == 1) {
+            
+            c.setCategoria(catnova);
+            
+            this.utilizadorAtual.updateConteudo(c, catantiga);
+        }
     }
 }

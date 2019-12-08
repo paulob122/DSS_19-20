@@ -108,4 +108,19 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         return this.model.upload(nomeAlbum, elementos, base_path);
     }
 
+    public Utilizador getUtilizadorAtual() {
+        
+        return this.model.getUtilizadorAtual();
+    }
+
+    public List<String> getListaConteudoUserAtual() {
+        
+        return this.model.getListaConteudoUserAtual();
+    }
+
+    public void editarConteudoUtilizadorAtual(String conteudoSelecionado, String catnova, String catantiga) {
+        
+        this.model.editarConteudoUtilizadorAtual(conteudoSelecionado, catnova, catantiga);
+    }
+
 }

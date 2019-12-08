@@ -6,34 +6,37 @@ delete from ConteudoDoAlbum;
 delete from Categoria;
 delete from Utilizador;
 
-insert into Utilizador values ("jose.fernandes@gmail.com", "José Fernandes", "password", 0, 0);
-insert into Utilizador values ("maria.monteiro@hotmail.com", "Maria Monteiro", "password", 0, 0);
-insert into Utilizador values ("filipe.franco@gmail.com", "Filipe Franco", "password", 0, 0);
-insert into Utilizador values ("pedro.jose@outlook.pt", "Pedro José", "password", 0, 0);
-insert into Utilizador values ("test", "UserTest", "", 0, 0);
+insert into Utilizador values ("user1", "Pedro José", "password", 0, 0);
+insert into Utilizador values ("user2", "UserTest", "password", 0, 0);
+
+update Utilizador set nomeUtilizador = "Utilizador1" where email = "user1"; 
+update Utilizador set nomeUtilizador = "Utilizador2" where email = "user2"; 
 
 insert into Categoria values ("Rock");
 insert into Categoria values ("Metal");
 insert into Categoria values ("Pop");
 insert into Categoria values ("Blues");
-insert into Categoria values ("Video");
+insert into Categoria values ("Jazz");
 insert into Categoria values ("CategoriaTeste");
+insert into Categoria values ("Nenhuma");
+insert into Categoria values ("Video");
 
-insert into Album values ("Músicas de Rock", "Rock");
-insert into Album values ("TESTE", "CategoriaTeste");
+insert into Album values ("AlbumUser1", "Rock");
+insert into Album values ("AlbumUser2", "Metal");
 
-insert into AlbunsDoUtilizador (idUserADU, idAlbumADU) values ("test", "Músicas de Rock");
-insert into AlbunsDoUtilizador (idUserADU, idAlbumADU) values ("test", "TESTE");
+insert into AlbunsDoUtilizador (idUserADU, idAlbumADU) values ("user1", "AlbumUser1");
+insert into AlbunsDoUtilizador (idUserADU, idAlbumADU) values ("user2", "AlbumUser2");
 
 insert into Conteudo values ("Metallica_Fade-to-black.mp3", "Metallica", 1, 0, "DB/Content/Metallica_Fade-to-black.mp3", "Metal");
 insert into Conteudo values ("SampleVideo.mp4", "SampleVideo", 0, 1, "DB/Content/SampleVideo.mp4", "Video");
-insert into Conteudo values ("Odyssey.mp3", "Odyssey", 1, 0, "DB/Content/Odyssey.mp3", "CategoriaTeste");
-insert into Conteudo values ("RolandCLine01.mp3", "Roland", 1, 0, "DB/Content/RolandCLine01.mp3", "CategoriaTeste");
-insert into Conteudo values ("Solina.mp3", "Solina", 1, 0, "DB/Content/Solina.mp3", "CategoriaTeste");
 
-insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("Músicas de Rock", "SampleVideo.mp4", "Video");
-insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("Músicas de Rock", "Metallica_Fade-to-black.mp3", "Metal");
+insert into Conteudo values ("Odyssey.mp3", "Odyssey", 1, 0, "DB/Content/Odyssey.mp3", "Pop");
+insert into Conteudo values ("RolandCLine01.mp3", "Roland", 1, 0, "DB/Content/RolandCLine01.mp3", "Pop");
+insert into Conteudo values ("Solina.mp3", "Solina", 1, 0, "DB/Content/Solina.mp3", "Pop");
 
-insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("TESTE", "Odyssey.mp3", "CategoriaTeste");
-insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("TESTE", "RolandCLine01.mp3", "CategoriaTeste");
-insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("TESTE", "Solina.mp3", "CategoriaTeste");
+insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("AlbumUser1", "Metallica_Fade-to-black.mp3", "Metal");
+insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("AlbumUser1", "SampleVideo.mp4", "Video");
+
+insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("AlbumUser2", "Odyssey.mp3", "Pop");
+insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("AlbumUser2", "RolandCLine01.mp3", "Pop");
+insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("AlbumUser2", "Solina.mp3", "Pop");

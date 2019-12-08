@@ -50,7 +50,7 @@ public class Conteudo {
     public String toString() {
         
         return this.nome + "\n";
-    }
+    } 
     
     //--------------------------------------------------------------------------
 
@@ -82,6 +82,11 @@ public class Conteudo {
     public String getFilePath() {
         
         return this.filepath;
+    }
+
+    public void setCategoria(String catnova) {
+        
+        this.categoria = catnova;
     }
 
 }

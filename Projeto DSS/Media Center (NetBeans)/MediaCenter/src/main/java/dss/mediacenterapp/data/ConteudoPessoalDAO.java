@@ -65,11 +65,30 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
             List<Conteudo> conteudosParaAdicionar = novoA.getListaConteudo();
             
             for (Conteudo c : conteudosParaAdicionar) {
-                                
-                String sql_insereConteudo = "insert into Conteudo values ('" + c.getNome() + "', '" + c.getArtista() + "', " + c.getIsMusic() + ", " + c.getIsVideo() + ", '" + c.getFilePath() + "', '" + c.getCategoria() + "');";
+                
+                //Ver se o conteudo com a categoria já foi adicionado à BD
+                
+                Statement verifica = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                
+                String sql_verificaExistenciaDeConteudoComCategoria = "select count(*) from Conteudo c where c.idConteudo = '" + c.getNome() + "' and c.Categoria_idNomeCategoria = '" + c.getCategoria() + "';"; 
+                
+                ResultSet rs = verifica.executeQuery(sql_verificaExistenciaDeConteudoComCategoria);
+            
+                int existe = 0;
+                
+                if (rs.next()) {
+
+                    existe = rs.getInt(1);
+                }
+                
+                if (existe == 0) {
+                                    
+                    String sql_insereConteudo = "insert into Conteudo values ('" + c.getNome() + "', '" + c.getArtista() + "', " + c.getIsMusic() + ", " + c.getIsVideo() + ", '" + c.getFilePath() + "', '" + c.getCategoria() + "');";
+                    stm.addBatch(sql_insereConteudo);
+                }
+                
                 String sql_ligaConteudoAoAlbum = "insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ('" + novoA.getNome() + "', '" + c.getNome() + "', '" + c.getCategoria() + "');";
                 
-                stm.addBatch(sql_insereConteudo);
                 stm.addBatch(sql_ligaConteudoAoAlbum);
             }
             
@@ -91,7 +110,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
     
     public String categoriaFavorita() {
         
-        String cat_fav = "nenhuma";
+        String cat_fav = "Nenhuma";
         
         Connection conn;
         
@@ -258,7 +277,135 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
     }
 
     //--------------------------------------------------------------------------
-    
+
+    public List<String> getListaConteudo() {
+
+        
+        List<String> listaConteudo = new ArrayList<>();
+        
+        Connection conn;
+        
+        try {
+                
+        
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            
+            String sql_conteudoPessoal = "select c.idConteudo, c.Categoria_idNomeCategoria from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c " +
+                                         "where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo " + 
+                                         "and u.email = '" + this.email_utilizador + "';";
+            
+            ResultSet rs = stm.executeQuery(sql_conteudoPessoal);
+
+            while(rs.next()) {
+                
+                listaConteudo.add(rs.getString(1) + " [" + rs.getString(2) + "]");
+            }
+                 
+            return listaConteudo;
+
+        } catch (Exception e) {
+        
+            throw new NullPointerException(e.getMessage());
+        }
+    }
+
+    //--------------------------------------------------------------------------
+
+    public Conteudo getConteudo(String nomeC) {     
+
+        Connection conn;
+        
+        try {
+           
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            
+            Conteudo cont = null;
+            
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            
+            String sql = "select * from Conteudo where idConteudo = '" + nomeC + "';";
+            
+            ResultSet rs = stm.executeQuery(sql);
+            
+            Conteudo c = null;
+                    
+            if (rs.next()) {
+                
+                c = new Conteudo(rs.getString(1), rs.getString(2), rs.getBoolean(3), rs.getBoolean(4), rs.getString(5), rs.getString(6));
+            }
+                        
+            return c;
+        
+        } catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }
+        
+    }
+
+    //--------------------------------------------------------------------------
+
+    public void updateConteudo(Conteudo c, String catAntiga) {
+        
+        //----------------------------------------------------------------------
+        
+        String nomeAlbumDoConteudo = "";
+        
+        Connection conn;
+        
+        try {
+           
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                        
+            String sql = "select cda.idAlbumCDA from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c "
+                    + "where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo "
+                    + "and c.idConteudo = '" + c.getNome() + "' and u.email = '" + this.email_utilizador + "';"; 
+                    
+            ResultSet rs = stm.executeQuery(sql);
+                                
+            if (rs.next()) {
+                
+                nomeAlbumDoConteudo = rs.getString(1);               
+            }
+                        
+            String deleteCDA = "delete from ConteudoDoAlbum where idAlbumCDA = '" + nomeAlbumDoConteudo + "' "
+                             + "and idConteudoCDA = '" + c.getNome() + "' "
+                             + "and idCategoriaCDA = '" + catAntiga + "';";
+            
+            String updateCont = "update Conteudo set Categoria_idNomeCategoria = '" + c.getCategoria() + "' "
+                              + "where idConteudo = '" + c.getNome() + "' "
+                              + "and Categoria_idNomeCategoria = '" + catAntiga + "';";
+
+            String insertCDA = "insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) "
+                             + "values ('" + nomeAlbumDoConteudo + "', '" + c.getNome() + "', '" + c.getCategoria() + "');";
+            
+            System.out.println("Starting update...");
+            System.out.println(deleteCDA);
+            System.out.println(updateCont);
+            System.out.println(insertCDA);
+            System.out.println("done.");
+
+            conn.setAutoCommit(false);
+
+            stm.addBatch(deleteCDA);
+            stm.addBatch(updateCont);
+            stm.addBatch(insertCDA);
+            
+            stm.executeBatch();
+            conn.commit();
+            
+        } catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }       
+
+        //----------------------------------------------------------------------
+    }
+
+    //--------------------------------------------------------------------------
+
     @Override
     public int size() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

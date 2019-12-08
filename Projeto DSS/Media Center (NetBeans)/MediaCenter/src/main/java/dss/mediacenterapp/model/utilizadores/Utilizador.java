@@ -3,6 +3,7 @@ package dss.mediacenterapp.model.utilizadores;
 
 import dss.mediacenterapp.data.ConteudoPessoalDAO;
 import dss.mediacenterapp.model.albuns.Album;
+import dss.mediacenterapp.model.conteudo.Conteudo;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -78,6 +79,20 @@ public class Utilizador {
         
         this.albuns = new HashMap<>();
         this.potenciaisAmigos = new HashSet<>();
+    }
+    
+    public Utilizador (Utilizador copia) {
+        
+        this.nome = copia.getNome();
+        this.email = copia.getEmail();
+        this.password = copia.getPassword();
+        this.typeOfUser = copia.getTypeOfUser();
+        this.potenciaisAmigos = copia.getPotenciaisAmigos();
+    }
+    
+    public Utilizador clone() {
+        
+        return new Utilizador(this);
     }
     
     /*--------------------------------------------------------------------------*/
@@ -156,6 +171,36 @@ public class Utilizador {
     public void insereAlbumNoConteudoPessoal(Album novoA) {
         
         this.conteudoPessoal.adicionaAlbum(novoA);
+    }
+
+    public String getPassword() {
+        
+        return this.password;
+    }
+
+    public String getTypeOfUser() {
+        
+        return this.typeOfUser;
+    }
+
+    public Set<String> getPotenciaisAmigos() {
+        
+        return new HashSet<>(this.potenciaisAmigos);
+    }
+
+    public List<String> getListaConteudoPessoal() {
+        
+        return this.conteudoPessoal.getListaConteudo();
+    }
+
+    public Conteudo getConteudo(String conteudoSelecionado) {
+        
+        return this.conteudoPessoal.getConteudo(conteudoSelecionado);
+    }
+
+    public void updateConteudo(Conteudo c, String catant) {
+        
+        this.conteudoPessoal.updateConteudo(c, catant);
     }
     
 }

@@ -121,6 +121,37 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         }        
     }
 
+    public List<String> getRealOwners(String nomeC, String categoria) {
+
+        List<String> emails = new ArrayList<>();
+        
+        Connection conn;
+        
+        try {
+      
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            
+            String sql_emails = "select u.email from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c " +
+                                "where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo " + 
+                                "and c.idConteudo = '" + nomeC + "' and c.Categoria_idNomeCategoria = '" + categoria + "';";
+                    
+            ResultSet rs = stm.executeQuery(sql_emails);
+
+            while (rs.next()) {
+                
+                emails.add(rs.getString(1));
+            }        
+            
+            return emails;
+
+        } catch (Exception e) {
+        
+            throw new NullPointerException(e.getMessage());
+        }        
+    }
+
     
     @Override
     public boolean isEmpty() {
@@ -152,7 +183,6 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
             
             if (rs.next()) {
                 
-
             } 
             
             return cont;
@@ -189,13 +219,13 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
             
             Statement stm = conn.createStatement();
             
-            String sql = "SELECT c.idConteudo, c.isVideo FROM Conteudo c";
+            String sql = "SELECT distinct c.idConteudo, c.isVideo, c.Categoria_idNomeCategoria FROM Conteudo c";
             
             ResultSet rs = stm.executeQuery(sql);
             
             while (rs.next()) {
                 
-                res.add(rs.getString(1));
+                res.add(rs.getString(1) + " [" + rs.getString(3) + "]");
             } 
             
             return res;
