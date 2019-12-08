@@ -205,12 +205,14 @@ public class MediaCenter_LN extends DSSObservable {
         int tam = owners.size();
         
         Conteudo c = this.utilizadorAtual.getConteudo(conteudoSelecionado);
-        
+        c.setCategoria(catnova);
+
         if (tam == 1) {
-            
-            c.setCategoria(catnova);
-            
+                        
             this.utilizadorAtual.updateConteudo(c, catantiga);
+        } else {
+            
+            this.utilizadorAtual.replaceConteudo(c, catantiga);
         }
     }
 }

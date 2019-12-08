@@ -406,6 +406,60 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
 
     //--------------------------------------------------------------------------
 
+    public void replaceConteudo(Conteudo c, String catantiga) {
+        
+        String nomeAlbumDoConteudo = "";
+        
+        Connection conn;
+        
+        try {
+           
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            
+            Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                        
+            String sql = "select cda.idAlbumCDA from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c "
+                    + "where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo "
+                    + "and c.idConteudo = '" + c.getNome() + "' and u.email = '" + this.email_utilizador + "';"; 
+                    
+            ResultSet rs = stm.executeQuery(sql);
+                                
+            if (rs.next()) {
+                
+                nomeAlbumDoConteudo = rs.getString(1);               
+            }
+                        
+            String deleteCDA = "delete from ConteudoDoAlbum where idAlbumCDA = '" + nomeAlbumDoConteudo + "' "
+                             + "and idConteudoCDA = '" + c.getNome() + "' "
+                             + "and idCategoriaCDA = '" + catantiga + "';";
+            
+            String insertConteudo = "insert into Conteudo values ('" + c.getNome() + "', '" + c.getNome() + "', 0, 1, '" + c.getFilePath() + "', '" + c.getCategoria() + "');";
+            
+            String insertCDA = "insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) "
+                             + "values ('" + nomeAlbumDoConteudo + "', '" + c.getNome() + "', '" + c.getCategoria() + "');";
+            
+            System.out.println("Starting update...");
+            System.out.println(deleteCDA);
+            System.out.println(insertConteudo);
+            System.out.println(insertCDA);
+            System.out.println("done.");
+
+            conn.setAutoCommit(false);
+
+            stm.addBatch(deleteCDA);
+            stm.addBatch(insertConteudo);
+            stm.addBatch(insertCDA);
+            
+            stm.executeBatch();
+            conn.commit();
+            
+       } catch (Exception e) {
+            throw new NullPointerException(e.getMessage());
+        }          
+    }
+
+    //--------------------------------------------------------------------------
+
     @Override
     public int size() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -465,4 +519,5 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
     public Set<Entry<String, Conteudo>> entrySet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }    
+
 }

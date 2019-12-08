@@ -202,5 +202,10 @@ public class Utilizador {
         
         this.conteudoPessoal.updateConteudo(c, catant);
     }
+
+    public void replaceConteudo(Conteudo c, String catantiga) {
+        
+        this.conteudoPessoal.replaceConteudo(c, catantiga);
+    }
     
 }
