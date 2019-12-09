@@ -129,6 +129,18 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
                 user = new Utilizador(rs.getString(1), rs.getString(3), rs.getString(2), rs.getInt(4) > 0 ? true : false, rs.getInt(5) > 0 ? true : false);
             } 
             
+            String sql_getamigos = "select a.emailAmigo from Utilizador u, Amigo a, AmigosDoUtilizador adu" + 
+                                   " where u.email = adu.Utilizador_email and adu.Amigo_emailAmigo = a.emailAmigo and u.email = '" + (String)key + "';";
+
+            Statement s2 = conn.createStatement();
+            
+            rs = s2.executeQuery(sql_getamigos);
+            
+            while (rs.next()) {
+                
+                user.adicionaAmigo(rs.getString(1));
+            }
+            
             return user;
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}

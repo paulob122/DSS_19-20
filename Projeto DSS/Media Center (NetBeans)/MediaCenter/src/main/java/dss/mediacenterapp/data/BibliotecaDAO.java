@@ -219,13 +219,13 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
             
             Statement stm = conn.createStatement();
             
-            String sql = "SELECT distinct c.idConteudo, c.isVideo, c.Categoria_idNomeCategoria FROM Conteudo c";
+            String sql = "SELECT distinct c.idConteudo FROM Conteudo c";
             
             ResultSet rs = stm.executeQuery(sql);
             
             while (rs.next()) {
                 
-                res.add(rs.getString(1) + " [" + rs.getString(3) + "]");
+                res.add(rs.getString(1));
             } 
             
             return res;

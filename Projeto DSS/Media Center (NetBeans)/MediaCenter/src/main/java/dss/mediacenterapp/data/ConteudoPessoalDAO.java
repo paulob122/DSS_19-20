@@ -177,7 +177,8 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
                                             " u.email = adu.idUserADU" +
                                             " and adu.idAlbumADU = a.idAlbum" +
                                             " and cda.idAlbumCDA = a.idAlbum" +
-                                            " and cda.idConteudoCDA = c.idConteudo" +
+                                            " and cda.idConteudoCDA = c.idConteudo " +
+                                            "and c.Categoria_idNomeCategoria = cda.idCategoriaCDA" +
                                             " and u.email = '" + this.email_utilizador + "'"
                                             + " and a.idAlbum = '" + nomeAlbum + "'";            
             

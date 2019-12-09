@@ -210,6 +210,7 @@ public class MediaCenter_LN extends DSSObservable {
         if (tam == 1) {
                         
             this.utilizadorAtual.updateConteudo(c, catantiga);
+        
         } else {
             
             this.utilizadorAtual.replaceConteudo(c, catantiga);

@@ -1,9 +1,18 @@
 
 #Selecionar o conteúdo de um utilizador
 
-select c.idConteudo, a.idAlbum, c.Categoria_idNomeCategoria from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c
-where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo
+select distinct cda.*, c.Categoria_idNomeCategoria from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c
+where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo and c.Categoria_idNomeCategoria = cda.idCategoriaCDA
 and u.email = "user2";
+
+select * from Conteudo;
+
+select a.emailAmigo from Utilizador u, Amigo a, AmigosDoUtilizador adu
+where u.email = adu.Utilizador_email and adu.Amigo_emailAmigo = a.emailAmigo and u.email = "user2";
+
+delete from ConteudoDoAlbum where idAlbumCDA = "album1" and idConteudoCDA = "music_upload_1.mp3" and idCategoriaCDA = "Nenhuma";
+insert into Conteudo values ("music_upload_1.mp3", "music_upload_1.mp3", 1, 0, "path", "Metal");
+insert into ConteudoDoAlbum (idAlbumCDA, idConteudoCDA, idCategoriaCDA) values ("album1", "music_upload_1.mp3", "Metal");
 
 delete from Album where idAlbum = "Músicas de Rock";
 delete from AlbunsDoUtilizador where idAlbumADU = "Músicas de Rock";

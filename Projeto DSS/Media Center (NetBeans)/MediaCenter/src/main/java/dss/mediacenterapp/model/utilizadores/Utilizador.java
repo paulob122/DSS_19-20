@@ -167,6 +167,11 @@ public class Utilizador {
         
         this.potenciaisAmigos.addAll(emailsAmigos);
     }
+    
+    public void adicionaAmigo(String email) {
+        
+        this.potenciaisAmigos.add(email);
+    }
 
     public void insereAlbumNoConteudoPessoal(Album novoA) {
         

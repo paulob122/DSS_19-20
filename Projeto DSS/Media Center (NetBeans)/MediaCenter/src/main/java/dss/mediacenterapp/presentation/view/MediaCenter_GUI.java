@@ -1162,8 +1162,8 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
 
     private void MAIN_ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MAIN_ButtonLoginActionPerformed
         
-        this.Menu_LOGINform.setVisible(true);
         this.setVisible(false);
+        this.Menu_LOGINform.setVisible(true);
         
         this.LOGIN_emailfield.setText("");
         this.LOGIN_passfield.setText("");
@@ -1316,10 +1316,6 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         }
         
         try {
-                
-            String parts[] = conteudoSelecionado.split(" \\[");
-            
-            conteudoSelecionado = parts[0];
             
             if (this.getExtensionOfFile(conteudoSelecionado).equals("mp4")) {
                 
