@@ -5,7 +5,6 @@ import dss.mediacenterapp.model.albuns.Album;
 import dss.mediacenterapp.model.conteudo.Conteudo;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -14,16 +13,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Classe que implementa um DAO para aceder às tabelas de conteudo pessoal de um
+ * utilizador, os seus albuns e conteudos
+ * da base de dados.
+ * 
+ * @author Grupo 1
+ */
 public class ConteudoPessoalDAO implements Map<String, Conteudo> {
 
-    //--------------------------------------------------------------------------
+    //**************************************************************************
     
+    /**
+     * instancia de ConteudoPessoalDAO
+     */
     private ConteudoPessoalDAO inst = null;
     
+    /**
+     * email do utilizador ao qual se pretende aceder ao seu conteudo
+     */
     private String email_utilizador;
     
-    //--------------------------------------------------------------------------
+    //**************************************************************************
 
+    /**
+     * Construtor parameterizado do DAO com o email associado ao utilizador em questao
+     * @param email_user email do utilizador
+     */
     public ConteudoPessoalDAO (String email_user) {
         
         this.email_utilizador = email_user;
@@ -39,15 +55,18 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         
     }
     
-    //--------------------------------------------------------------------------
-
+    /**
+     * Adiciona um novo album ao conteudo pessoal do utilizador.
+     * 
+     * @param novoA Album novo 
+     */
     public void adicionaAlbum(Album novoA) {
         
         Connection conn;
         
         try {
                 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
                       
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             
@@ -106,8 +125,10 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         }        
     }
 
-    //--------------------------------------------------------------------------
-    
+    /**
+     * Determina a categoria mais comum na coleção do utilizador
+     * @return categoria favorita
+     */
     public String categoriaFavorita() {
         
         String cat_fav = "Nenhuma";
@@ -116,7 +137,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         
         try {
                 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -145,8 +166,13 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         }
     }
     
-    //--------------------------------------------------------------------------
 
+    /**
+     * Metodo que vai buscar o album associado a um dado nome na base de dados
+     * do conteudo pessoal do utilizador.
+     * @param nomeAlbum nome do album
+     * @return o Album
+     */
     public Album getAlbum(String nomeAlbum) {
         
         Album alb = null;
@@ -155,7 +181,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         
         try {
                 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -205,6 +231,10 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         
     }
     
+    /**
+     * retorna a lista de nomes dos albuns que um utilizador possui
+     * @return 
+     */
     public List<String> getListaAlbuns() {
         
         List<String> nomesAlbuns = new ArrayList<>();
@@ -214,7 +244,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         try {
                 
         
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -238,8 +268,12 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         }
     }
     
-    //--------------------------------------------------------------------------
 
+    /**
+     * Determina se o utilizador possui ou não um determinado conteudo
+     * @param nomeC nome do conteudo
+     * @return true caso possua
+     */
     public boolean containsConteudo(String nomeC) {
 
         boolean temConteudo = true;
@@ -249,7 +283,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         try {
                 
         
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -277,8 +311,10 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         }       
     }
 
-    //--------------------------------------------------------------------------
-
+    /**
+     * retorna a lista de nomes do conteudo que o utilizador possui 
+     * @return lista de nomes dos conteudos
+     */
     public List<String> getListaConteudo() {
 
         
@@ -289,7 +325,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         try {
                 
         
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -312,15 +348,18 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         }
     }
 
-    //--------------------------------------------------------------------------
-
-    public Conteudo getConteudo(String nomeC) {     
+    /**
+     * Vai buscar o conteudo associado a um dado nome
+     * @param nomeC nome do conteudo
+     * @return o Conteudo
+     */
+    public Conteudo getConteudo(String nomeC) {
 
         Connection conn;
         
         try {
            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Conteudo cont = null;
             
@@ -345,8 +384,11 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         
     }
 
-    //--------------------------------------------------------------------------
-
+    /**
+     * Atualiza o conteudo associado a um dado conteudo passado como argumento
+     * @param c conteudo com categoria alterada
+     * @param catAntiga categoria antiga
+     */
     public void updateConteudo(Conteudo c, String catAntiga) {
         
         //----------------------------------------------------------------------
@@ -357,7 +399,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         
         try {
            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                         
@@ -402,11 +444,13 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
             throw new NullPointerException(e.getMessage());
         }       
 
-        //----------------------------------------------------------------------
     }
 
-    //--------------------------------------------------------------------------
-
+    /**
+     * Substitui um conteudo associado a um album do utilizador
+     * @param c conteudo
+     * @param catantiga categoria antiga 
+     */
     public void replaceConteudo(Conteudo c, String catantiga) {
         
         String nomeAlbumDoConteudo = "";
@@ -415,7 +459,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
         
         try {
            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                         
@@ -458,8 +502,6 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
             throw new NullPointerException(e.getMessage());
         }          
     }
-
-    //--------------------------------------------------------------------------
 
     @Override
     public int size() {

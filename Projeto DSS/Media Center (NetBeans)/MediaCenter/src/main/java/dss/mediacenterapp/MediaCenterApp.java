@@ -1,10 +1,4 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package dss.mediacenterapp;
 
 import dss.mediacenterapp.presentation.controller.MediaCenterController;
@@ -19,10 +13,10 @@ import javax.swing.SwingUtilities;
 
 public class MediaCenterApp {
 
-    private MediaCenterApp () {
-        
-        //...
-    }
+    /**
+     * Construtor vazio da aplicação do Media Center
+     */
+    private MediaCenterApp () {}
     
     public static void main (String args[]) {
         

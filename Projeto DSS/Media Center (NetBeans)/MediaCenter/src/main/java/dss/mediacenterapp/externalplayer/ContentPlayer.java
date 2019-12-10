@@ -1,41 +1,68 @@
 
 package dss.mediacenterapp.externalplayer;
 
-import java.awt.Desktop;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import org.apache.commons.io.FilenameUtils;
 
+/**
+ * Implementa os métodos necessários para reproduzir ficheiros em threads.
+ * 
+ * @author Grupo 1
+ */
 public class ContentPlayer implements Runnable {
 
-    //--------------------------------------------------------------------------
-
+    //**************************************************************************
+    
+    /**
+     * player para reproduzir o ficheiro
+     */
     private Player player;
+    /**
+     * guarda a FIS associada ao ficheiro
+     */
     private BufferedInputStream BIS;
+    /**
+     * guarda o BIS associada ao ficheiro
+     */
     private FileInputStream FIS;
-
-    //--------------------------------------------------------------------------
-
+    
+    /**
+     * determina se um conteudo pode ser resumido
+     */
     private boolean canResume;
+    /**
+     * guarda o caminho para o ficheiro a reproduzir
+     */
     private String path;
+    /**
+     * guarda o numero total de frames que o conteudo tem
+     */
     private int totalFrames;
+    /**
+     * determina se um conteudo foi parado
+     */
     private int stopped;
+    /**
+     * determina se a ultima reprodução foi realizado com sucesso
+     */
     private boolean playWorked;
-
-    //--------------------------------------------------------------------------
-
+    
+    /**
+     * Thread onde o ficheiro é reproduzido
+     */
     private Thread currentThreadRunning;
 
-    //--------------------------------------------------------------------------
+    //**************************************************************************
 
+    /**
+     * Construtor vazio de um ContentPlayer
+     */
     public ContentPlayer(){
 
         this.player = null;
@@ -49,6 +76,12 @@ public class ContentPlayer implements Runnable {
         this.currentThreadRunning = null;
     }
 
+    //**************************************************************************
+    
+    /**
+     * Determina se um conteudo acabou a sua reprodução
+     * @return true caso tenha acabado
+     */
     public boolean playingFinished() {
         
         try {
@@ -66,6 +99,9 @@ public class ContentPlayer implements Runnable {
         return false;
     }
     
+    /**
+     * Termina a reprodução do conteudo
+     */
     public void end() {
         
         if (this.currentThreadRunning == null || this.player == null) return;
@@ -75,16 +111,27 @@ public class ContentPlayer implements Runnable {
         this.player.close();
     }
     
+    /**
+     * Determina se um conteudo pode ser resumido
+     * @return 
+     */
     public boolean canResume(){
         
         return this.canResume;
     }
 
+    /**
+     * Altera o caminho para um dado ficheiro
+     * @param path 
+     */
     public void setPath(String path){
         
         this.path = path;
     }
 
+    /**
+     * Pausa a reprodução de um conteudo
+     */
     public void pause(){
  
         try{
@@ -104,6 +151,9 @@ public class ContentPlayer implements Runnable {
         }
     }
 
+    /**
+     * Retoma a reprodução de um conteudo
+     */
     public void resume(){
         
         if(this.canResume == false) 
@@ -115,6 +165,11 @@ public class ContentPlayer implements Runnable {
         }
     }
     
+    /**
+     * Reproduz um conteudo a partir de um dado frame
+     * @param frame frame inicial (0 indica inicio)
+     * @return true caso o conteudo exista e a reprodução foi feita
+     */
     public boolean play(int frame) {
         
         this.playWorked = true;
@@ -159,6 +214,11 @@ public class ContentPlayer implements Runnable {
          
     }
     
+    /**
+     * Para reproduzir conteudo num contexto multi-threaded, usado para reproduzir albuns.
+     * @param frame frame inicial (0 indica inicio)
+     * @return true caso o conteudo consiga ser reproduzido
+     */
     public boolean playMT(int frame){
 
         this.playWorked = true;
@@ -195,7 +255,10 @@ public class ContentPlayer implements Runnable {
         
         return FilenameUtils.getExtension(list_content_selected);
     }
-
+    
+    /**
+     * Metodo que reproduz um conteudo numa thread à parte
+     */
     @Override
     public void run() {
         

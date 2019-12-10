@@ -2,7 +2,6 @@
 package dss.mediacenterapp.data;
 
 import dss.mediacenterapp.model.conteudo.Conteudo;
-import dss.mediacenterapp.model.utilizadores.Utilizador;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,10 +13,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Classe que implementa um DAO para aceder às tabelas de conteudo da biblioteca
+ * da base de dados.
+ * 
+ * @author Grupo 1
+ */
 public class BibliotecaDAO implements Map<String, Conteudo> {
     
+    //**************************************************************************
+    
+    /**
+     * instancia de bibliotecaDAO
+     */
     private BibliotecaDAO inst = null;
     
+    //**************************************************************************
+    
+    /**
+     * Construtor vazio do DAO
+     */
     public BibliotecaDAO () {
         
         try {
@@ -30,12 +45,11 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         }
     }
         
-    /*Métodos abstratos da interface Map<..., ...>*/
-
-    public void clear() {
-        
-    }
-    
+    /**
+     * Verifica se um conteúdo existe na base de dados.
+     * @param key nome do conteudo
+     * @return true se existir
+     */
     @Override
     public boolean containsKey(Object key) {
         
@@ -43,7 +57,7 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
         try {
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","root","admin");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement();
             
@@ -59,7 +73,10 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         }        
     }
 
-        
+    /**
+     * Retorna o numero de conteudo existente na base de dados
+     * @return
+     */
     @Override
     public int size() {
         
@@ -67,7 +84,7 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
         try {
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -86,6 +103,11 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
     }
 
+    /**
+     * Retorna a lista de emails dos utilizadores que possuem um determinado conteudo
+     * @param nomeC nome do conteudo
+     * @return lista de emails
+     */
     public List<String> getOwners(String nomeC) {
 
         List<String> emails = new ArrayList<>();
@@ -94,7 +116,7 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
         try {
                 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -121,6 +143,13 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         }        
     }
 
+    /**
+     * Retorna a lista de emails de utilizadores que possuem um determinado conteudo
+     * com uma certa categoria
+     * @param nomeC nome do conteudo    
+     * @param categoria nome da categoria
+     * @return lista de emails
+     */
     public List<String> getRealOwners(String nomeC, String categoria) {
 
         List<String> emails = new ArrayList<>();
@@ -129,7 +158,7 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
         try {
       
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -152,18 +181,11 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         }        
     }
 
-    
-    @Override
-    public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-    @Override
-    public boolean containsValue(Object arg0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Retorna o conteudo que se encontra associado a um determinado nome.
+     * @param key nome do conteudo
+     * @return conteudo correspondente a um nome
+     */
     @Override
     public Conteudo get(Object key) {
 
@@ -171,7 +193,7 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
         try {
            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Conteudo cont = null;
             
@@ -191,21 +213,10 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
 
     }
 
-    @Override
-    public Conteudo put(String arg0, Conteudo arg1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Conteudo remove(Object arg0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void putAll(Map<? extends String, ? extends Conteudo> arg0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Retorna os nomes de conteudos que existem na base de dados
+     * @return lista de nomes
+     */
     @Override
     public Set<String> keySet() {
 
@@ -215,7 +226,7 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         
         try {
            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement();
             
@@ -234,6 +245,32 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
     }
 
     @Override
+    public Conteudo put(String arg0, Conteudo arg1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Conteudo remove(Object arg0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void putAll(Map<? extends String, ? extends Conteudo> arg0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    @Override
+    public boolean containsValue(Object arg0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public Collection<Conteudo> values() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -241,6 +278,10 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
     @Override
     public Set<Map.Entry<String, Conteudo>> entrySet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void clear() {
+        
     }
     
 }

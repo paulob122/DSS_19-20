@@ -11,10 +11,26 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que implementa um DAO para aceder às tabelas de utilizadores
+ * da base de dados.
+ * 
+ * @author Grupo 1
+ */
 public class UtilizadorDAO implements Map<String, Utilizador> {
     
+    //**************************************************************************
+    
+    /**
+     * instancia de UtilizadorDAO
+     */
     private UtilizadorDAO inst = null;
     
+    //**************************************************************************
+
+    /**
+     * Construtor vazio do DAO
+     */
     public UtilizadorDAO () {
         
         try {
@@ -26,10 +42,12 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
             throw new NullPointerException(e.getMessage());
         }
     }
-
     
-    /*Métodos abstratos da interface Map<..., ...>*/
-
+    /**
+     * Verifica se um dado utilizador identificado por um email existe na BD
+     * @param key email
+     * @return true caso o email exista
+     */
     @Override
     public boolean containsKey(Object key) {
         
@@ -37,7 +55,7 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         
         try {
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement();
             
@@ -53,7 +71,10 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         }        
     }
 
-        
+    /**
+     * Retorna o numero de utilizadores existentes na base de dados.
+     * @return nr de utilizadores
+     */    
     @Override
     public int size() {
         
@@ -61,7 +82,7 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         
         try {
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
@@ -79,18 +100,14 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         }        
         
     }
-
-    @Override
-    public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-
-    @Override
-    public boolean containsValue(Object arg0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    /**
+     * Retorna o utilizador associado a um determinado email
+     * Assume que o utilizador existe
+     * 
+     * @param key email
+     * @return o Utilizador
+     */
     @Override
     public Utilizador get(Object key) {
 
@@ -98,7 +115,7 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         
         try {
            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Utilizador user = null;
             
@@ -131,13 +148,18 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
 
     }
     
+    /**
+     * Adiciona lista de emails aos potenciais amigos de um utilizador
+     * @param email email do utilizador
+     * @param emailsAmigos colecao de emails dos amigos
+     */
     public void adicionaPotenciaisAmigos(String email, Set<String> emailsAmigos) {
         
         Connection conn;
         
         try {
            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
                         
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                         
@@ -160,6 +182,17 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         }
         catch (Exception e) {throw new NullPointerException(e.getMessage());}
         
+    }
+
+    @Override
+    public boolean isEmpty() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+    @Override
+    public boolean containsValue(Object arg0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -191,4 +224,9 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
     public Set<Entry<String, Utilizador>> entrySet() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }    
+
+    @Override
+    public void clear() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
