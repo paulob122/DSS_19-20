@@ -26,23 +26,7 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
             throw new NullPointerException(e.getMessage());
         }
     }
-    
-    public void clear() {
-        
-        Connection connection;
-        
-        try {
-            
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","root","admin");
-            
-            Statement stm = connection.createStatement();
-            stm.executeUpdate("DELETE FROM TAlunos");
-        
-        } catch (Exception e) {
-        
-            throw new NullPointerException(e.getMessage());
-        }
-    }
+
     
     /*Métodos abstratos da interface Map<..., ...>*/
 
@@ -53,7 +37,7 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         
         try {
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","root","admin");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement();
             
