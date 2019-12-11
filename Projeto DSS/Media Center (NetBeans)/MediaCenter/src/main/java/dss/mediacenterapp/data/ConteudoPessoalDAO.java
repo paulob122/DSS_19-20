@@ -103,6 +103,7 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
                 if (existe == 0) {
                                     
                     String sql_insereConteudo = "insert into Conteudo values ('" + c.getNome() + "', '" + c.getArtista() + "', " + c.getIsMusic() + ", " + c.getIsVideo() + ", '" + c.getFilePath() + "', '" + c.getCategoria() + "');";
+                    System.out.println(sql_insereConteudo);
                     stm.addBatch(sql_insereConteudo);
                 }
                 
