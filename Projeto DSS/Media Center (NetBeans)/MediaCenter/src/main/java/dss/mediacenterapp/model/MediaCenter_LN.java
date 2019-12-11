@@ -281,7 +281,7 @@ public class MediaCenter_LN extends DSSObservable {
                 
                 List<String> owners = this.getOwners(nomeC);
                 emailsAmigos.addAll(owners);
-                
+               
                 if (!this.utilizadorAtual.temConteudo(nomeC)) {
                     
                     novoA.adicionaConteudo(novoC);
