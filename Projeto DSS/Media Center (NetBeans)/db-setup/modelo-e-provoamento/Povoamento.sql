@@ -1,14 +1,20 @@
 
-drop schema MediaCenterDB;
+use MediaCenterDB;
 
-delete from Album;
-delete from Categoria;
+#drop schema MediaCenterDB;
+
+#Para remover todo o conteúdo das tabelas.
+
 delete from AlbunsDoUtilizador;
 delete from ConteudoDoAlbum;
 delete from Conteudo;
 delete from AmigosDoUtilizador;
 delete from Amigo;
 delete from Utilizador;
+delete from Album;
+delete from Categoria;
+
+#Povoamento base da base de dados do Sistema:
 
 insert into Utilizador values ("user1", "Utilizador1", "", 0, 0);
 insert into Utilizador values ("user2", "Utilizador2", "", 0, 0);

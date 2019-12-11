@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dss.mediacenterapp.presentation.controller;
 
 import dss.mediacenterapp.model.MediaCenter_LN;
@@ -16,31 +12,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author joao
+ * Esta classe implementa um controlador para o sistema MediaCenter.
+ * Numa primeira implementação, esta classe define uma API para as funcionalidades
+ * da lógica de negócio do sistema.
+ * 
+ * @author Grupo 1
  */
 public class MediaCenterController extends DSSObservable implements DSSObserver {
     
+    //**************************************************************************
+    
+    /**
+     * Modelo do Sistema, i.e, toda a lógica de negócio.
+     */
     private MediaCenter_LN model;
     
+    /**
+     * Construtor parameterizado do controlador.
+     * @param model 
+     */
     public MediaCenterController(MediaCenter_LN model) {
         
         this.model = model;
     }
-
+        
+    //**************************************************************************
+    
+    /**
+     * Para uma futura implementação.
+     * @param source
+     * @param value 
+     */
     @Override
     public void update(DSSObservable source, Object value) {
         
         //...
     }
-    
-    public String getUtilizadorAtualID() {
-        
-        return this.model.getUtilizadorAtualID();
-    }
-    
-    //--------------------------------------------------------------------------
-    
+
+    //**************************************************************************
+
     public boolean loginUtilizador (String email, String password) {
         
         return this.model.loginUtilizador(email, password);
@@ -50,9 +60,12 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         
         this.model.logoutUtilizadorAtual();
     }
-
-    //--------------------------------------------------------------------------
  
+    public String getUtilizadorAtualID() {
+        
+        return this.model.getUtilizadorAtualID();
+    }
+
     public List<String> listNomesFicheirosDir(String dir_path) {
         
         List<String> fileNames = new ArrayList<>();
@@ -69,14 +82,12 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
             
             } else if (listOfFiles[i].isDirectory()) {
             
-                //...
+                //...ignorar...
             }
         }
         
         return fileNames;
     }
-
-    //--------------------------------------------------------------------------
 
     public void loginUtilizadorAsGuest() {
 
@@ -122,5 +133,4 @@ public class MediaCenterController extends DSSObservable implements DSSObserver 
         
         this.model.editarConteudoUtilizadorAtual(conteudoSelecionado, catnova, catantiga);
     }
-
 }

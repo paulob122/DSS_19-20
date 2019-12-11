@@ -1,9 +1,5 @@
 
-/*------------------------------------------------------------------------------*/
-
 package dss.mediacenterapp.presentation.view;
-
-/*------------------------------------------------------------------------------*/
 
 import dss.mediacenterapp.presentation.controller.MediaCenterController;
 import dss.pubsub.DSSObservable;
@@ -13,16 +9,12 @@ import dss.mediacenterapp.model.conteudo.Conteudo;
 import dss.mediacenterapp.model.utilizadores.Utilizador;
 import java.awt.Desktop;
 
-/*------------------------------------------------------------------------------*/
-
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -34,25 +26,58 @@ import org.apache.commons.io.FilenameUtils;
 
 /*------------------------------------------------------------------------------*/
 
+/**
+ * Esta classe contém toda a implementação da interface com o Utilizador, desde 
+ * a criação dos diferentes Menus (JFrames) e da interação do utilizador com
+ * os mesmos. Utiliza toda a API do modelo disponibilizada pelo controlador.
+ * 
+ * @author Grupo 1
+ */
 public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
 
     /*--------------------------------------------------------------------------*/
 
+    /**
+     * Define o tamanho das janelas de todo o GUI.
+     */
     private static final int WINDOW_X = 900, WINDOW_Y = 600;
     
     /*--------------------------------------------------------------------------*/
 
+    /**
+     * Controlador da aplicação.
+     */
     private MediaCenterController controller;
     
     /*--------------------------------------------------------------------------*/
-
+    
+    /**
+     * Guarda o player que contém o conteudo a ser reproduzido no momento.
+     */
     private ContentPlayer currentContentPlayer;
+    
+    /**
+     * Guarda a thread de reprodução do álbum completo. 
+     */
     private Thread albumThread;  
+    
+    /**
+     * Define se está a ser reproduzido um album ou não.
+     */
     private boolean playingAlbum;
+    
+    /**
+     * Guarda o último caminho para o ficheiro que foi feito upload.
+     */
     private String lastUploadPath;
     
     /*--------------------------------------------------------------------------*/
     
+    /**
+     * Construtor parameterizado do GUI.
+     *
+     * @param controller controlador da aplicação.
+     */
     public MediaCenter_GUI(MediaCenterController controller) {
         
         this.controller = controller;
@@ -62,6 +87,85 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.playingAlbum = false;
     }
        
+    /**
+     * Define o formato inicial das janelas que compõem todo o GUI.
+     */
+    public void setInitialFormat() {
+        
+        this.setLocationRelativeTo(null);
+        this.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));
+        this.setTitle("Menu Inicial");
+      
+        this.UPLOAD_filechooser.setApproveButtonText("Listar conteúdo");
+        this.UPLOAD_filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        this.Menu_CHOOSEalbum.setLocationRelativeTo(null);
+        this.Menu_CHOOSEalbum.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_CHOOSEalbum.setVisible(false);
+        this.Menu_CHOOSEalbum.setTitle("Álbuns");   
+        
+        this.Menu_UPLOAD.setLocationRelativeTo(null);
+        this.Menu_UPLOAD.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_UPLOAD.setVisible(false);
+        this.Menu_UPLOAD.setTitle("Menu Upload");   
+        
+        this.Menu_OPTIONS.setLocationRelativeTo(null);
+        this.Menu_OPTIONS.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_OPTIONS.setVisible(false);
+        this.Menu_OPTIONS.setTitle("Menu Principal");
+        
+        this.Menu_LOGINform.setLocationRelativeTo(null);
+        this.Menu_LOGINform.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_LOGINform.setVisible(false);
+        this.Menu_LOGINform.setTitle("Menu de Login");
+     
+        this.Menu_REPRODUZIRoptions.setLocationRelativeTo(null);
+        this.Menu_REPRODUZIRoptions.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_REPRODUZIRoptions.setVisible(false);
+        this.Menu_REPRODUZIRoptions.setTitle("Menu de Reproduzir");
+        
+        this.Menu_REPRODUZIR_biblioteca.setLocationRelativeTo(null);
+        this.Menu_REPRODUZIR_biblioteca.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_REPRODUZIR_biblioteca.setVisible(false);
+        this.Menu_REPRODUZIR_biblioteca.setTitle("Biblioteca do Media Center");
+
+        this.Menu_REPRODUZIR_album.setLocationRelativeTo(null);
+        this.Menu_REPRODUZIR_album.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_REPRODUZIR_album.setVisible(false);
+        this.Menu_REPRODUZIR_album.setTitle("Conteúdo do Álbum");        
+        
+        this.Menu_PROFILE.setLocationRelativeTo(null);
+        this.Menu_PROFILE.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_PROFILE.setVisible(false);
+        this.Menu_PROFILE.setTitle("O meu perfil");        
+
+        this.Menu_AlterarCategoriaConteudo.setLocationRelativeTo(null);
+        this.Menu_AlterarCategoriaConteudo.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
+        this.Menu_AlterarCategoriaConteudo.setVisible(false);
+        this.Menu_AlterarCategoriaConteudo.setTitle("Alterar categoria de conteúdo");                
+        
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_OPTIONS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_LOGINform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_REPRODUZIRoptions.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_REPRODUZIR_biblioteca.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_CHOOSEalbum.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_REPRODUZIR_album.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_UPLOAD.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_PROFILE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.Menu_AlterarCategoriaConteudo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    public void run() {
+        
+        UIManager.put("FileChooser.readOnly", Boolean.TRUE);        
+        
+        this.initComponents();
+        this.setInitialFormat();
+        this.setVisible(true);
+    }
+
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1816,82 +1920,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         this.Menu_AlterarCategoriaConteudo.setVisible(false);
         this.Menu_OPTIONS.setVisible(true);
     }//GEN-LAST:event_ALTERAR_ButtonBackActionPerformed
-    
-    public void setInitialFormat() {
         
-        this.setLocationRelativeTo(null);
-        this.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));
-        this.setTitle("Menu Inicial");
-      
-        this.UPLOAD_filechooser.setApproveButtonText("Listar conteúdo");
-        this.UPLOAD_filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        this.Menu_CHOOSEalbum.setLocationRelativeTo(null);
-        this.Menu_CHOOSEalbum.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_CHOOSEalbum.setVisible(false);
-        this.Menu_CHOOSEalbum.setTitle("Álbuns");   
-        
-        this.Menu_UPLOAD.setLocationRelativeTo(null);
-        this.Menu_UPLOAD.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_UPLOAD.setVisible(false);
-        this.Menu_UPLOAD.setTitle("Menu Upload");   
-        
-        this.Menu_OPTIONS.setLocationRelativeTo(null);
-        this.Menu_OPTIONS.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_OPTIONS.setVisible(false);
-        this.Menu_OPTIONS.setTitle("Menu Principal");
-        
-        this.Menu_LOGINform.setLocationRelativeTo(null);
-        this.Menu_LOGINform.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_LOGINform.setVisible(false);
-        this.Menu_LOGINform.setTitle("Menu de Login");
-     
-        this.Menu_REPRODUZIRoptions.setLocationRelativeTo(null);
-        this.Menu_REPRODUZIRoptions.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_REPRODUZIRoptions.setVisible(false);
-        this.Menu_REPRODUZIRoptions.setTitle("Menu de Reproduzir");
-        
-        this.Menu_REPRODUZIR_biblioteca.setLocationRelativeTo(null);
-        this.Menu_REPRODUZIR_biblioteca.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_REPRODUZIR_biblioteca.setVisible(false);
-        this.Menu_REPRODUZIR_biblioteca.setTitle("Biblioteca do Media Center");
-
-        this.Menu_REPRODUZIR_album.setLocationRelativeTo(null);
-        this.Menu_REPRODUZIR_album.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_REPRODUZIR_album.setVisible(false);
-        this.Menu_REPRODUZIR_album.setTitle("Conteúdo do Álbum");        
-        
-        this.Menu_PROFILE.setLocationRelativeTo(null);
-        this.Menu_PROFILE.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_PROFILE.setVisible(false);
-        this.Menu_PROFILE.setTitle("O meu perfil");        
-
-        this.Menu_AlterarCategoriaConteudo.setLocationRelativeTo(null);
-        this.Menu_AlterarCategoriaConteudo.setPreferredSize(new Dimension(WINDOW_X, WINDOW_Y));       
-        this.Menu_AlterarCategoriaConteudo.setVisible(false);
-        this.Menu_AlterarCategoriaConteudo.setTitle("Alterar categoria de conteúdo");                
-        
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_OPTIONS.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_LOGINform.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_REPRODUZIRoptions.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_REPRODUZIR_biblioteca.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_CHOOSEalbum.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_REPRODUZIR_album.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_UPLOAD.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_PROFILE.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.Menu_AlterarCategoriaConteudo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-    
-    public void run() {
-        
-        UIManager.put("FileChooser.readOnly", Boolean.TRUE);        
-        
-        this.initComponents();
-        this.setInitialFormat();
-        this.setVisible(true);
-    }
-    
     public void update(DSSObservable o, Object arg) {
     
         
