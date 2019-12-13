@@ -63,7 +63,12 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
             
             ResultSet rs = stm.executeQuery(sql);
             
-            return rs.next();
+            if (rs.next()) {
+                
+                return rs.getString(1).equals((String) key);
+            }
+            
+            return false;
         
         } catch (Exception e) {
         
