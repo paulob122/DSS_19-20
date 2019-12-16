@@ -331,7 +331,8 @@ public class ConteudoPessoalDAO implements Map<String, Conteudo> {
             Statement stm = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             
             String sql_conteudoPessoal = "select c.idConteudo, c.Categoria_idNomeCategoria from Utilizador u, AlbunsDoUtilizador adu, Album a, ConteudoDoAlbum cda, Conteudo c " +
-                                         "where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo " + 
+                                         "where u.email = adu.idUserADU and adu.idAlbumADU = a.idAlbum and cda.idAlbumCDA = a.idAlbum and cda.idConteudoCDA = c.idConteudo " +
+                                         "and c.Categoria_idNomeCategoria = cda.idCategoriaCDA " +
                                          "and u.email = '" + this.email_utilizador + "';";
             
             ResultSet rs = stm.executeQuery(sql_conteudoPessoal);
