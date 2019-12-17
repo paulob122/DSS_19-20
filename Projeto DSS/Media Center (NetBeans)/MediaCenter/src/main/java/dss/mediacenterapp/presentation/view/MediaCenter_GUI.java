@@ -171,7 +171,6 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     private void initComponents() {
 
         Menu_OPTIONS = new javax.swing.JFrame();
-        OPT_tittle = new javax.swing.JLabel();
         OPT_reproduzir = new javax.swing.JButton();
         OPT_note = new javax.swing.JLabel();
         OPT_useridlabel = new javax.swing.JLabel();
@@ -179,22 +178,22 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         OPT_upload = new javax.swing.JButton();
         OPT_alterarcategoriaconteudo = new javax.swing.JButton();
         OPT_ButtonVerperfil = new javax.swing.JButton();
+        OPT_tittle = new javax.swing.JLabel();
         Menu_LOGINform = new javax.swing.JFrame();
-        LOGIN_tittle = new javax.swing.JLabel();
         LOGIN_emailfield = new javax.swing.JTextField();
         LOGIN_emaillabel = new javax.swing.JLabel();
-        LOGIN_passfield = new javax.swing.JTextField();
         LOGIN_passlabel = new javax.swing.JLabel();
         LOGIN_ButtonLogin = new javax.swing.JButton();
         LOGIN_ButtonBack = new javax.swing.JButton();
+        LOGIN_passfield = new javax.swing.JPasswordField();
+        LOGIN_tittle = new javax.swing.JLabel();
         Menu_REPRODUZIRoptions = new javax.swing.JFrame();
-        REPOPT_Tittle = new javax.swing.JLabel();
         REPOPT_note = new javax.swing.JLabel();
         REPOPT_ButtonBibliotecaMC = new javax.swing.JButton();
         REPOPT_ButtonAlbuns = new javax.swing.JButton();
         REPOPT_ButtonBack = new javax.swing.JButton();
+        REPOPT_tittle = new javax.swing.JLabel();
         Menu_REPRODUZIR_biblioteca = new javax.swing.JFrame();
-        REPBIBL_tittle = new javax.swing.JLabel();
         REPBIBL_scroll = new javax.swing.JScrollPane();
         REPBIBL_listaconteudo = new javax.swing.JList<>();
         REPBIBL_ButtonPlay = new javax.swing.JButton();
@@ -202,6 +201,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         REPBIBL_ButtonResume = new javax.swing.JButton();
         REPBIBL_ButtonBack = new javax.swing.JButton();
         REPBIBL_currentcontentlabel = new javax.swing.JLabel();
+        REPOPT_tittle1 = new javax.swing.JLabel();
         Menu_CHOOSEalbum = new javax.swing.JFrame();
         CHOOSEALB_tittle = new javax.swing.JLabel();
         CHOOSEALB_scroll = new javax.swing.JScrollPane();
@@ -258,18 +258,14 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         ALTERAR_checkbox_blues = new javax.swing.JCheckBox();
         ALTERAR_checkbox_video = new javax.swing.JCheckBox();
         ALTERAR_ButtonBack = new javax.swing.JButton();
-        MAIN_tittle = new javax.swing.JLabel();
         MAIN_ButtonLogin = new javax.swing.JButton();
         MAIN_ButtonGuest = new javax.swing.JButton();
         MAIN_newuserlabel = new javax.swing.JLabel();
         MAIN_ButtonRegistar = new javax.swing.JButton();
+        MAIN_tittle = new javax.swing.JLabel();
 
         Menu_OPTIONS.setResizable(false);
         Menu_OPTIONS.setSize(new java.awt.Dimension(900, 600));
-
-        OPT_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        OPT_tittle.setForeground(new java.awt.Color(1, 1, 1));
-        OPT_tittle.setText("Media Center");
 
         OPT_reproduzir.setBackground(java.awt.SystemColor.activeCaptionBorder);
         OPT_reproduzir.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
@@ -318,12 +314,18 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
+        OPT_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png")); // NOI18N
+
         javax.swing.GroupLayout Menu_OPTIONSLayout = new javax.swing.GroupLayout(Menu_OPTIONS.getContentPane());
         Menu_OPTIONS.getContentPane().setLayout(Menu_OPTIONSLayout);
         Menu_OPTIONSLayout.setHorizontalGroup(
             Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(OPT_useridlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
+                .addContainerGap(127, Short.MAX_VALUE)
                 .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
                         .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,23 +334,16 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                             .addComponent(OPT_alterarcategoriaconteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(239, 239, 239))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
-                        .addComponent(OPT_note)
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
                         .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(OPT_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(OPT_ButtonVerperfil, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(43, 43, 43))))
-            .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(OPT_tittle)
-                        .addGap(174, 174, 174))
-                    .addGroup(Menu_OPTIONSLayout.createSequentialGroup()
-                        .addComponent(OPT_useridlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 667, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(43, 43, 43))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
+                        .addComponent(OPT_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(161, 161, 161))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_OPTIONSLayout.createSequentialGroup()
+                        .addComponent(OPT_note)
+                        .addGap(80, 80, 80))))
         );
         Menu_OPTIONSLayout.setVerticalGroup(
             Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,26 +352,22 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                 .addGroup(Menu_OPTIONSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(OPT_useridlabel)
                     .addComponent(OPT_ButtonVerperfil))
-                .addGap(29, 29, 29)
-                .addComponent(OPT_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(OPT_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(OPT_reproduzir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(OPT_upload, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(OPT_alterarcategoriaconteudo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(OPT_note)
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addComponent(OPT_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
         Menu_LOGINform.setSize(new java.awt.Dimension(900, 600));
-
-        LOGIN_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        LOGIN_tittle.setForeground(new java.awt.Color(1, 1, 1));
-        LOGIN_tittle.setText("Media Center");
 
         LOGIN_emailfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         LOGIN_emailfield.addActionListener(new java.awt.event.ActionListener() {
@@ -387,13 +378,6 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
 
         LOGIN_emaillabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
         LOGIN_emaillabel.setText("E-Mail:");
-
-        LOGIN_passfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        LOGIN_passfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LOGIN_passfieldActionPerformed(evt);
-            }
-        });
 
         LOGIN_passlabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
         LOGIN_passlabel.setText("Password:");
@@ -412,59 +396,60 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
+        LOGIN_passfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        LOGIN_passfield.setText("jPasswordField1");
+
+        LOGIN_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png")); // NOI18N
+
         javax.swing.GroupLayout Menu_LOGINformLayout = new javax.swing.GroupLayout(Menu_LOGINform.getContentPane());
         Menu_LOGINform.getContentPane().setLayout(Menu_LOGINformLayout);
         Menu_LOGINformLayout.setHorizontalGroup(
             Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu_LOGINformLayout.createSequentialGroup()
-                .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Menu_LOGINformLayout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LOGIN_emaillabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LOGIN_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LOGIN_passfield, javax.swing.GroupLayout.PREFERRED_SIZE, 633, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LOGIN_passlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(Menu_LOGINformLayout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(LOGIN_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(156, Short.MAX_VALUE))
             .addGroup(Menu_LOGINformLayout.createSequentialGroup()
                 .addGap(270, 270, 270)
                 .addComponent(LOGIN_ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LOGIN_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
+            .addGroup(Menu_LOGINformLayout.createSequentialGroup()
+                .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Menu_LOGINformLayout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(LOGIN_emaillabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LOGIN_emailfield, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                            .addComponent(LOGIN_passlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LOGIN_passfield)))
+                    .addGroup(Menu_LOGINformLayout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(LOGIN_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         Menu_LOGINformLayout.setVerticalGroup(
             Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Menu_LOGINformLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(LOGIN_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                .addGap(55, 55, 55)
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addComponent(LOGIN_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LOGIN_emaillabel)
                 .addGap(18, 18, 18)
                 .addComponent(LOGIN_emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(LOGIN_passlabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LOGIN_passfield, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(Menu_LOGINformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Menu_LOGINformLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(18, 18, 18)
+                        .addComponent(LOGIN_passfield, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
                         .addComponent(LOGIN_ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_LOGINformLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(127, 127, 127)
                         .addComponent(LOGIN_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))))
         );
 
         Menu_REPRODUZIRoptions.setSize(new java.awt.Dimension(900, 600));
-
-        REPOPT_Tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        REPOPT_Tittle.setForeground(new java.awt.Color(1, 1, 1));
-        REPOPT_Tittle.setText("Reproduzir");
 
         REPOPT_note.setFont(new java.awt.Font("Tlwg Typo", 2, 18)); // NOI18N
         REPOPT_note.setText("Nota: Outras funcionalidades encontram-se em desenvolvimento...");
@@ -494,39 +479,39 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
+        REPOPT_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/reproduzir-tittle.png")); // NOI18N
+
         javax.swing.GroupLayout Menu_REPRODUZIRoptionsLayout = new javax.swing.GroupLayout(Menu_REPRODUZIRoptions.getContentPane());
         Menu_REPRODUZIRoptions.getContentPane().setLayout(Menu_REPRODUZIRoptionsLayout);
         Menu_REPRODUZIRoptionsLayout.setHorizontalGroup(
             Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(REPOPT_Tittle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(212, 212, 212))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(106, Short.MAX_VALUE)
                 .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
-                        .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(247, 247, 247))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
                         .addComponent(REPOPT_note)
                         .addGap(101, 101, 101))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
                         .addComponent(REPOPT_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69))))
+                        .addGap(69, 69, 69))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
+                        .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(REPOPT_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(247, 247, 247))))
         );
         Menu_REPRODUZIRoptionsLayout.setVerticalGroup(
             Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(REPOPT_Tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                .addGap(41, 41, 41)
+                .addGap(98, 98, 98)
+                .addComponent(REPOPT_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
                 .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(49, 49, 49)
                 .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(REPOPT_note)
                 .addGap(29, 29, 29)
                 .addComponent(REPOPT_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -534,10 +519,6 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         );
 
         Menu_REPRODUZIR_biblioteca.setSize(new java.awt.Dimension(900, 600));
-
-        REPBIBL_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        REPBIBL_tittle.setForeground(new java.awt.Color(1, 1, 1));
-        REPBIBL_tittle.setText("Biblioteca");
 
         REPBIBL_listaconteudo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         REPBIBL_listaconteudo.setModel(new javax.swing.AbstractListModel<String>() {
@@ -586,6 +567,8 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         REPBIBL_currentcontentlabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
         REPBIBL_currentcontentlabel.setText("Nenhum conteúdo foi ainda selecionado da lista disponível...");
 
+        REPOPT_tittle1.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/biblioteca-tittle.png")); // NOI18N
+
         javax.swing.GroupLayout Menu_REPRODUZIR_bibliotecaLayout = new javax.swing.GroupLayout(Menu_REPRODUZIR_biblioteca.getContentPane());
         Menu_REPRODUZIR_biblioteca.getContentPane().setLayout(Menu_REPRODUZIR_bibliotecaLayout);
         Menu_REPRODUZIR_bibliotecaLayout.setHorizontalGroup(
@@ -593,9 +576,6 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
                 .addContainerGap(118, Short.MAX_VALUE)
                 .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
-                        .addComponent(REPBIBL_tittle)
-                        .addGap(243, 243, 243))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
                         .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
@@ -609,14 +589,17 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                                 .addGap(157, 157, 157)
                                 .addComponent(REPBIBL_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(REPBIBL_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(119, 119, 119))))
+                        .addGap(119, 119, 119))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
+                        .addComponent(REPOPT_tittle1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(241, 241, 241))))
         );
         Menu_REPRODUZIR_bibliotecaLayout.setVerticalGroup(
             Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(REPBIBL_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addContainerGap(75, Short.MAX_VALUE)
+                .addComponent(REPOPT_tittle1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addGroup(Menu_REPRODUZIR_bibliotecaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(REPBIBL_ButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(REPBIBL_ButtonResume, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -677,7 +660,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                 .addComponent(CHOOSEALB_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_CHOOSEalbumLayout.createSequentialGroup()
-                .addContainerGap(121, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(CHOOSEALB_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(116, 116, 116))
         );
@@ -1191,10 +1174,6 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         setResizable(false);
         setSize(new java.awt.Dimension(900, 60));
 
-        MAIN_tittle.setFont(new java.awt.Font("URW Palladio L", 3, 90)); // NOI18N
-        MAIN_tittle.setForeground(new java.awt.Color(1, 1, 1));
-        MAIN_tittle.setText("Media Center");
-
         MAIN_ButtonLogin.setBackground(java.awt.SystemColor.activeCaptionBorder);
         MAIN_ButtonLogin.setFont(new java.awt.Font("Padauk Book", 0, 24)); // NOI18N
         MAIN_ButtonLogin.setText("Log-In");
@@ -1225,12 +1204,14 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
+        MAIN_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(186, Short.MAX_VALUE)
+                .addContainerGap(191, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1242,15 +1223,15 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                                 .addComponent(MAIN_newuserlabel)))
                         .addGap(311, 311, 311))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(MAIN_tittle)
-                        .addGap(174, 174, 174))))
+                        .addComponent(MAIN_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(MAIN_tittle, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                .addGap(53, 53, 53)
+                .addGap(28, 28, 28)
+                .addComponent(MAIN_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(MAIN_ButtonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(MAIN_ButtonGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1340,10 +1321,6 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     private void LOGIN_emailfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGIN_emailfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LOGIN_emailfieldActionPerformed
-
-    private void LOGIN_passfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGIN_passfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LOGIN_passfieldActionPerformed
 
     private void LOGIN_ButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGIN_ButtonLoginActionPerformed
         
@@ -1954,7 +1931,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     private javax.swing.JButton LOGIN_ButtonLogin;
     private javax.swing.JTextField LOGIN_emailfield;
     private javax.swing.JLabel LOGIN_emaillabel;
-    private javax.swing.JTextField LOGIN_passfield;
+    private javax.swing.JPasswordField LOGIN_passfield;
     private javax.swing.JLabel LOGIN_passlabel;
     private javax.swing.JLabel LOGIN_tittle;
     private javax.swing.JButton MAIN_ButtonGuest;
@@ -2011,12 +1988,12 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
     private javax.swing.JLabel REPBIBL_currentcontentlabel;
     private javax.swing.JList<String> REPBIBL_listaconteudo;
     private javax.swing.JScrollPane REPBIBL_scroll;
-    private javax.swing.JLabel REPBIBL_tittle;
     private javax.swing.JButton REPOPT_ButtonAlbuns;
     private javax.swing.JButton REPOPT_ButtonBack;
     private javax.swing.JButton REPOPT_ButtonBibliotecaMC;
-    private javax.swing.JLabel REPOPT_Tittle;
     private javax.swing.JLabel REPOPT_note;
+    private javax.swing.JLabel REPOPT_tittle;
+    private javax.swing.JLabel REPOPT_tittle1;
     private javax.swing.JButton UPLOAD_ButtonBack;
     private javax.swing.JButton UPLOAD_ButtonUpload;
     private javax.swing.JLabel UPLOAD_caminholabel;

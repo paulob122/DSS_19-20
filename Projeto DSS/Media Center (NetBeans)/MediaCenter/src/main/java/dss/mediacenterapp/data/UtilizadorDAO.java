@@ -72,8 +72,10 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
         
         } catch (Exception e) {
         
-            throw new NullPointerException(e.getMessage());
+            System.out.println(e.getMessage());
         }        
+        
+        return false;
     }
 
     /**

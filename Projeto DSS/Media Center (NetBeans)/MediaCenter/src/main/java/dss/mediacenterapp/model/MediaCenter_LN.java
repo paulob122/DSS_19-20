@@ -263,6 +263,13 @@ public class MediaCenter_LN extends DSSObservable {
                 
         for (String nomeC : elementos) {
             
+            if (nomeC.contains("'")) {
+                
+                System.out.println("Invalid file (contains \''\'): " + nomeC);
+                
+                continue;
+            }
+            
             boolean isMusic = isMusicFile(nomeC);
             
             Conteudo novoC = new Conteudo(nomeC, nomeC, isMusic, !isMusic, "DB/Content/" + nomeC, categoriaFavorita);

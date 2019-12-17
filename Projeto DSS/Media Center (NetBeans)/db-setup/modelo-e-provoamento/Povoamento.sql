@@ -18,6 +18,7 @@ delete from Categoria;
 
 insert into Utilizador values ("user1", "Utilizador1", "", 0, 0);
 insert into Utilizador values ("user2", "Utilizador2", "", 0, 0);
+insert into Utilizador values ("user3", "Utilizador3", "password", 0, 0);
 
 insert into Categoria values ("Rock");
 insert into Categoria values ("Metal");

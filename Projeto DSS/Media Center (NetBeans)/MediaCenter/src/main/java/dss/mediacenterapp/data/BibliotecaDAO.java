@@ -56,7 +56,7 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
         Connection conn;
         
         try {
-            
+                        
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MediaCenterDB?useTimezone=true&serverTimezone=UTC","dss.projeto","dss.mediacenter");
             
             Statement stm = conn.createStatement();
@@ -64,8 +64,13 @@ public class BibliotecaDAO implements Map<String, Conteudo> {
             String sql = "SELECT * FROM Conteudo c WHERE c.idConteudo = '"+(String)key+"'";
             
             ResultSet rs = stm.executeQuery(sql);
+                        
+            if (rs.next()) {
+                
+                return rs.getString(1).equals((String) key);
+            }
             
-            return rs.next();
+            return false;
         
         } catch (Exception e) {
         
