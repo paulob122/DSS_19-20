@@ -173,11 +173,27 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
             conn.setAutoCommit(false);
 
             for (String a : emailsAmigos) {
+
+                Statement verifica = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 
-                String sql_amigo = "insert into Amigo values ('" + a + "')";
-                String sql_amigoDoUser = "insert into AmigosDoUtilizador values ('" + email + "', '" + a + "');";
+                String sql_verificaExistenciaAmigo = "select count(*) from Amigo a where a.emailAmigo = '" + a + "';"; 
                 
-                stm.addBatch(sql_amigo);
+                ResultSet rs = verifica.executeQuery(sql_verificaExistenciaAmigo);
+            
+                int existe = 0;
+                
+                if (rs.next()) {
+
+                    existe = rs.getInt(1);
+                }
+                
+                if (existe == 0) {
+                                    
+                    String sql_amigo = "insert into Amigo values ('" + a + "')";
+                    stm.addBatch(sql_amigo);
+                }
+
+                String sql_amigoDoUser = "insert into AmigosDoUtilizador values ('" + email + "', '" + a + "');";                
                 stm.addBatch(sql_amigoDoUser);
             }
             
@@ -187,7 +203,10 @@ public class UtilizadorDAO implements Map<String, Utilizador> {
             
             return;
         }
-        catch (Exception e) {throw new NullPointerException(e.getMessage());}
+        catch (Exception e) {
+            
+            System.out.println("Amigo já existe!");
+        }
         
     }
 
