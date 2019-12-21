@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -314,7 +315,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
-        OPT_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png")); // NOI18N
+        OPT_tittle.setIcon(new javax.swing.ImageIcon("resources/imgs/main-tittle.png"));
 
         javax.swing.GroupLayout Menu_OPTIONSLayout = new javax.swing.GroupLayout(Menu_OPTIONS.getContentPane());
         Menu_OPTIONS.getContentPane().setLayout(Menu_OPTIONSLayout);
@@ -399,7 +400,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         LOGIN_passfield.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         LOGIN_passfield.setText("jPasswordField1");
 
-        LOGIN_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png")); // NOI18N
+        LOGIN_tittle.setIcon(new javax.swing.ImageIcon("resources/imgs/main-tittle.png"));
 
         javax.swing.GroupLayout Menu_LOGINformLayout = new javax.swing.GroupLayout(Menu_LOGINform.getContentPane());
         Menu_LOGINform.getContentPane().setLayout(Menu_LOGINformLayout);
@@ -479,7 +480,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
-        REPOPT_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/reproduzir-tittle.png")); // NOI18N
+        REPOPT_tittle.setIcon(new javax.swing.ImageIcon("resources/imgs/reproduzir-tittle.png"));
 
         javax.swing.GroupLayout Menu_REPRODUZIRoptionsLayout = new javax.swing.GroupLayout(Menu_REPRODUZIRoptions.getContentPane());
         Menu_REPRODUZIRoptions.getContentPane().setLayout(Menu_REPRODUZIRoptionsLayout);
@@ -497,9 +498,8 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_REPRODUZIRoptionsLayout.createSequentialGroup()
                         .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(REPOPT_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(Menu_REPRODUZIRoptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(REPOPT_ButtonAlbuns, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(REPOPT_ButtonBibliotecaMC, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(247, 247, 247))))
         );
         Menu_REPRODUZIRoptionsLayout.setVerticalGroup(
@@ -567,7 +567,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         REPBIBL_currentcontentlabel.setFont(new java.awt.Font("Ubuntu", 2, 18)); // NOI18N
         REPBIBL_currentcontentlabel.setText("Nenhum conteúdo foi ainda selecionado da lista disponível...");
 
-        REPOPT_tittle1.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/biblioteca-tittle.png")); // NOI18N
+        REPOPT_tittle1.setIcon(new javax.swing.ImageIcon("resources/imgs/biblioteca-tittle.png"));
 
         javax.swing.GroupLayout Menu_REPRODUZIR_bibliotecaLayout = new javax.swing.GroupLayout(Menu_REPRODUZIR_biblioteca.getContentPane());
         Menu_REPRODUZIR_biblioteca.getContentPane().setLayout(Menu_REPRODUZIR_bibliotecaLayout);
@@ -649,29 +649,30 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
         Menu_CHOOSEalbum.getContentPane().setLayout(Menu_CHOOSEalbumLayout);
         Menu_CHOOSEalbumLayout.setHorizontalGroup(
             Menu_CHOOSEalbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Menu_CHOOSEalbumLayout.createSequentialGroup()
-                .addGap(295, 295, 295)
-                .addComponent(CHOOSEALB_tittle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_CHOOSEalbumLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 198, Short.MAX_VALUE)
                 .addComponent(CHOOSEALB_ButtonRep, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98)
                 .addComponent(CHOOSEALB_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(79, 79, 79))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Menu_CHOOSEalbumLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(CHOOSEALB_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
+            .addGroup(Menu_CHOOSEalbumLayout.createSequentialGroup()
+                .addGroup(Menu_CHOOSEalbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(Menu_CHOOSEalbumLayout.createSequentialGroup()
+                        .addGap(295, 295, 295)
+                        .addComponent(CHOOSEALB_tittle))
+                    .addGroup(Menu_CHOOSEalbumLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(CHOOSEALB_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 663, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Menu_CHOOSEalbumLayout.setVerticalGroup(
             Menu_CHOOSEalbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Menu_CHOOSEalbumLayout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(CHOOSEALB_tittle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addGap(42, 42, 42)
                 .addComponent(CHOOSEALB_scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(65, 65, 65)
                 .addGroup(Menu_CHOOSEalbumLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CHOOSEALB_ButtonRep, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(CHOOSEALB_ButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1204,7 +1205,7 @@ public class MediaCenter_GUI extends javax.swing.JFrame implements DSSObserver {
             }
         });
 
-        MAIN_tittle.setIcon(new javax.swing.ImageIcon("/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png")); // NOI18N
+        MAIN_tittle.setIcon(new javax.swing.ImageIcon("resources/imgs/main-tittle.png"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

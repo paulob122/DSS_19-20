@@ -150,8 +150,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="OPT_tittle">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;resources/imgs/main-tittle.png&quot;)" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -276,8 +276,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="LOGIN_tittle">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;resources/imgs/main-tittle.png&quot;)" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -307,10 +307,8 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="REPOPT_tittle" min="-2" pref="363" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="REPOPT_ButtonAlbuns" alignment="1" min="-2" pref="378" max="-2" attributes="0"/>
-                                  <Component id="REPOPT_ButtonBibliotecaMC" alignment="1" min="-2" pref="378" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="REPOPT_ButtonAlbuns" alignment="1" min="-2" pref="378" max="-2" attributes="0"/>
+                              <Component id="REPOPT_ButtonBibliotecaMC" alignment="1" min="-2" pref="378" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
                       </Group>
@@ -383,8 +381,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="REPOPT_tittle">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/reproduzir-tittle.png"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;resources/imgs/reproduzir-tittle.png&quot;)" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -541,8 +539,8 @@
         </Component>
         <Component class="javax.swing.JLabel" name="REPOPT_tittle1">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/biblioteca-tittle.png"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.ImageIcon(&quot;resources/imgs/biblioteca-tittle.png&quot;)" type="code"/>
             </Property>
           </Properties>
         </Component>
@@ -558,22 +556,25 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
-                  <Component id="CHOOSEALB_tittle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="198" max="32767" attributes="0"/>
                   <Component id="CHOOSEALB_ButtonRep" min="-2" pref="302" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                   <Component id="CHOOSEALB_ButtonBack" min="-2" pref="114" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
+                          <Component id="CHOOSEALB_tittle" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="CHOOSEALB_scroll" min="-2" pref="663" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="CHOOSEALB_scroll" min="-2" pref="663" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -582,9 +583,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
                   <Component id="CHOOSEALB_tittle" min="-2" pref="107" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="CHOOSEALB_scroll" min="-2" pref="164" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="CHOOSEALB_ButtonRep" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                       <Component id="CHOOSEALB_ButtonBack" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -1573,8 +1574,8 @@
     </Component>
     <Component class="javax.swing.JLabel" name="MAIN_tittle">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="/home/joao/Desktop/Software-Systems-Development_Project/Projeto DSS/Media Center (NetBeans)/MediaCenter/resources/imgs/main-tittle.png"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(&quot;resources/imgs/main-tittle.png&quot;)" type="code"/>
         </Property>
       </Properties>
     </Component>
